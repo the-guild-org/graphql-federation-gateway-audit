@@ -1,0 +1,26 @@
+{
+  "name": "federation-compatibility",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --port 4200 src/index.ts",
+    "gateway": "tsx ./gateway.ts",
+    "test": "tsx ./test.ts",
+    "deploy": "wrangler deploy --minify src/index.ts"
+  },
+  "dependencies": {
+    "hono": "4.2.3",
+    "@apollo/subgraph": "2.7.3",
+    "@apollo/gateway": "2.7.3",
+    "@apollo/query-planner": "2.7.3",
+    "@apollo/server": "4.10.3",
+    "graphql": "16.8.1"
+  },
+  "devDependencies": {
+    "jest-diff": "29.7.0",
+    "tsx": "4.7.2",
+    "@cloudflare/workers-types": "4.20240403.0",
+    "wrangler": "3.47.0",
+    "@apollo/composition": "2.7.3"
+  }
+}

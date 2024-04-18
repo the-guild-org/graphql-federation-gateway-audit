@@ -1,0 +1,3 @@
+name = "federation-compatibility"
+compatibility_date = "2023-12-01"
+node_compat = true
