@@ -8,6 +8,7 @@ import overrideTypeInterface from "./override-type-interface";
 import simpleInterfaceObject from "./simple-interface-object";
 import simpleOverride from "./simple-override";
 import unavailableOverride from "./unavailable-override";
+import overrideWithRequires from "./override-with-requires";
 
 const app = new Hono();
 
@@ -22,6 +23,7 @@ const supergraphs = await Promise.all(
     simpleInterfaceObject,
     simpleOverride,
     unavailableOverride,
+    overrideWithRequires,
   ].map((serve) => serve(app))
 );
 
