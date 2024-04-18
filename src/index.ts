@@ -4,6 +4,8 @@ import simpleEntityCall from "./simple-entity-call";
 import complexEntityCall from "./complex-entity-call";
 import mysteriousExternal from "./mysterious-external";
 import simpleRequiresProvides from "./simple-requires-provides";
+import overrideTypeInterface from "./override-type-interface";
+import simpleInterfaceObject from "./simple-interface-object";
 
 const app = new Hono();
 
@@ -14,6 +16,8 @@ const supergraphs = await Promise.all(
     complexEntityCall,
     mysteriousExternal,
     simpleRequiresProvides,
+    overrideTypeInterface,
+    simpleInterfaceObject,
   ].map((serve) => serve(app))
 );
 
