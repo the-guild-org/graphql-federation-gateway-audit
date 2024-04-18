@@ -25,3 +25,9 @@ Provide these environment variables to run the tests:
 ```bash
 BASE_URL=... GATEWAY_URL=... npm run test <id>
 ```
+
+## Example of running the tests against the provided gateway
+
+1. Start the subgraphs: `$ npm run dev`
+2. Start the gateway: `$ npm run gateway union-intersection`
+3. Run the tests: `$ npm run test union-intersection`
