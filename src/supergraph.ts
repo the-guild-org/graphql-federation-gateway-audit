@@ -59,6 +59,18 @@ export function serve(
       return text(supergraph);
     });
 
+    group.get(`/${id}/supergraph.graphql`, async ({ text, req }) => {
+      const baseUrl = new URL(req.url).origin;
+      const supergraph = getSupergraph(
+        subgraphs.map((subgraph) => ({
+          name: subgraph.name,
+          typeDefs: subgraph.typeDefs,
+          url: `${baseUrl}/${id}/${subgraph.name}`,
+        }))
+      );
+      return text(supergraph);
+    });
+
     group.get(`/${id}/tests`, async ({ json }) => {
       return json((await tests).default);
     });
