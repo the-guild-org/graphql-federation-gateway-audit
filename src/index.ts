@@ -6,6 +6,8 @@ import mysteriousExternal from "./mysterious-external";
 import simpleRequiresProvides from "./simple-requires-provides";
 import overrideTypeInterface from "./override-type-interface";
 import simpleInterfaceObject from "./simple-interface-object";
+import simpleOverride from "./simple-override";
+import unavailableOverride from "./unavailable-override";
 
 const app = new Hono();
 
@@ -18,6 +20,8 @@ const supergraphs = await Promise.all(
     simpleRequiresProvides,
     overrideTypeInterface,
     simpleInterfaceObject,
+    simpleOverride,
+    unavailableOverride,
   ].map((serve) => serve(app))
 );
 
