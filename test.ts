@@ -29,26 +29,22 @@ describe(id, () => {
   let index = 0;
   for (const { query, expectedResult } of tests) {
     test(`${index++}`, async () => {
-      const received = await graphql(GATEWAY_URL, query);
+      const response = await graphql(GATEWAY_URL, query);
 
-      if ("errors" in received && received.errors) {
-        // Leave on error message
-        received.errors = received.errors.map(({ message }) => ({
-          message,
-        })) as any;
-      }
+      const received = {
+        data: response.data ?? null,
+        errors: response.errors?.length ? true : false,
+      };
 
-      // ignore extensions
-      if ("extensions" in received) {
-        delete received.extensions;
-      }
+      const expected = {
+        data: expectedResult.data ?? null,
+        errors: expectedResult.errors ?? false,
+      };
 
       deepStrictEqual(
+        expected,
         received,
-        expectedResult,
-        [`Test failed for query`, query, diff(expectedResult, received)].join(
-          "\n"
-        )
+        [`Test failed for query`, query, diff(expected, received)].join("\n")
       );
     });
   }

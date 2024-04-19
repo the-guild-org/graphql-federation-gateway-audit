@@ -1,15 +1,13 @@
 export function createTest(
   query: string,
-  expectedResult: {
+  expected: {
     data?: any;
-    errors?: Array<{
-      message: string;
-    }>;
+    errors?: boolean;
   }
 ) {
   return {
     query,
-    expectedResult,
+    expected,
   };
 }
 

@@ -32,7 +32,7 @@ export function serve(
   subgraphs: Array<ReturnType<typeof createSubgraph>>,
   tests: Array<{
     query: string;
-    expectedResult: any;
+    expected: any;
   }>
 ) {
   return {
@@ -109,13 +109,28 @@ export function serve(
                 type: "object",
                 properties: {
                   query: { type: "string" },
-                  expectedResult: {
+                  expected: {
                     type: "object",
-                    additionalProperties: true,
+                    properties: {
+                      data: {
+                        anyOf: [
+                          { type: "object" },
+                          {
+                            type: "null",
+                          },
+                        ],
+                      },
+                      errors: {
+                        type: "boolean",
+                        description: "Indicates that errors are expected",
+                        default: false,
+                      },
+                    },
+                    additionalProperties: false,
                   },
                 },
                 additionalProperties: false,
-                required: ["query", "expectedResult"],
+                required: ["query", "expected"],
               },
             },
           },
