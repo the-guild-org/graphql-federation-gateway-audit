@@ -21,11 +21,11 @@ jobs:
       - name: install
         run: npm ci
 
-      - name: gateway
-        run: npm run gateway
+      - name: subgraphs
+        run: npm run dev && npx wait-on http-get://localhost:4200 --timeout 5s --verbose
 
-      - name: wait for gateway
-        run: npx wait-on http-get://localhost:4000 --timeout 5s --verbose
+      - name: gateway
+        run: npm run gateway && npx wait-on http-get://localhost:4000 --timeout 5s --verbose
 
       - name: test
         run: npm run test-all
