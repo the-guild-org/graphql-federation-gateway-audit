@@ -16,6 +16,7 @@ import requiresWithFragments from "./test-cases/requires-with-fragments";
 import entityAndNoEntity from "./test-cases/entity-and-no-entity";
 import nonResolvableInterfaceObject from "./test-cases/non-resolvable-interface-object";
 import interfaceObjectWithRequires from "./test-cases/interface-object-with-requires";
+import requiresInterface from "./test-cases/requires-interface";
 
 const testCases = [
   unionIntersectionTestCase,
@@ -35,6 +36,7 @@ const testCases = [
   entityAndNoEntity,
   nonResolvableInterfaceObject,
   interfaceObjectWithRequires,
+  requiresInterface,
 ];
 
 function routerFetch(
