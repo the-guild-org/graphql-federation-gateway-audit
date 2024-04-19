@@ -1,0 +1,31 @@
+name: ci
+on:
+  pull_request: {}
+  push:
+    branches: ["main"]
+jobs:
+  tests:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21
+          cache: "npm"
+
+      - name: install
+        run: npm ci
+
+      - name: gateway
+        run: npm run gateway
+
+      - name: wait for gateway
+        run: npx wait-on http-get://localhost:4000 --timeout 5s --verbose
+
+      - name: test
+        run: npm run test-all

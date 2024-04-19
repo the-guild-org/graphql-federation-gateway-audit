@@ -1,46 +1,138 @@
 /**
- * $ npm run gateway <id>
+ * $ npm run gateway
  */
 
 import { ApolloGateway } from "@apollo/gateway";
+import { serve } from "@hono/node-server";
+import { getOperationAST, print, printSchema } from "graphql";
+import { getDocumentString, Plugin } from "@envelop/core";
 import { serializeQueryPlan } from "@apollo/query-planner";
-import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from "@apollo/server/standalone";
+import { Hono } from "hono";
+import { createYoga } from "graphql-yoga";
 
 const BASE_URL = process.env.BASE_URL ?? "http://localhost:4200";
-const [, , id] = process.argv;
 
-if (!id) {
-  console.error("Usage: npm run gateway <id>");
-  process.exit(1);
-}
-
-async function fetchSupergraph() {
-  const url = `${BASE_URL}/${id}/supergraph`;
+async function fetchSupergraphList() {
+  const url = BASE_URL + "/supergraphs";
   const response = await fetch(url);
-  return response.text();
+  const links = (await response.json()) as string[];
+
+  return links.map((link) => ({
+    id: link.replace(BASE_URL + "/", "").replace("/supergraph", ""),
+    supergraph: link,
+  }));
 }
 
-const supergraphSdl = await fetchSupergraph();
-const gateway = new ApolloGateway({
-  supergraphSdl,
-  experimental_didResolveQueryPlan(options) {
-    if (options.requestContext.operationName !== "IntrospectionQuery") {
-      console.log("\n-----\n");
-      console.log(options.requestContext.source);
-      console.log("\n -> \n");
-      console.log(serializeQueryPlan(options.queryPlan));
-    }
-  },
-});
+async function fetchSupergraph(endpoint: string) {
+  const response = await fetch(endpoint);
+  return await response.text();
+}
 
-const apollo = new ApolloServer({
-  gateway,
-});
+const app = new Hono();
 
-await startStandaloneServer(apollo, {
-  listen: {
-    port: 4000,
-  },
+app.get("/", (c) => c.text("Hello, World!"));
+
+const list = await fetchSupergraphList();
+
+for await (const { id, supergraph } of list) {
+  const supergraphSdl = await fetchSupergraph(supergraph);
+  const gateway = new ApolloGateway({
+    supergraphSdl,
+    experimental_didResolveQueryPlan(options) {
+      if (options.requestContext.operationName !== "IntrospectionQuery") {
+        console.log("\n-----\n");
+        console.log(options.requestContext.source);
+        console.log("\n -> \n");
+        console.log(serializeQueryPlan(options.queryPlan));
+      }
+    },
+  });
+
+  const yoga = createYoga({
+    plugins: [useApolloFederation(gateway)],
+    graphqlEndpoint: `/${id}`,
+  });
+
+  console.log(`Serving http://localhost:4000/${id}`);
+
+  app.all(`/${id}`, async (c) => {
+    return yoga.fetch(c.req.raw, c.res);
+  });
+}
+
+serve({
+  fetch: app.fetch,
+  port: 4000,
 });
-console.info("Server is running on http://localhost:4000/graphql");
+console.info("Server is running on http://localhost:4000/");
+
+function useApolloFederation(gateway: ApolloGateway): Plugin {
+  let schemaHash: any;
+  return {
+    onPluginInit({ setSchema }) {
+      if (gateway.schema) {
+        setSchema(gateway.schema);
+      } else {
+        gateway.load();
+      }
+      gateway.onSchemaLoadOrUpdate(
+        ({ apiSchema, coreSupergraphSdl = printSchema(apiSchema) }) => {
+          setSchema(apiSchema);
+          schemaHash = coreSupergraphSdl || printSchema(apiSchema);
+        }
+      );
+    },
+    onExecute({ args, setExecuteFn }) {
+      const documentStr = getDocumentString(args.document, print);
+      const operation = getOperationAST(
+        args.document,
+        args.operationName ?? undefined
+      );
+      if (!operation) {
+        throw new Error(
+          `Operation ${
+            args.operationName || ""
+          } cannot be found in ${documentStr}`
+        );
+      }
+      setExecuteFn(function federationExecutor() {
+        return gateway.executor({
+          document: args.document,
+          request: {
+            query: documentStr,
+            operationName: args.operationName ?? undefined,
+            variables: args.variableValues ?? undefined,
+          },
+          overallCachePolicy: {
+            maxAge: undefined,
+            scope: undefined,
+            restrict() {
+              this.maxAge = undefined;
+              this.scope = undefined;
+            },
+            replace() {},
+            policyIfCacheable() {
+              return null;
+            },
+          },
+          operationName: args.operationName ?? null,
+          cache: {
+            get: async () => {
+              return undefined;
+            },
+            set: async () => {},
+            delete: async () => {},
+          },
+          context: args.contextValue,
+          queryHash: documentStr,
+          logger: console,
+          metrics: {},
+          source: documentStr,
+          operation,
+          schema: args.schema,
+          schemaHash,
+        });
+      });
+    },
+  };
+}
