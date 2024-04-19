@@ -3,11 +3,11 @@
  */
 
 import { ApolloGateway } from "@apollo/gateway";
-import { serve } from "@hono/node-server";
 import { getOperationAST, print, printSchema } from "graphql";
+import { createServer } from "node:http";
+import { createRouter, Response } from "fets";
 import { getDocumentString, Plugin } from "@envelop/core";
 import { serializeQueryPlan } from "@apollo/query-planner";
-import { Hono } from "hono";
 import { createYoga } from "graphql-yoga";
 
 const BASE_URL = process.env.BASE_URL ?? "http://localhost:4200";
@@ -28,9 +28,15 @@ async function fetchSupergraph(endpoint: string) {
   return await response.text();
 }
 
-const app = new Hono();
+const router = createRouter();
 
-app.get("/", (c) => c.text("Hello, World!"));
+router.route({
+  method: "GET",
+  path: "/_health",
+  handler() {
+    return new Response("OK");
+  },
+});
 
 const list = await fetchSupergraphList();
 
@@ -55,16 +61,61 @@ for await (const { id, supergraph } of list) {
 
   console.log(`Serving http://localhost:4000/${id}`);
 
-  app.all(`/${id}`, async (c) => {
-    return yoga.fetch(c.req.raw, c.res);
+  router.route({
+    method: "GET",
+    path: `/${id}`,
+    handler(req, res) {
+      return yoga.fetch(req as any, res as any) as any;
+    },
+  });
+
+  router.route({
+    method: "POST",
+    path: `/${id}`,
+    schemas: {
+      request: {
+        json: {
+          type: "object",
+          properties: {
+            query: { type: "string" },
+            variables: { type: "object" },
+            operationName: { type: "string" },
+          },
+          required: ["query"],
+        },
+      },
+      responses: {
+        200: {
+          type: "object",
+          properties: {
+            data: { type: "object" },
+            errors: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  message: { type: "string" },
+                },
+                required: ["message"],
+                additionalProperties: false,
+              },
+            },
+          },
+          required: ["data"],
+          additionalProperties: false,
+        },
+      },
+    },
+    handler(req, res) {
+      return yoga.fetch(req as any, res as any) as any;
+    },
   });
 }
 
-serve({
-  fetch: app.fetch,
-  port: 4000,
+createServer(router).listen(4000, () => {
+  console.log("Swagger UI is available at http://localhost:4000/docs");
+  console.info("Server is running on http://localhost:4000/");
 });
-console.info("Server is running on http://localhost:4000/");
 
 function useApolloFederation(gateway: ApolloGateway): Plugin {
   let schemaHash: any;

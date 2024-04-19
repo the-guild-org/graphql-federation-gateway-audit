@@ -1,8 +1,8 @@
 import { composeServices } from "@apollo/composition";
 import { parse } from "graphql";
-import type { Hono } from "hono";
+import type { createRouter } from "fets";
+import { Response } from "fets";
 import type { createSubgraph } from "./subgraph";
-import { getBaseUrl } from "./utils";
 
 export function getSupergraph(
   subgraphs: Array<{
@@ -35,39 +35,95 @@ export function serve(
     expectedResult: any;
   }>
 ) {
-  return (group: Hono) => {
-    for (const subgraph of subgraphs) {
-      group.route(`/${id}`, subgraph.router);
-    }
+  return {
+    id,
+    createRoutes(router: ReturnType<typeof createRouter>) {
+      for (const subgraph of subgraphs) {
+        subgraph.createRoutes(id, router);
+      }
 
-    group.get(`/${id}/supergraph`, async ({ text, req }) => {
-      const baseUrl = getBaseUrl(req);
-      const supergraph = getSupergraph(
-        subgraphs.map((subgraph) => ({
-          name: subgraph.name,
-          typeDefs: subgraph.typeDefs,
-          url: `${baseUrl}/${id}/${subgraph.name}`,
-        }))
-      );
-      return text(supergraph);
-    });
+      function serveSupergraph(baseUrl: string) {
+        const supergraph = getSupergraph(
+          subgraphs.map((subgraph) => ({
+            name: subgraph.name,
+            typeDefs: subgraph.typeDefs,
+            url: `${baseUrl}/${id}/${subgraph.name}`,
+          }))
+        );
+        return new Response(supergraph, {
+          headers: {
+            "Content-Type": "text/plain",
+          },
+        });
+      }
 
-    group.get(`/${id}/supergraph.graphql`, async ({ text, req }) => {
-      const baseUrl = getBaseUrl(req);
-      const supergraph = getSupergraph(
-        subgraphs.map((subgraph) => ({
-          name: subgraph.name,
-          typeDefs: subgraph.typeDefs,
-          url: `${baseUrl}/${id}/${subgraph.name}`,
-        }))
-      );
-      return text(supergraph);
-    });
+      router.route({
+        method: "GET",
+        path: `/${id}/supergraph`,
+        tags: [id],
+        description: "Supergraph SDL endpoint",
+        operationId: "supergraph",
+        schemas: {
+          responses: {
+            200: {
+              type: "string",
+            },
+          },
+        },
+        handler(req) {
+          return serveSupergraph(req.parsedUrl.origin);
+        },
+      });
 
-    group.get(`/${id}/tests`, async ({ json }) => {
-      return json(tests);
-    });
+      router.route({
+        method: "GET",
+        path: `/${id}/supergraph.graphql`,
+        tags: [id],
+        description: "Supergraph SDL endpoint",
+        operationId: "supergraph.graphql",
+        schemas: {
+          responses: {
+            200: {
+              type: "string",
+            },
+          },
+        },
+        handler(req) {
+          return serveSupergraph(req.parsedUrl.origin);
+        },
+      });
 
-    return id;
+      router.route({
+        method: "GET",
+        path: `/${id}/tests`,
+        tags: [id],
+        description: "Endpoint with a list of tests",
+        operationId: "tests",
+        schemas: {
+          responses: {
+            200: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  query: { type: "string" },
+                  expectedResult: {
+                    type: "object",
+                    additionalProperties: true,
+                  },
+                },
+                additionalProperties: false,
+                required: ["query", "expectedResult"],
+              },
+            },
+          },
+        },
+        handler() {
+          return Response.json(tests);
+        },
+      });
+
+      return id;
+    },
   };
 }

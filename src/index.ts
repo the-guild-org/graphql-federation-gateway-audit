@@ -1,5 +1,4 @@
-import { Hono } from "hono";
-import { getBaseUrl } from "./utils";
+import { createRouter, Response } from "fets";
 import unionIntersectionTestCase from "./test-cases/union-intersection";
 import simpleEntityCallTestCase from "./test-cases/simple-entity-call";
 import complexEntityCallTestCase from "./test-cases/complex-entity-call";
@@ -11,9 +10,7 @@ import simpleOverrideTestCae from "./test-cases/simple-override";
 import unavailableOverrideTestCase from "./test-cases/unavailable-override";
 import overrideWithRequiresTestCase from "./test-cases/override-with-requires";
 
-const app = new Hono();
-
-const ids = [
+const testCases = [
   unionIntersectionTestCase,
   simpleEntityCallTestCase,
   complexEntityCallTestCase,
@@ -24,17 +21,107 @@ const ids = [
   simpleOverrideTestCae,
   unavailableOverrideTestCase,
   overrideWithRequiresTestCase,
-].map((testCase) => testCase(app));
-app.get("/", (c) => c.json(ids));
+];
 
-app.get("/supergraphs", (c) => {
-  const baseUrl = getBaseUrl(c.req);
-  return c.json(ids.map((id) => `${baseUrl}/${id}/supergraph`));
+const router = createRouter({
+  landingPage: false,
+  swaggerUI: {
+    endpoint: "/",
+    displayOperationId: false,
+  },
+  openAPI: {
+    info: {
+      title: "Federation Compatibility Test Suite",
+      description:
+        "A test suite for validating Apollo Federation v2 compatibility",
+      contact: {
+        name: "The Guild",
+        url: "https://the-guild.dev",
+        email: "contact@the-guild.dev",
+      },
+    },
+  },
 });
 
-app.get("/tests", (c) => {
-  const baseUrl = getBaseUrl(c.req);
-  return c.json(ids.map((id) => `${baseUrl}/${id}/tests`));
+router.route({
+  method: "GET",
+  path: "/_health",
+  handler() {
+    return new Response("OK");
+  },
 });
 
-export default app;
+router.route({
+  method: "GET",
+  path: "/ids",
+  operationId: "get_ids",
+  description: "A list of test cases",
+  tags: ["root"],
+  schemas: {
+    responses: {
+      200: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+    },
+  },
+  handler() {
+    return Response.json(testCases.map((t) => t.id));
+  },
+});
+
+router.route({
+  method: "GET",
+  path: "/supergraphs",
+  description: "A list of supergraph endpoints",
+  tags: ["root"],
+  schemas: {
+    responses: {
+      200: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+    },
+  },
+  handler(req) {
+    return Response.json(
+      testCases.map(({ id }) => `${req.parsedUrl.origin}/${id}/supergraph`)
+    );
+  },
+});
+
+router.route({
+  method: "GET",
+  path: "/tests",
+  description: "A list of endpoints with tests",
+  tags: ["root"],
+  schemas: {
+    responses: {
+      200: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+    },
+  },
+  handler(req) {
+    return Response.json(
+      testCases.map(({ id }) => `${req.parsedUrl.origin}/${id}/tests`)
+    );
+  },
+});
+
+testCases.sort((a, b) => a.id.localeCompare(b.id));
+
+for (const testCase of testCases) {
+  testCase.createRoutes(router);
+}
+
+export default {
+  fetch: router.fetch,
+};
