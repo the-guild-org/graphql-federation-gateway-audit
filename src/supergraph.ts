@@ -51,8 +51,10 @@ export function serve(
           }))
         );
         return new Response(supergraph, {
+          status: 200,
           headers: {
             "Content-Type": "text/plain",
+            "Cache-Control": "public, max-age=3600, stale-while-revalidate=60",
           },
         });
       }
@@ -119,7 +121,13 @@ export function serve(
           },
         },
         handler() {
-          return Response.json(tests);
+          return Response.json(tests, {
+            status: 200,
+            headers: {
+              "cache-control":
+                "public, max-age=3600, stale-while-revalidate=60",
+            },
+          });
         },
       });
 
