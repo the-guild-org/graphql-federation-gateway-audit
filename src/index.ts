@@ -9,6 +9,7 @@ import simpleInterfaceObjectTestCase from "./test-cases/simple-interface-object"
 import simpleOverrideTestCae from "./test-cases/simple-override";
 import unavailableOverrideTestCase from "./test-cases/unavailable-override";
 import overrideWithRequiresTestCase from "./test-cases/override-with-requires";
+import simpleInaccessible from "./test-cases/simple-inaccessible";
 
 const testCases = [
   unionIntersectionTestCase,
@@ -21,6 +22,7 @@ const testCases = [
   simpleOverrideTestCae,
   unavailableOverrideTestCase,
   overrideWithRequiresTestCase,
+  simpleInaccessible,
 ];
 
 function routerFetch(request: Request) {
@@ -119,7 +121,14 @@ function routerFetch(request: Request) {
 
   testCases.sort((a, b) => a.id.localeCompare(b.id));
 
+  let registeredNames = new Set<string>();
+
   for (const testCase of testCases) {
+    if (registeredNames.has(testCase.id)) {
+      throw new Error(`Duplicate test case id: ${testCase.id}`);
+    }
+
+    registeredNames.add(testCase.id);
     testCase.createRoutes(router);
   }
 

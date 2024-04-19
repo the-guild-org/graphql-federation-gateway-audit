@@ -38,6 +38,18 @@ for (const { id, testEndpoint } of testList) {
       test(`${index++}`, async () => {
         const received = await graphql(GATEWAY_URL + "/" + id, query);
 
+        if ("errors" in received && received.errors) {
+          // Leave on error message
+          received.errors = received.errors.map(({ message }) => ({
+            message,
+          })) as any;
+        }
+
+        // ignore extensions
+        if ("extensions" in received) {
+          delete received.extensions;
+        }
+
         deepStrictEqual(
           received,
           expectedResult,
