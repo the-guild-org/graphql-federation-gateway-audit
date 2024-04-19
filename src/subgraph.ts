@@ -9,10 +9,20 @@ export function createSubgraph(
     resolvers: any;
   }
 ) {
-  const schema = buildSubgraphSchema({
-    typeDefs: parse(schemaParameters.typeDefs),
-    resolvers: schemaParameters.resolvers,
-  });
+  let schema: ReturnType<typeof buildSubgraphSchema>;
+
+  function lazySchema() {
+    if (schema) {
+      return schema;
+    }
+
+    schema = buildSubgraphSchema({
+      typeDefs: parse(schemaParameters.typeDefs),
+      resolvers: schemaParameters.resolvers,
+    });
+
+    return schema;
+  }
 
   return {
     createRoutes(testCaseId: string, router: ReturnType<typeof createRouter>) {
@@ -36,7 +46,7 @@ export function createSubgraph(
         async handler(req) {
           const result = await Promise.resolve(
             execute({
-              schema,
+              schema: lazySchema(),
               document: parse(req.query.query),
               variableValues: {},
             })
@@ -91,7 +101,7 @@ export function createSubgraph(
 
           const result = await Promise.resolve(
             execute({
-              schema,
+              schema: lazySchema(),
               document: parse(input.query),
               variableValues: input.variables,
             })
