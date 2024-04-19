@@ -1,4 +1,4 @@
-# Federation Compatibility Checker
+# Federation v2 Compatibility Checker
 
 A set of subgraphs that are used to check the gateway.
 
