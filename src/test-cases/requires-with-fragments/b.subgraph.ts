@@ -6,6 +6,11 @@ type WithData<T> = T & {
     foo: string;
   } & ({ bar: string; baz: string } | { bar: string; qux: string });
 };
+type WithFoo<T> = T & {
+  data: {
+    foo: string;
+  };
+};
 
 export default createSubgraph("b", {
   typeDefs: /* GraphQL */ `
@@ -46,6 +51,16 @@ export default createSubgraph("b", {
           }
           """
         )
+      requirer2: String!
+        @requires(
+          fields: """
+          data {
+            ... on Foo {
+              foo
+            }
+          }
+          """
+        )
     }
 
     interface Foo {
@@ -79,7 +94,9 @@ export default createSubgraph("b", {
       },
     },
     Entity: {
-      __resolveReference(key: { id: string } | WithData<{ id: string }>) {
+      __resolveReference(
+        key: { id: string } | WithData<{ id: string }> | WithFoo<{ id: string }>
+      ) {
         const entity = entities.find((e) => e.id === key.id);
 
         if (!entity) {
@@ -119,6 +136,13 @@ export default createSubgraph("b", {
         }
 
         return entity.data.foo + "_requirer";
+      },
+      requirer2(entity: WithFoo<{ id: string }>) {
+        if (!("data" in entity)) {
+          throw new Error("Expected entity to have a data field");
+        }
+
+        return entity.data.foo + "_requirer2";
       },
     },
   },
