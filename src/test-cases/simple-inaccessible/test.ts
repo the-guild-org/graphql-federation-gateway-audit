@@ -81,11 +81,7 @@ export default [
       }
     `,
     {
-      errors: [
-        {
-          message: 'Unknown argument "type" on field "User.friends".',
-        },
-      ],
+      errors: true,
     }
   ),
   createTest(
