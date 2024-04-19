@@ -38,7 +38,13 @@ export function serve(
   return {
     id,
     createRoutes(router: ReturnType<typeof createRouter>) {
+      let subgraphNames = new Set<string>();
       for (const subgraph of subgraphs) {
+        if (subgraphNames.has(subgraph.name)) {
+          throw new Error(`Duplicate subgraph name ${subgraph.name}`);
+        }
+
+        subgraphNames.add(subgraph.name);
         subgraph.createRoutes(id, router);
       }
 

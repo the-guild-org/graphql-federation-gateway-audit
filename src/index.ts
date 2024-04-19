@@ -11,6 +11,7 @@ import unavailableOverrideTestCase from "./test-cases/unavailable-override";
 import overrideWithRequiresTestCase from "./test-cases/override-with-requires";
 import simpleInaccessible from "./test-cases/simple-inaccessible";
 import enumIntersection from "./test-cases/enum-intersection";
+import inputObjectIntersection from "./test-cases/input-object-intersection";
 
 const testCases = [
   unionIntersectionTestCase,
@@ -25,6 +26,7 @@ const testCases = [
   overrideWithRequiresTestCase,
   simpleInaccessible,
   enumIntersection,
+  inputObjectIntersection,
 ];
 
 function routerFetch(request: Request) {
