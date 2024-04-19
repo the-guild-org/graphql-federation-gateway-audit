@@ -1,4 +1,4 @@
-import { createSubgraph } from "../subgraph";
+import { createSubgraph } from "../../subgraph";
 import { media } from "./data";
 
 export default createSubgraph("b", {

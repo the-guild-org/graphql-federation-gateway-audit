@@ -1,4 +1,4 @@
-import { serve } from "../supergraph";
+import { serve } from "../../supergraph";
 
 export default serve(
   "simple-entity-call",

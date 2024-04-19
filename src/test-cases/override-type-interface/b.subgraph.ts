@@ -1,4 +1,4 @@
-import { createSubgraph } from "../subgraph";
+import { createSubgraph } from "../../subgraph";
 import { imagePosts, textPosts } from "./data";
 
 export default createSubgraph("b", {

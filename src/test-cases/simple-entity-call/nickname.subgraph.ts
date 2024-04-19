@@ -1,4 +1,4 @@
-import { createSubgraph } from "../subgraph";
+import { createSubgraph } from "../../subgraph";
 import { users } from "./data";
 
 export default createSubgraph("nickname", {

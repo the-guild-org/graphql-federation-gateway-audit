@@ -1,4 +1,4 @@
-import { createSubgraph } from "../subgraph";
+import { createSubgraph } from "../../subgraph";
 import { products, reviews, users } from "./data";
 
 export default createSubgraph("reviews", {

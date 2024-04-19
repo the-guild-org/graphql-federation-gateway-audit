@@ -16,7 +16,9 @@ const testCases = await Promise.all([
   import("./test-cases/override-with-requires"),
 ]);
 
-const ids = testCases.map((testCase) => testCase.default.id);
+const ids = await Promise.all(
+  testCases.map((testCase) => testCase.default(app))
+);
 
 app.get("/", (c) => c.json(ids));
 
