@@ -29,7 +29,7 @@ export default createSubgraph("b", {
         _: {},
         { filter }: { filter: { offset?: number; first: number } }
       ) {
-        if (typeof filter.offset !== "undefined") {
+        if ("offset" in filter) {
           return [];
         }
 

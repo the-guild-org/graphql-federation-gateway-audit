@@ -48,21 +48,33 @@ export function serve(
         subgraph.createRoutes(id, router);
       }
 
-      function serveSupergraph(baseUrl: string) {
+      async function serveSupergraph(request: { url: string; parsedUrl: URL }) {
+        const cache = await caches.open("supergraph");
+        const cached = await cache.match(request.url);
+
+        if (cached) {
+          return cached as Response<any, Record<string, string>, 200>;
+        }
+
         const supergraph = getSupergraph(
           subgraphs.map((subgraph) => ({
             name: subgraph.name,
             typeDefs: subgraph.typeDefs,
-            url: `${baseUrl}/${id}/${subgraph.name}`,
+            url: `${request.parsedUrl.origin}/${id}/${subgraph.name}`,
           }))
         );
-        return new Response(supergraph, {
+
+        const response = new Response(supergraph, {
           status: 200,
           headers: {
             "Content-Type": "text/plain",
             "Cache-Control": "public, max-age=3600, stale-while-revalidate=60",
           },
         });
+
+        await cache.put(request.url, response.clone());
+
+        return response;
       }
 
       router.route({
@@ -79,7 +91,7 @@ export function serve(
           },
         },
         handler(req) {
-          return serveSupergraph(req.parsedUrl.origin);
+          return serveSupergraph(req);
         },
       });
 
@@ -97,7 +109,40 @@ export function serve(
           },
         },
         handler(req) {
-          return serveSupergraph(req.parsedUrl.origin);
+          return serveSupergraph(req);
+        },
+      });
+
+      router.route({
+        method: "GET",
+        path: `/${id}/subgraphs`,
+        tags: [id],
+        description: "A list of subgraphs with their SDLs, URLs and names",
+        operationId: "subgraphs",
+        schemas: {
+          responses: {
+            200: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  name: { type: "string" },
+                  url: { type: "string" },
+                  sdl: { type: "string" },
+                },
+                required: ["name", "url", "sdl"],
+              },
+            },
+          },
+        },
+        handler(req) {
+          return Response.json(
+            subgraphs.map((subgraph) => ({
+              name: subgraph.name,
+              typeDefs: subgraph.typeDefs,
+              url: `${req.parsedUrl.origin}/${id}/${subgraph.name}`,
+            }))
+          );
         },
       });
 
@@ -142,13 +187,7 @@ export function serve(
           },
         },
         handler() {
-          return Response.json(tests, {
-            status: 200,
-            headers: {
-              "cache-control":
-                "public, max-age=3600, stale-while-revalidate=60",
-            },
-          });
+          return Response.json(tests);
         },
       });
 
