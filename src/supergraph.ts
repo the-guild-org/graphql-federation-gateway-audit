@@ -136,7 +136,13 @@ export function serve(
           },
         },
         handler(req) {
-          return serveSupergraph(req);
+          return Response.json(
+            subgraphs.map((subgraph) => ({
+              name: subgraph.name,
+              typeDefs: subgraph.typeDefs,
+              url: `${req.parsedUrl.origin}/${id}/${subgraph.name}`,
+            }))
+          );
         },
       });
 
