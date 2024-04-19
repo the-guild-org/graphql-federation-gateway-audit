@@ -37,7 +37,7 @@ export function serve(
 ) {
   return {
     id,
-    createRoutes(router: ReturnType<typeof createRouter>) {
+    createRoutes(router: ReturnType<typeof createRouter>, isDev: boolean) {
       let subgraphNames = new Set<string>();
       for (const subgraph of subgraphs) {
         if (subgraphNames.has(subgraph.name)) {
@@ -52,7 +52,7 @@ export function serve(
         const cache = await caches.open("supergraph");
         const cached = await cache.match(request.url);
 
-        if (cached) {
+        if (!isDev && cached) {
           return cached as Response<any, Record<string, string>, 200>;
         }
 
@@ -139,7 +139,7 @@ export function serve(
           return Response.json(
             subgraphs.map((subgraph) => ({
               name: subgraph.name,
-              typeDefs: subgraph.typeDefs,
+              sdl: subgraph.typeDefs,
               url: `${req.parsedUrl.origin}/${id}/${subgraph.name}`,
             }))
           );

@@ -14,6 +14,7 @@ import enumIntersection from "./test-cases/enum-intersection";
 import inputObjectIntersection from "./test-cases/input-object-intersection";
 import requiresWithFragments from "./test-cases/requires-with-fragments";
 import entityAndNoEntity from "./test-cases/entity-and-no-entity";
+import nonResolvableInterfaceObject from "./test-cases/non-resolvable-interface-object";
 
 const testCases = [
   unionIntersectionTestCase,
@@ -31,9 +32,17 @@ const testCases = [
   inputObjectIntersection,
   requiresWithFragments,
   entityAndNoEntity,
+  nonResolvableInterfaceObject,
 ];
 
-function routerFetch(request: Request) {
+function routerFetch(
+  request: Request,
+  env: {
+    IS_DEV_MODE?: string;
+  }
+) {
+  const isDevMode = env.IS_DEV_MODE === "true";
+
   const router = createRouter({
     landingPage: false,
     swaggerUI: {
@@ -159,7 +168,7 @@ function routerFetch(request: Request) {
     }
 
     registeredNames.add(testCase.id);
-    testCase.createRoutes(router);
+    testCase.createRoutes(router, isDevMode);
   }
 
   router.route({
