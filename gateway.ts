@@ -30,6 +30,14 @@ async function fetchSupergraph(endpoint: string) {
 
 const router = createRouter();
 
+router.route({
+  method: "GET",
+  path: "/_health",
+  handler() {
+    return new Response("OK");
+  },
+});
+
 const list = await fetchSupergraphList();
 
 for await (const { id, supergraph } of list) {
@@ -64,6 +72,40 @@ for await (const { id, supergraph } of list) {
   router.route({
     method: "POST",
     path: `/${id}`,
+    schemas: {
+      request: {
+        json: {
+          type: "object",
+          properties: {
+            query: { type: "string" },
+            variables: { type: "object" },
+            operationName: { type: "string" },
+          },
+          required: ["query"],
+        },
+      },
+      responses: {
+        200: {
+          type: "object",
+          properties: {
+            data: { type: "object" },
+            errors: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  message: { type: "string" },
+                },
+                required: ["message"],
+                additionalProperties: false,
+              },
+            },
+          },
+          required: ["data"],
+          additionalProperties: false,
+        },
+      },
+    },
     handler(req, res) {
       return yoga.fetch(req as any, res as any) as any;
     },

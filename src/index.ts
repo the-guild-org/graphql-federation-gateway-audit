@@ -10,11 +10,7 @@ import simpleOverrideTestCae from "./test-cases/simple-override";
 import unavailableOverrideTestCase from "./test-cases/unavailable-override";
 import overrideWithRequiresTestCase from "./test-cases/override-with-requires";
 
-const router = createRouter({
-  landingPage: false,
-});
-
-const ids = [
+const testCases = [
   unionIntersectionTestCase,
   simpleEntityCallTestCase,
   complexEntityCallTestCase,
@@ -25,22 +21,75 @@ const ids = [
   simpleOverrideTestCae,
   unavailableOverrideTestCase,
   overrideWithRequiresTestCase,
-].map((testCase) => testCase(router));
+];
+
+const router = createRouter({
+  landingPage: false,
+  swaggerUI: {
+    endpoint: "/",
+    displayOperationId: false,
+  },
+  openAPI: {
+    info: {
+      title: "Federation Compatibility Test Suite",
+      description:
+        "A test suite for validating Apollo Federation v2 compatibility",
+      contact: {
+        name: "The Guild",
+        url: "https://the-guild.dev",
+        email: "contact@the-guild.dev",
+      },
+    },
+  },
+});
 
 router.route({
   method: "GET",
-  path: "/",
+  path: "/_health",
   handler() {
-    return Response.json(ids);
+    return new Response("OK");
+  },
+});
+
+router.route({
+  method: "GET",
+  path: "/ids",
+  operationId: "get_ids",
+  description: "A list of test cases",
+  tags: ["root"],
+  schemas: {
+    responses: {
+      200: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+    },
+  },
+  handler() {
+    return Response.json(testCases.map((t) => t.id));
   },
 });
 
 router.route({
   method: "GET",
   path: "/supergraphs",
+  description: "A list of supergraph endpoints",
+  tags: ["root"],
+  schemas: {
+    responses: {
+      200: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+    },
+  },
   handler(req) {
     return Response.json(
-      ids.map((id) => `${req.parsedUrl.origin}/${id}/supergraph`)
+      testCases.map(({ id }) => `${req.parsedUrl.origin}/${id}/supergraph`)
     );
   },
 });
@@ -48,12 +97,30 @@ router.route({
 router.route({
   method: "GET",
   path: "/tests",
+  description: "A list of endpoints with tests",
+  tags: ["root"],
+  schemas: {
+    responses: {
+      200: {
+        type: "array",
+        items: {
+          type: "string",
+        },
+      },
+    },
+  },
   handler(req) {
     return Response.json(
-      ids.map((id) => `${req.parsedUrl.origin}/${id}/tests`)
+      testCases.map(({ id }) => `${req.parsedUrl.origin}/${id}/tests`)
     );
   },
 });
+
+testCases.sort((a, b) => a.id.localeCompare(b.id));
+
+for (const testCase of testCases) {
+  testCase.createRoutes(router);
+}
 
 export default {
   fetch: router.fetch,

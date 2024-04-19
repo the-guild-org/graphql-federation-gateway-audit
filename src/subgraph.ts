@@ -19,6 +19,8 @@ export function createSubgraph(
       router.route({
         method: "GET",
         path: `/${testCaseId}/${name}`,
+        tags: [testCaseId],
+        operationId: "GraphiQL",
         schemas: {
           request: {
             query: {
@@ -47,6 +49,9 @@ export function createSubgraph(
       router.route({
         method: "POST",
         path: `/${testCaseId}/${name}`,
+        tags: [testCaseId],
+        operationId: `"${name}" subgraph`,
+        description: "GraphQL endpoint for the subgraph",
         schemas: {
           request: {
             json: {
@@ -57,6 +62,27 @@ export function createSubgraph(
               },
               additionalProperties: true,
               required: ["query"],
+            },
+          },
+          responses: {
+            200: {
+              type: "object",
+              properties: {
+                data: { type: "object" },
+                errors: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    properties: {
+                      message: { type: "string" },
+                    },
+                    required: ["message"],
+                    additionalProperties: false,
+                  },
+                },
+              },
+              required: ["data"],
+              additionalProperties: false,
             },
           },
         },
@@ -71,7 +97,7 @@ export function createSubgraph(
             })
           );
 
-          return Response.json(result);
+          return Response.json(result as any);
         },
       });
     },

@@ -35,80 +35,95 @@ export function serve(
     expectedResult: any;
   }>
 ) {
-  return (router: ReturnType<typeof createRouter>) => {
-    for (const subgraph of subgraphs) {
-      subgraph.createRoutes(id, router);
-    }
+  return {
+    id,
+    createRoutes(router: ReturnType<typeof createRouter>) {
+      for (const subgraph of subgraphs) {
+        subgraph.createRoutes(id, router);
+      }
 
-    function serveSupergraph(baseUrl: string) {
-      const supergraph = getSupergraph(
-        subgraphs.map((subgraph) => ({
-          name: subgraph.name,
-          typeDefs: subgraph.typeDefs,
-          url: `${baseUrl}/${id}/${subgraph.name}`,
-        }))
-      );
-      return new Response(supergraph, {
-        headers: {
-          "Content-Type": "text/plain",
-        },
-      });
-    }
-
-    router.route({
-      method: "GET",
-      path: `/${id}/supergraph`,
-      schemas: {
-        responses: {
-          200: {
-            type: "string",
+      function serveSupergraph(baseUrl: string) {
+        const supergraph = getSupergraph(
+          subgraphs.map((subgraph) => ({
+            name: subgraph.name,
+            typeDefs: subgraph.typeDefs,
+            url: `${baseUrl}/${id}/${subgraph.name}`,
+          }))
+        );
+        return new Response(supergraph, {
+          headers: {
+            "Content-Type": "text/plain",
           },
-        },
-      },
-      handler(req) {
-        return serveSupergraph(req.parsedUrl.origin);
-      },
-    });
+        });
+      }
 
-    router.route({
-      method: "GET",
-      path: `/${id}/supergraph.graphql`,
-      schemas: {
-        responses: {
-          200: {
-            type: "string",
-          },
-        },
-      },
-      handler(req) {
-        return serveSupergraph(req.parsedUrl.origin);
-      },
-    });
-
-    router.route({
-      method: "GET",
-      path: `/${id}/tests`,
-      schemas: {
-        responses: {
-          200: {
-            type: "array",
-            items: {
-              type: "object",
-              properties: {
-                query: { type: "string" },
-                expectedResult: { type: "object", additionalProperties: true },
-              },
-              additionalProperties: false,
-              required: ["query", "expectedResult"],
+      router.route({
+        method: "GET",
+        path: `/${id}/supergraph`,
+        tags: [id],
+        description: "Supergraph SDL endpoint",
+        operationId: "supergraph",
+        schemas: {
+          responses: {
+            200: {
+              type: "string",
             },
           },
         },
-      },
-      handler() {
-        return Response.json(tests);
-      },
-    });
+        handler(req) {
+          return serveSupergraph(req.parsedUrl.origin);
+        },
+      });
 
-    return id;
+      router.route({
+        method: "GET",
+        path: `/${id}/supergraph.graphql`,
+        tags: [id],
+        description: "Supergraph SDL endpoint",
+        operationId: "supergraph.graphql",
+        schemas: {
+          responses: {
+            200: {
+              type: "string",
+            },
+          },
+        },
+        handler(req) {
+          return serveSupergraph(req.parsedUrl.origin);
+        },
+      });
+
+      router.route({
+        method: "GET",
+        path: `/${id}/tests`,
+        tags: [id],
+        description: "Endpoint with a list of tests",
+        operationId: "tests",
+        schemas: {
+          responses: {
+            200: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  query: { type: "string" },
+                  expectedResult: {
+                    type: "object",
+                    additionalProperties: true,
+                  },
+                },
+                additionalProperties: false,
+                required: ["query", "expectedResult"],
+              },
+            },
+          },
+        },
+        handler() {
+          return Response.json(tests);
+        },
+      });
+
+      return id;
+    },
   };
 }
