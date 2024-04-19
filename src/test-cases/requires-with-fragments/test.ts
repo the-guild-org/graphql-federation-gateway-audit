@@ -113,4 +113,26 @@ export default [
       },
     }
   ),
+  createTest(
+    /* GraphQL */ `
+      query {
+        bb {
+          data {
+            __typename
+          }
+          requirer2
+        }
+      }
+    `,
+    {
+      data: {
+        bb: {
+          data: {
+            __typename: "Qux",
+          },
+          requirer2: "q1-foo_requirer2",
+        },
+      },
+    }
+  ),
 ];
