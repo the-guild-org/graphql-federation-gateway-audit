@@ -1,5 +1,4 @@
-import { Hono } from "hono";
-import { getBaseUrl } from "./utils";
+import { createRouter, Response } from "fets";
 import unionIntersectionTestCase from "./test-cases/union-intersection";
 import simpleEntityCallTestCase from "./test-cases/simple-entity-call";
 import complexEntityCallTestCase from "./test-cases/complex-entity-call";
@@ -11,7 +10,9 @@ import simpleOverrideTestCae from "./test-cases/simple-override";
 import unavailableOverrideTestCase from "./test-cases/unavailable-override";
 import overrideWithRequiresTestCase from "./test-cases/override-with-requires";
 
-const app = new Hono();
+const router = createRouter({
+  landingPage: false,
+});
 
 const ids = [
   unionIntersectionTestCase,
@@ -24,17 +25,36 @@ const ids = [
   simpleOverrideTestCae,
   unavailableOverrideTestCase,
   overrideWithRequiresTestCase,
-].map((testCase) => testCase(app));
-app.get("/", (c) => c.json(ids));
+].map((testCase) => testCase(router));
 
-app.get("/supergraphs", (c) => {
-  const baseUrl = getBaseUrl(c.req);
-  return c.json(ids.map((id) => `${baseUrl}/${id}/supergraph`));
+router.route({
+  method: "GET",
+  path: "/",
+  handler() {
+    return Response.json(ids);
+  },
 });
 
-app.get("/tests", (c) => {
-  const baseUrl = getBaseUrl(c.req);
-  return c.json(ids.map((id) => `${baseUrl}/${id}/tests`));
+router.route({
+  method: "GET",
+  path: "/supergraphs",
+  handler(req) {
+    return Response.json(
+      ids.map((id) => `${req.parsedUrl.origin}/${id}/supergraph`)
+    );
+  },
 });
 
-export default app;
+router.route({
+  method: "GET",
+  path: "/tests",
+  handler(req) {
+    return Response.json(
+      ids.map((id) => `${req.parsedUrl.origin}/${id}/tests`)
+    );
+  },
+});
+
+export default {
+  fetch: router.fetch,
+};
