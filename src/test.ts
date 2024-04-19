@@ -1,6 +1,12 @@
-import { ExecutionResult } from "graphql";
-
-export function createTest(query: string, expectedResult: ExecutionResult) {
+export function createTest(
+  query: string,
+  expectedResult: {
+    data?: any;
+    errors?: Array<{
+      message: string;
+    }>;
+  }
+) {
   return {
     query,
     expectedResult,
