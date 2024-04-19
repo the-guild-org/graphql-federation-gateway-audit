@@ -11,7 +11,26 @@ export default [
       }
     `,
     {
-      errors: true,
+      data: {
+        b: {
+          id: "n1",
+          field: "foo",
+        },
+      },
+    }
+  ),
+  createTest(
+    /* GraphQL */ `
+      query {
+        a {
+          field
+        }
+      }
+    `,
+    {
+      data: {
+        a: null,
+      },
     }
   ),
   createTest(
@@ -43,6 +62,53 @@ export default [
         a: null,
       },
       errors: true,
+    }
+  ),
+  createTest(
+    /* GraphQL */ `
+      query {
+        product {
+          id
+        }
+      }
+    `,
+    {
+      data: {
+        product: {
+          id: "p1",
+        },
+      },
+    }
+  ),
+  createTest(
+    /* GraphQL */ `
+      query {
+        product {
+          id
+          name
+        }
+      }
+    `,
+    {
+      errors: true,
+    }
+  ),
+  createTest(
+    /* GraphQL */ `
+      query {
+        product {
+          ... on Bread {
+            id
+          }
+        }
+      }
+    `,
+    {
+      data: {
+        product: {
+          id: "p1",
+        },
+      },
     }
   ),
 ];

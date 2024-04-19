@@ -1,4 +1,5 @@
 import { createSubgraph } from "../../subgraph";
+import { products } from "./data";
 
 export default createSubgraph("a", {
   typeDefs: /* GraphQL */ `
@@ -12,14 +13,22 @@ export default createSubgraph("a", {
       id: ID!
     }
 
+    type Product @key(fields: "id", resolvable: false) @interfaceObject {
+      id: ID!
+    }
+
     type Query {
       a: Node
+      product: Product!
     }
   `,
   resolvers: {
     Query: {
       a() {
         return { __typename: "Node", id: "n1" };
+      },
+      product() {
+        return { __typename: "Product", id: products[0].id };
       },
     },
     Node: {

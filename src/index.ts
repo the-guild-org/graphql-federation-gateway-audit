@@ -35,7 +35,14 @@ const testCases = [
   nonResolvableInterfaceObject,
 ];
 
-function routerFetch(request: Request) {
+function routerFetch(
+  request: Request,
+  env: {
+    IS_DEV_MODE?: string;
+  }
+) {
+  const isDevMode = env.IS_DEV_MODE === "true";
+
   const router = createRouter({
     landingPage: false,
     swaggerUI: {
@@ -161,7 +168,7 @@ function routerFetch(request: Request) {
     }
 
     registeredNames.add(testCase.id);
-    testCase.createRoutes(router);
+    testCase.createRoutes(router, isDevMode);
   }
 
   router.route({

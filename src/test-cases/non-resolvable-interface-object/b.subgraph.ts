@@ -1,4 +1,5 @@
 import { createSubgraph } from "../../subgraph";
+import { products } from "./data";
 
 export default createSubgraph("b", {
   typeDefs: /* GraphQL */ `
@@ -11,6 +12,15 @@ export default createSubgraph("b", {
     type Node @key(fields: "id", resolvable: false) @interfaceObject {
       id: ID!
       field: String
+    }
+
+    interface Product @key(fields: "id") {
+      id: ID!
+    }
+
+    type Bread implements Product @key(fields: "id") {
+      id: ID!
+      name: String!
     }
 
     type Query {
@@ -27,9 +37,19 @@ export default createSubgraph("b", {
       __resolveReference() {
         throw new Error("Not resolvable");
       },
+      field() {
+        return "foo";
+      },
     },
-    field() {
-      return "foo";
+    Product: {
+      __resolveReference(key: { id: string }) {
+        return products.find((p) => p.id === key.id);
+      },
+    },
+    Bread: {
+      __resolveReference(key: { id: string }) {
+        return products.find((p) => p.id === key.id);
+      },
     },
   },
 });
