@@ -13,6 +13,7 @@ import simpleInaccessible from "./test-cases/simple-inaccessible";
 import enumIntersection from "./test-cases/enum-intersection";
 import inputObjectIntersection from "./test-cases/input-object-intersection";
 import requiresWithFragments from "./test-cases/requires-with-fragments";
+import entityAndNoEntity from "./test-cases/entity-and-no-entity";
 
 const testCases = [
   unionIntersectionTestCase,
@@ -29,6 +30,7 @@ const testCases = [
   enumIntersection,
   inputObjectIntersection,
   requiresWithFragments,
+  entityAndNoEntity,
 ];
 
 function routerFetch(request: Request) {
