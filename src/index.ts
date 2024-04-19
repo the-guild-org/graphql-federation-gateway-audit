@@ -123,6 +123,28 @@ function routerFetch(request: Request) {
     },
   });
 
+  router.route({
+    method: "GET",
+    path: "/subgraphs",
+    description: "A list of endpoints with subgraphs",
+    tags: ["root"],
+    schemas: {
+      responses: {
+        200: {
+          type: "array",
+          items: {
+            type: "string",
+          },
+        },
+      },
+    },
+    handler(req) {
+      return Response.json(
+        testCases.map(({ id }) => `${req.parsedUrl.origin}/${id}/subgraphs`)
+      );
+    },
+  });
+
   testCases.sort((a, b) => a.id.localeCompare(b.id));
 
   let registeredNames = new Set<string>();
