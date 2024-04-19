@@ -26,8 +26,50 @@ Provide these environment variables to run the tests:
 BASE_URL=... GATEWAY_URL=... npm run test <id>
 ```
 
-## Example of running the tests against the provided gateway
+## Example of running all tests locally
 
 1. Start the subgraphs: `$ npm run dev`
-2. Start the gateway: `$ npm run gateway union-intersection`
-3. Run the tests: `$ npm run test union-intersection`
+2. Start the gateway: `$ npm run gateway`
+3. Run the tests: `$ npm run test-all`
+
+---
+
+## Specification
+
+### OpenAPI
+
+```
+https://federation-compatibility.the-guild.dev
+```
+
+#### List of test-suite ids
+
+```
+https://federation-compatibility.the-guild.dev/supergraphs
+```
+
+#### List of tests
+
+```
+https://federation-compatibility.the-guild.dev/tests
+```
+
+#### List of supergraphs
+
+```
+https://federation-compatibility.the-guild.dev/supergraphs
+```
+
+### `/tests` response
+
+```js
+[
+  {
+    query: "query { ... }",
+    expected: {
+      data: any, // optional
+      errors: boolean, // whether the response should contain an error (default: false, optional)
+    },
+  },
+];
+```
