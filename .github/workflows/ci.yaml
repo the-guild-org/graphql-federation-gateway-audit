@@ -38,6 +38,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Deploy
+    needs: tests
     if: github.ref == 'refs/heads/main'
     steps:
       - name: checkout
