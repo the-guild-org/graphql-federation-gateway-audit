@@ -112,7 +112,28 @@ for await (const { id, supergraph } of list) {
   });
 }
 
-createServer(router).listen(4000, () => {
+router.route({
+  path: "*",
+  handler: () => new Response("Not found", { status: 404 }),
+});
+
+const server = createServer(router);
+
+process.on("SIGTERM", async () => {
+  console.log("Shutting down...");
+  await new Promise<void>((resolve) =>
+    server.close((error) => {
+      if (error) {
+        console.error(error);
+      }
+      resolve();
+    })
+  );
+  console.log("Server is down");
+  process.exit(0);
+});
+
+server.listen(4000, () => {
   console.log("Swagger UI is available at http://localhost:4000/docs");
   console.info("Server is running on http://localhost:4000/");
 });
