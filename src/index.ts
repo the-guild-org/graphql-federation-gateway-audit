@@ -122,6 +122,11 @@ for (const testCase of testCases) {
   testCase.createRoutes(router);
 }
 
+router.route({
+  path: "*",
+  handler: () => new Response("Not found", { status: 404 }),
+});
+
 export default {
   fetch: router.fetch,
 };

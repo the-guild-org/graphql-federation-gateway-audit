@@ -28,7 +28,7 @@ jobs:
 
       - name: gateway
         run: |
-          npm run gateway &
+          npm run gateway:once &
           npx wait-on http-get://localhost:4000/_health --timeout 5s --verbose
 
       - name: test
