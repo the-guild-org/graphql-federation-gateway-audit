@@ -3,9 +3,10 @@ on:
   pull_request: {}
   push:
     branches: ["main"]
+
 jobs:
   tests:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -33,3 +34,23 @@ jobs:
 
       - name: test
         run: npm run test-all
+
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy
+    needs: tests
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21
+          cache: "npm"
+
+      - name: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
