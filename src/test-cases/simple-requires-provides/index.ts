@@ -1,12 +1,12 @@
 import { serve } from "../../supergraph";
+import accounts from "./accounts.subgraph";
+import inventory from "./inventory.subgraph";
+import products from "./products.subgraph";
+import reviews from "./reviews.subgraph";
+import test from "./test";
 
 export default serve(
   "simple-requires-provides",
-  [
-    import("./accounts.subgraph"),
-    import("./inventory.subgraph"),
-    import("./products.subgraph"),
-    import("./reviews.subgraph"),
-  ],
-  import("./test")
+  [accounts, inventory, products, reviews],
+  test
 );

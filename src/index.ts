@@ -1,25 +1,30 @@
 import { Hono } from "hono";
 import { getBaseUrl } from "./utils";
+import unionIntersectionTestCase from "./test-cases/union-intersection";
+import simpleEntityCallTestCase from "./test-cases/simple-entity-call";
+import complexEntityCallTestCase from "./test-cases/complex-entity-call";
+import mysteriousExternalTestCase from "./test-cases/mysterious-external";
+import simpleRequiresProvidesTestCase from "./test-cases/simple-requires-provides";
+import overrideTypeInterfaceTestCase from "./test-cases/override-type-interface";
+import simpleInterfaceObjectTestCase from "./test-cases/simple-interface-object";
+import simpleOverrideTestCae from "./test-cases/simple-override";
+import unavailableOverrideTestCase from "./test-cases/unavailable-override";
+import overrideWithRequiresTestCase from "./test-cases/override-with-requires";
 
 const app = new Hono();
 
-const testCases = await Promise.all([
-  import("./test-cases/union-intersection"),
-  import("./test-cases/simple-entity-call"),
-  import("./test-cases/complex-entity-call"),
-  import("./test-cases/mysterious-external"),
-  import("./test-cases/simple-requires-provides"),
-  import("./test-cases/override-type-interface"),
-  import("./test-cases/simple-interface-object"),
-  import("./test-cases/simple-override"),
-  import("./test-cases/unavailable-override"),
-  import("./test-cases/override-with-requires"),
-]);
-
-const ids = await Promise.all(
-  testCases.map((testCase) => testCase.default(app))
-);
-
+const ids = [
+  unionIntersectionTestCase,
+  simpleEntityCallTestCase,
+  complexEntityCallTestCase,
+  mysteriousExternalTestCase,
+  simpleRequiresProvidesTestCase,
+  overrideTypeInterfaceTestCase,
+  simpleInterfaceObjectTestCase,
+  simpleOverrideTestCae,
+  unavailableOverrideTestCase,
+  overrideWithRequiresTestCase,
+].map((testCase) => testCase(app));
 app.get("/", (c) => c.json(ids));
 
 app.get("/supergraphs", (c) => {

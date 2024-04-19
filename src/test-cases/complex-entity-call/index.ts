@@ -1,12 +1,12 @@
 import { serve } from "../../supergraph";
+import link from "./link.subgraph";
+import list from "./list.subgraph";
+import price from "./price.subgraph";
+import products from "./products.subgraph";
+import test from "./test";
 
 export default serve(
   "complex-entity-call",
-  [
-    import("./link.subgraph"),
-    import("./list.subgraph"),
-    import("./price.subgraph"),
-    import("./products.subgraph"),
-  ],
-  import("./test")
+  [link, list, price, products],
+  test
 );

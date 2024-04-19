@@ -29,21 +29,13 @@ export function getSupergraph(
 
 export function serve(
   id: string,
-  subgraph$: Array<
-    Promise<{
-      default: ReturnType<typeof createSubgraph>;
-    }>
-  >,
-  tests: Promise<{
-    default: Array<{
-      query: string;
-      expectedResult: any;
-    }>;
+  subgraphs: Array<ReturnType<typeof createSubgraph>>,
+  tests: Array<{
+    query: string;
+    expectedResult: any;
   }>
 ) {
-  return async (group: Hono) => {
-    const subgraphs = (await Promise.all(subgraph$)).map((s) => s.default);
-
+  return (group: Hono) => {
     for (const subgraph of subgraphs) {
       group.route(`/${id}`, subgraph.router);
     }
@@ -73,7 +65,7 @@ export function serve(
     });
 
     group.get(`/${id}/tests`, async ({ json }) => {
-      return json((await tests).default);
+      return json(tests);
     });
 
     return id;

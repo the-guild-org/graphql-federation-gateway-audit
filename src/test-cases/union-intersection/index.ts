@@ -1,7 +1,6 @@
 import { serve } from "../../supergraph";
+import a from "./a.subgraph";
+import b from "./b.subgraph";
+import test from "./test";
 
-export default serve(
-  "union-intersection",
-  [import("./a.subgraph"), import("./b.subgraph")],
-  import("./test")
-);
+export default serve("union-intersection", [a, b], test);
