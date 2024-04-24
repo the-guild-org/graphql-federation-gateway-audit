@@ -1,4 +1,5 @@
 import { composeServices } from "@apollo/composition";
+import { TextEncoder, crypto } from "@whatwg-node/fetch";
 import { parse } from "graphql";
 import type { createRouter } from "fets";
 import { Response } from "fets";
@@ -39,18 +40,32 @@ export function serve(
     id,
     createRoutes(router: ReturnType<typeof createRouter>, isDev: boolean) {
       let subgraphNames = new Set<string>();
+      let checksum = "";
       for (const subgraph of subgraphs) {
         if (subgraphNames.has(subgraph.name)) {
           throw new Error(`Duplicate subgraph name ${subgraph.name}`);
         }
 
+        checksum += subgraph.name + ":" + subgraph.typeDefs;
         subgraphNames.add(subgraph.name);
         subgraph.createRoutes(id, router);
       }
 
+      const checksumPromise = crypto.subtle
+        .digest("SHA-1", new TextEncoder().encode(checksum))
+        .then((buffer) =>
+          btoa(
+            String.fromCharCode.apply(
+              null,
+              new Uint8Array(buffer) as unknown as number[]
+            )
+          )
+        );
+
       async function serveSupergraph(request: { url: string; parsedUrl: URL }) {
         const cache = await caches.open("supergraph");
-        const cached = await cache.match(request.url);
+        const cacheId = `https://supergraph.com/${id}/${await checksumPromise}`;
+        const cached = await cache.match(new Request(cacheId));
 
         if (!isDev && cached) {
           return cached as Response<any, Record<string, string>, 200>;
@@ -68,11 +83,12 @@ export function serve(
           status: 200,
           headers: {
             "Content-Type": "text/plain",
-            "Cache-Control": "public, max-age=3600, stale-while-revalidate=60",
+            "Cache-Control":
+              "public, max-age=604800, stale-while-revalidate=432000",
           },
         });
 
-        await cache.put(request.url, response.clone());
+        await cache.put(cacheId, response.clone());
 
         return response;
       }
