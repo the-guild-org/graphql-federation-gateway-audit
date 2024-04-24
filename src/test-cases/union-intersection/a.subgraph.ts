@@ -9,19 +9,32 @@ export default createSubgraph("a", {
         import: ["@shareable"]
       )
 
-    union Media = Book
+    union Media = Book | Song
 
     type Book {
       title: String! @shareable
     }
 
+    type Song {
+      title: String! @shareable
+    }
+
     type Query {
       media: Media @shareable
+      book: Book @shareable
+      song: Media @shareable
     }
   `,
   resolvers: {
     Query: {
       media: () => media,
+      book: () => media,
+      song: () => {
+        return {
+          __typename: "Song",
+          title: "Song Title",
+        };
+      },
     },
   },
 });

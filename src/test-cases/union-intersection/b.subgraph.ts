@@ -11,6 +11,7 @@ export default createSubgraph("b", {
 
     type Query {
       media: Media @shareable
+      book: Media @shareable
     }
 
     union Media = Book | Movie
@@ -26,6 +27,7 @@ export default createSubgraph("b", {
   resolvers: {
     Query: {
       media: () => media,
+      book: () => media,
     },
   },
 });
