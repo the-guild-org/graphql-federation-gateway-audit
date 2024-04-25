@@ -1,6 +1,7 @@
 import { createRouter, Response } from "fets";
-import { parse, execute } from "graphql";
+import { parse } from "graphql";
 import { buildSubgraphSchema } from "@apollo/subgraph";
+import { createYoga } from "graphql-yoga";
 
 export function createSubgraph(
   name: string,
@@ -12,17 +13,28 @@ export function createSubgraph(
   let schema: ReturnType<typeof buildSubgraphSchema>;
 
   function lazySchema() {
-    if (schema) {
-      return schema;
+    if (!schema) {
+      schema = buildSubgraphSchema({
+        typeDefs: parse(schemaParameters.typeDefs),
+        resolvers: schemaParameters.resolvers,
+      });
     }
-
-    schema = buildSubgraphSchema({
-      typeDefs: parse(schemaParameters.typeDefs),
-      resolvers: schemaParameters.resolvers,
-    });
 
     return schema;
   }
+
+  function lazyYoga() {
+    if (!yoga) {
+      yoga = createYoga({
+        schema: lazySchema(),
+        graphqlEndpoint: "*",
+      });
+    }
+
+    return yoga;
+  }
+
+  let yoga: ReturnType<typeof createYoga>;
 
   return {
     createRoutes(testCaseId: string, router: ReturnType<typeof createRouter>) {
@@ -44,15 +56,7 @@ export function createSubgraph(
           },
         },
         async handler(req) {
-          const result = await Promise.resolve(
-            execute({
-              schema: lazySchema(),
-              document: parse(req.query.query),
-              variableValues: {},
-            })
-          );
-
-          return Response.json(result);
+          return lazyYoga().fetch(req, {}) as Promise<Response>;
         },
       });
 
@@ -97,17 +101,7 @@ export function createSubgraph(
           },
         },
         async handler(req) {
-          const input = await req.json();
-
-          const result = await Promise.resolve(
-            execute({
-              schema: lazySchema(),
-              document: parse(input.query),
-              variableValues: input.variables,
-            })
-          );
-
-          return Response.json(result as any);
+          return lazyYoga().fetch(req, {}) as Promise<any>;
         },
       });
     },
