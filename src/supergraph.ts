@@ -40,31 +40,43 @@ export function serve(
     id,
     createRoutes(router: ReturnType<typeof createRouter>, isDev: boolean) {
       let subgraphNames = new Set<string>();
-      let checksum = "";
       for (const subgraph of subgraphs) {
         if (subgraphNames.has(subgraph.name)) {
           throw new Error(`Duplicate subgraph name ${subgraph.name}`);
         }
 
-        checksum += subgraph.name + ":" + subgraph.typeDefs;
         subgraphNames.add(subgraph.name);
         subgraph.createRoutes(id, router);
       }
 
-      const checksumPromise = crypto.subtle
-        .digest("SHA-1", new TextEncoder().encode(checksum))
-        .then((buffer) =>
-          btoa(
-            String.fromCharCode.apply(
-              null,
-              new Uint8Array(buffer) as unknown as number[]
-            )
-          )
-        );
+      let checksumPromise: Promise<string>;
+
+      function lazyChecksum() {
+        if (!checksumPromise) {
+          let checksum = "";
+
+          for (const subgraph of subgraphs) {
+            checksum += subgraph.name + ":" + subgraph.typeDefs;
+          }
+
+          checksumPromise = crypto.subtle
+            .digest("SHA-1", new TextEncoder().encode(checksum))
+            .then((buffer) =>
+              btoa(
+                String.fromCharCode.apply(
+                  null,
+                  new Uint8Array(buffer) as unknown as number[]
+                )
+              )
+            );
+        }
+
+        return checksumPromise;
+      }
 
       async function serveSupergraph(request: { url: string; parsedUrl: URL }) {
         const cache = await caches.open("supergraph");
-        const cacheId = `https://supergraph.com/${id}/${await checksumPromise}`;
+        const cacheId = `https://supergraph.com/${id}/${await lazyChecksum()}`;
         const cached = await cache.match(new Request(cacheId));
 
         if (!isDev && cached) {
