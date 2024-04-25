@@ -19,8 +19,10 @@ import interfaceObjectWithRequires from "./test-cases/interface-object-with-requ
 import requiresInterface from "./test-cases/requires-interface";
 import fed1ExternalExtends from "./test-cases/fed1-external-extends";
 import parentEntityCall from "./test-cases/parent-entity-call";
+import corruptedSupergraphNodeId from "./test-cases/corrupted-supergraph-node-id";
 
 const testCases = [
+  corruptedSupergraphNodeId,
   unionIntersectionTestCase,
   simpleEntityCallTestCase,
   complexEntityCallTestCase,
