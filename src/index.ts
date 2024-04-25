@@ -18,6 +18,7 @@ import nonResolvableInterfaceObject from "./test-cases/non-resolvable-interface-
 import interfaceObjectWithRequires from "./test-cases/interface-object-with-requires";
 import requiresInterface from "./test-cases/requires-interface";
 import fed1ExternalExtends from "./test-cases/fed1-external-extends";
+import parentEntityCall from "./test-cases/parent-entity-call";
 
 const testCases = [
   unionIntersectionTestCase,
@@ -39,6 +40,7 @@ const testCases = [
   interfaceObjectWithRequires,
   requiresInterface,
   fed1ExternalExtends,
+  parentEntityCall,
 ];
 
 function routerFetch(
