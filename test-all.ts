@@ -17,13 +17,13 @@ console.log(`Fetching tests from  ${testsEndpoint}`);
 console.log(`\n`);
 
 async function fetchTestList() {
-  const url = BASE_URL + "/tests";
+  const url = BASE_URL + "/ids";
   const response = await fetch(url);
-  const links: string[] = await response.json();
+  const ids: string[] = await response.json();
 
-  return links.map((link) => ({
-    id: link.replace(BASE_URL + "/", "").replace("/tests", ""),
-    testEndpoint: link,
+  return ids.map((id) => ({
+    id: id,
+    testEndpoint: `${BASE_URL}/${id}/tests`,
   }));
 }
 
@@ -66,5 +66,13 @@ function graphql(endpoint: string, query: string) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ query }),
-  }).then((response) => response.json()) as Promise<ExecutionResult>;
+  }).then(async (response) => {
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch from ${endpoint} with status ${response.status} ${response.statusText}`
+      );
+    }
+
+    return response.json();
+  }) as Promise<ExecutionResult>;
 }
