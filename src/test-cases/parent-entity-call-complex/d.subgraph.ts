@@ -18,6 +18,14 @@ export default createSubgraph('d', {
       }
     `,
     resolvers: {
+        Product: {
+            __resolveReference(product: { id: string }) {
+                return {
+                    id: product.id,
+                    name: `Product#${product.id}`,
+                }
+            }  
+        },
         Query: {
             productFromD(_: never, { id }: { id: string }) {
                 return {
