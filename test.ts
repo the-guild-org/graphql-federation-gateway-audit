@@ -27,7 +27,7 @@ const tests = await fetchTests(testsEndpoint);
 
 describe(id, () => {
   let index = 0;
-  for (const { query, expectedResult } of tests) {
+  for (const { query, expected } of tests) {
     test(`${index++}`, async () => {
       const response = await graphql(GATEWAY_URL, query);
 
@@ -36,15 +36,15 @@ describe(id, () => {
         errors: response.errors?.length ? true : false,
       };
 
-      const expected = {
-        data: expectedResult.data ?? null,
-        errors: expectedResult.errors ?? false,
+      const expectedResult = {
+        data: expected.data ?? null,
+        errors: expected.errors ?? false,
       };
 
       deepStrictEqual(
-        expected,
+        expectedResult,
         received,
-        [`Test failed for query`, query, diff(expected, received)].join("\n")
+        [`Test failed for query`, query, diff(expectedResult, received)].join("\n")
       );
     });
   }
