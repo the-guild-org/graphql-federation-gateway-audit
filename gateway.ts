@@ -57,6 +57,7 @@ for await (const { id, supergraph } of list) {
   const yoga = createYoga({
     plugins: [useApolloFederation(gateway)],
     graphqlEndpoint: `/${id}`,
+    maskedErrors: false
   });
 
   console.log(`Serving http://localhost:4000/${id}`);

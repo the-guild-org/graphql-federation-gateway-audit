@@ -28,6 +28,7 @@ export function createSubgraph(
       yoga = createYoga({
         schema: lazySchema(),
         graphqlEndpoint: "*",
+        maskedErrors: false,
       });
     }
 
