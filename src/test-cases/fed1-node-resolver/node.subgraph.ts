@@ -1,7 +1,7 @@
 import { createSchema } from "graphql-yoga";
 import { createSubgraph } from "../../subgraph";
 import { type Node, nodes } from "./data";
-import { execute } from "graphql";
+import { GraphQLSchema, execute } from "graphql";
 
 const resolvers = {
     Query: {
@@ -9,23 +9,31 @@ const resolvers = {
     },
 }
 
-const schemaForExecution = createSchema({
-    typeDefs: /* GraphQL */ `
-        interface Node {
-            id: ID!
-        }
-        type User implements Node {
-            id: ID!
-        }
-        type Post implements Node {
-            id: ID!
-        }
-        type Query {
-            node(id: ID!): Node
-        }
-    `,
-    resolvers,
-})
+let schemaForExecution: GraphQLSchema;
+
+function getSchemaForExecution() {
+    if (!schemaForExecution) {
+        schemaForExecution = createSchema({
+            typeDefs: /* GraphQL */ `
+                interface Node {
+                    id: ID!
+                }
+                type User implements Node {
+                    id: ID!
+                }
+                type Post implements Node {
+                    id: ID!
+                }
+                type Query {
+                    node(id: ID!): Node
+                }
+            `,
+            resolvers,
+        })
+    }
+
+    return schemaForExecution;
+}
 
 export default createSubgraph("node", {
     typeDefs: /* GraphQL */ `
@@ -42,7 +50,7 @@ export default createSubgraph("node", {
     execute(args) {
         return execute({
             ...args,
-            schema: schemaForExecution,
+            schema: getSchemaForExecution(),
         })
     }
 });
