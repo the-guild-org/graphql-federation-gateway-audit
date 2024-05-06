@@ -1,16 +1,30 @@
 import { createRouter, Response } from "fets";
-import { parse } from "graphql";
+import { execute as graphQLExecute, parse } from "graphql";
 import { buildSubgraphSchema } from "@apollo/subgraph";
-import { createYoga } from "graphql-yoga";
+import { createYoga, Plugin } from "graphql-yoga";
 
 export function createSubgraph(
   name: string,
   schemaParameters: {
     typeDefs: string;
     resolvers: any;
+  },
+  opts?: {
+    execute?: typeof graphQLExecute,
   }
 ) {
   let schema: ReturnType<typeof buildSubgraphSchema>;
+
+  const plugins: Plugin[] = [];
+
+  if (opts?.execute) {
+    const executeFn = opts.execute;
+    plugins.push({
+      onExecute({ setExecuteFn }) {
+        setExecuteFn(executeFn);
+      },
+    });
+  }
 
   function lazySchema() {
     if (!schema) {
@@ -27,6 +41,7 @@ export function createSubgraph(
     if (!yoga) {
       yoga = createYoga({
         schema: lazySchema(),
+        plugins,
         graphqlEndpoint: "*",
         maskedErrors: false,
       });
