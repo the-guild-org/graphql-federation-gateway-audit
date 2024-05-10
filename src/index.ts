@@ -20,6 +20,7 @@ import requiresInterface from "./test-cases/requires-interface";
 import fed1ExternalExtends from "./test-cases/fed1-external-extends";
 import parentEntityCall from "./test-cases/parent-entity-call";
 import corruptedSupergraphNodeId from "./test-cases/corrupted-supergraph-node-id";
+import parentEntityCallComplex from "./test-cases/parent-entity-call-complex";
 
 const testCases = [
   corruptedSupergraphNodeId,
@@ -43,6 +44,7 @@ const testCases = [
   requiresInterface,
   fed1ExternalExtends,
   parentEntityCall,
+  parentEntityCallComplex,
 ];
 
 function routerFetch(
