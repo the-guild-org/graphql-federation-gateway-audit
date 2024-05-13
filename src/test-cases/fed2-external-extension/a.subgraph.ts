@@ -3,11 +3,17 @@ import { users } from "./data";
 
 export default createSubgraph("a", {
   typeDefs: /* GraphQL */ `
+    extend schema
+      @link(
+        url: "https://specs.apollo.dev/federation/v2.3"
+        import: ["@key", "@external"]
+      )
+
     type Query {
       randomUser: User
     }
 
-    type User @key(fields: "id") @extends {
+    extend type User @key(fields: "id") {
       id: ID! @external
       rid: ID
     }

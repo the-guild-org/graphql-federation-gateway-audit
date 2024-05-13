@@ -7,7 +7,7 @@ export default createSubgraph("a", {
       randomUser: User
     }
 
-    type User @key(fields: "id") @extends {
+    extend type User @key(fields: "id") {
       id: ID! @external
       rid: ID
     }

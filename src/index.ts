@@ -18,6 +18,9 @@ import nonResolvableInterfaceObject from "./test-cases/non-resolvable-interface-
 import interfaceObjectWithRequires from "./test-cases/interface-object-with-requires";
 import requiresInterface from "./test-cases/requires-interface";
 import fed1ExternalExtends from "./test-cases/fed1-external-extends";
+import fed2ExternalExtends from "./test-cases/fed2-external-extends";
+import fed1ExternalExtension from "./test-cases/fed1-external-extension";
+import fed2ExternalExtension from "./test-cases/fed2-external-extension";
 import parentEntityCall from "./test-cases/parent-entity-call";
 import corruptedSupergraphNodeId from "./test-cases/corrupted-supergraph-node-id";
 import parentEntityCallComplex from "./test-cases/parent-entity-call-complex";
@@ -43,6 +46,9 @@ const testCases = [
   interfaceObjectWithRequires,
   requiresInterface,
   fed1ExternalExtends,
+  fed2ExternalExtends,
+  fed1ExternalExtension,
+  fed2ExternalExtension,
   parentEntityCall,
   parentEntityCallComplex,
 ];
