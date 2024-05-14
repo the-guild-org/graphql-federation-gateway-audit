@@ -4,7 +4,10 @@ import { users, accounts } from "./data";
 export default createSubgraph("a", {
   typeDefs: /* GraphQL */ `
     extend schema
-      @link(url: "https://specs.apollo.dev/federation/v2.3", import: ["@key"])
+      @link(
+        url: "https://specs.apollo.dev/federation/v2.3"
+        import: ["@key", "@shareable"]
+      )
 
     type Query {
       users: [NodeWithName!]!
@@ -26,6 +29,12 @@ export default createSubgraph("a", {
     }
 
     type Admin implements Account @key(fields: "id") {
+      id: ID!
+      isMain: Boolean!
+      isActive: Boolean! @shareable
+    }
+
+    type Regular implements Account @key(fields: "id") {
       id: ID!
       isMain: Boolean!
     }
@@ -74,6 +83,7 @@ export default createSubgraph("a", {
         return {
           __typename: account.__typename,
           id: account.id,
+          isActive: account.isActive,
         };
       },
     },
@@ -89,6 +99,36 @@ export default createSubgraph("a", {
           __typename: admin.__typename,
           id: admin.id,
           isMain: admin.isMain,
+          isActive: admin.isActive,
+        };
+      },
+      isMain(admin: { id: string; isMain?: boolean }) {
+        if (typeof admin.isMain === "boolean") {
+          return admin.isMain;
+        }
+
+        const account = accounts.find((a) => a.id === admin.id);
+
+        if (!account) {
+          return null;
+        }
+
+        return account.isMain;
+      },
+    },
+    Regular: {
+      __resolveReference(key: { id: string }) {
+        const admin = accounts.find((account) => account.id === key.id);
+
+        if (!admin) {
+          return null;
+        }
+
+        return {
+          __typename: admin.__typename,
+          id: admin.id,
+          isMain: admin.isMain,
+          isActive: admin.isActive,
         };
       },
       isMain(admin: { id: string; isMain?: boolean }) {

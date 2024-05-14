@@ -221,6 +221,9 @@ export default [
           {
             name: "Bob",
           },
+          {
+            name: "Charlie",
+          },
         ],
       },
     }
@@ -246,6 +249,7 @@ export default [
           {
             name: "Bob",
           },
+          {},
         ],
       },
     }
@@ -272,6 +276,10 @@ export default [
             name: "Bob",
             __typename: "Admin",
           },
+          {
+            name: "Charlie",
+            __typename: "Regular",
+          },
         ],
       },
     }
@@ -296,6 +304,64 @@ export default [
           },
           {
             __typename: "Admin",
+          },
+          {},
+        ],
+      },
+    }
+  ),
+  createTest(
+    /* GraphQL */ `
+      query {
+        accounts {
+          id
+          isActive
+        }
+      }
+    `,
+    {
+      data: {
+        accounts: [
+          {
+            id: "u1",
+            isActive: false,
+          },
+          {
+            id: "u2",
+            isActive: false,
+          },
+          {
+            id: "u3",
+            isActive: false,
+          },
+        ],
+      },
+    }
+  ),
+  createTest(
+    /* GraphQL */ `
+      query {
+        accounts {
+          id
+          ... on Admin {
+            isActive
+          }
+        }
+      }
+    `,
+    {
+      data: {
+        accounts: [
+          {
+            id: "u1",
+            isActive: true,
+          },
+          {
+            id: "u2",
+            isActive: true,
+          },
+          {
+            id: "u3",
           },
         ],
       },
