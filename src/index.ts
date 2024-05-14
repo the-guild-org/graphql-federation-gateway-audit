@@ -24,6 +24,15 @@ import fed2ExternalExtension from "./test-cases/fed2-external-extension";
 import parentEntityCall from "./test-cases/parent-entity-call";
 import corruptedSupergraphNodeId from "./test-cases/corrupted-supergraph-node-id";
 import parentEntityCallComplex from "./test-cases/parent-entity-call-complex";
+import sharedRoot from "./test-cases/shared-root";
+import nestedProvides from "./test-cases/nested-provides";
+import providesOnInterface from "./test-cases/provides-on-interface";
+import providesOnUnion from "./test-cases/provides-on-union";
+import requiresRequires from "./test-cases/requires-requires";
+import includeSkip from "./test-cases/include-skip";
+import circularReferenceInterface from "./test-cases/circular-reference-interface";
+import typename from "./test-cases/typename";
+import unionInterfaceDistributed from "./test-cases/union-interface-distributed";
 
 const testCases = [
   corruptedSupergraphNodeId,
@@ -32,25 +41,34 @@ const testCases = [
   complexEntityCallTestCase,
   mysteriousExternalTestCase,
   simpleRequiresProvidesTestCase,
+  nestedProvides,
+  providesOnInterface,
+  providesOnUnion,
   overrideTypeInterfaceTestCase,
   simpleInterfaceObjectTestCase,
   simpleOverrideTestCae,
   unavailableOverrideTestCase,
-  overrideWithRequiresTestCase,
   simpleInaccessible,
   enumIntersection,
+  unionInterfaceDistributed,
   inputObjectIntersection,
   requiresWithFragments,
+  requiresInterface,
+  interfaceObjectWithRequires,
+  overrideWithRequiresTestCase,
+  requiresRequires,
   entityAndNoEntity,
   nonResolvableInterfaceObject,
-  interfaceObjectWithRequires,
-  requiresInterface,
   fed1ExternalExtends,
   fed2ExternalExtends,
   fed1ExternalExtension,
   fed2ExternalExtension,
   parentEntityCall,
   parentEntityCallComplex,
+  sharedRoot,
+  includeSkip,
+  circularReferenceInterface,
+  typename,
 ];
 
 function routerFetch(
