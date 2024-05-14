@@ -1,5 +1,5 @@
 import { createSubgraph } from "../../subgraph";
-import { users } from "./data";
+import { users, accounts } from "./data";
 
 export default createSubgraph("b", {
   typeDefs: /* GraphQL */ `
@@ -11,6 +11,12 @@ export default createSubgraph("b", {
 
     type Query {
       anotherUsers: [NodeWithName]
+      accounts: [Account]
+    }
+
+    type Account @key(fields: "id") @interfaceObject {
+      id: ID!
+      name: String!
     }
 
     type NodeWithName @key(fields: "id") @interfaceObject {
@@ -43,6 +49,24 @@ export default createSubgraph("b", {
         return user.username;
       },
     },
+    Account: {
+      __resolveReference(key: { __typename: string; id: string }) {
+        const account = accounts.find((account) => account.id === key.id);
+
+        if (!account) {
+          return null;
+        }
+
+        return {
+          // I deliberately return a wrong __typename here to make sure it's not used by the gateway
+          __typename: "Never",
+          id: account.id,
+        };
+      },
+      name(account: { id: string }) {
+        return accounts.find((u) => u.id === account.id)?.name;
+      },
+    },
     Query: {
       anotherUsers() {
         return users.map((u) => ({
@@ -50,6 +74,15 @@ export default createSubgraph("b", {
           id: u.id,
           username: u.username,
         }));
+      },
+      accounts() {
+        return accounts.map((user) => {
+          return {
+            // I deliberately return a wrong __typename here to make sure it's not used by the gateway
+            __typename: "Never",
+            id: user.id,
+          };
+        });
       },
     },
   },

@@ -1,5 +1,5 @@
 import { createSubgraph } from "../../subgraph";
-import { users } from "./data";
+import { users, accounts } from "./data";
 
 export default createSubgraph("a", {
   typeDefs: /* GraphQL */ `
@@ -19,6 +19,15 @@ export default createSubgraph("a", {
       id: ID!
       name: String
       age: Int
+    }
+
+    interface Account @key(fields: "id") {
+      id: ID!
+    }
+
+    type Admin implements Account @key(fields: "id") {
+      id: ID!
+      isMain: Boolean!
     }
   `,
   resolvers: {
@@ -52,6 +61,48 @@ export default createSubgraph("a", {
           name: user.name,
           age: user.age,
         };
+      },
+    },
+    Account: {
+      __resolveReference(key: { id: string }) {
+        const account = accounts.find((account) => account.id === key.id);
+
+        if (!account) {
+          return null;
+        }
+
+        return {
+          __typename: account.__typename,
+          id: account.id,
+        };
+      },
+    },
+    Admin: {
+      __resolveReference(key: { id: string }) {
+        const admin = accounts.find((account) => account.id === key.id);
+
+        if (!admin) {
+          return null;
+        }
+
+        return {
+          __typename: admin.__typename,
+          id: admin.id,
+          isMain: admin.isMain,
+        };
+      },
+      isMain(admin: { id: string; isMain?: boolean }) {
+        if (typeof admin.isMain === "boolean") {
+          return admin.isMain;
+        }
+
+        const account = accounts.find((a) => a.id === admin.id);
+
+        if (!account) {
+          return null;
+        }
+
+        return account.isMain;
       },
     },
     Query: {

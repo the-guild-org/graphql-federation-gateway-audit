@@ -203,4 +203,102 @@ export default [
       },
     }
   ),
+  // Should be resolved by subgraph b, without any entity calls
+  createTest(
+    /* GraphQL */ `
+      query {
+        accounts {
+          name
+        }
+      }
+    `,
+    {
+      data: {
+        accounts: [
+          {
+            name: "Alice",
+          },
+          {
+            name: "Bob",
+          },
+        ],
+      },
+    }
+  ),
+  // Should be resolved by subgraph b, with entity calls to subgraph a
+  // as interfaceObject does not know the __typename
+  createTest(
+    /* GraphQL */ `
+      query {
+        accounts {
+          ... on Admin {
+            name
+          }
+        }
+      }
+    `,
+    {
+      data: {
+        accounts: [
+          {
+            name: "Alice",
+          },
+          {
+            name: "Bob",
+          },
+        ],
+      },
+    }
+  ),
+  // Should be resolved by subgraph b, with entity calls to subgraph a
+  // to resolve __typename (interfaceObject does not know the __typename)
+  createTest(
+    /* GraphQL */ `
+      query {
+        accounts {
+          name
+          __typename
+        }
+      }
+    `,
+    {
+      data: {
+        accounts: [
+          {
+            name: "Alice",
+            __typename: "Admin",
+          },
+          {
+            name: "Bob",
+            __typename: "Admin",
+          },
+        ],
+      },
+    }
+  ),
+  // Should be resolved by subgraph b, with entity calls to subgraph a
+  // to resolve __typename (interfaceObject does not know the __typename)
+  createTest(
+    /* GraphQL */ `
+      query {
+        accounts {
+          ... on Admin {
+            __typename
+          }
+        }
+      }
+    `,
+    {
+      data: {
+        accounts: [
+          {
+            __typename: "Admin",
+          },
+          {
+            __typename: "Admin",
+          },
+        ],
+      },
+    }
+  ),
 ];
