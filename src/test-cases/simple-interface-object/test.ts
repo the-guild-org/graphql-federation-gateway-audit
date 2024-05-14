@@ -221,6 +221,9 @@ export default [
           {
             name: "Bob",
           },
+          {
+            name: "Charlie",
+          },
         ],
       },
     }
@@ -246,6 +249,7 @@ export default [
           {
             name: "Bob",
           },
+          {},
         ],
       },
     }
@@ -272,6 +276,10 @@ export default [
             name: "Bob",
             __typename: "Admin",
           },
+          {
+            name: "Charlie",
+            __typename: "Regular",
+          },
         ],
       },
     }
@@ -297,6 +305,7 @@ export default [
           {
             __typename: "Admin",
           },
+          {},
         ],
       },
     }
