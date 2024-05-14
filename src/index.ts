@@ -33,8 +33,10 @@ import includeSkip from "./test-cases/include-skip";
 import circularReferenceInterface from "./test-cases/circular-reference-interface";
 import typename from "./test-cases/typename";
 import unionInterfaceDistributed from "./test-cases/union-interface-distributed";
+import mutations from "./test-cases/mutations";
 
 const testCases = [
+  mutations,
   corruptedSupergraphNodeId,
   unionIntersectionTestCase,
   simpleEntityCallTestCase,
