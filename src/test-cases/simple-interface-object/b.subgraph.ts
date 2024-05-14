@@ -6,12 +6,12 @@ export default createSubgraph("b", {
     extend schema
       @link(
         url: "https://specs.apollo.dev/federation/v2.3"
-        import: ["@key", "@interfaceObject"]
+        import: ["@key", "@interfaceObject", "@shareable"]
       )
 
     type Query {
       anotherUsers: [NodeWithName]
-      accounts: [Account]
+      accounts: [Account] @shareable
     }
 
     type Account @key(fields: "id") @interfaceObject {

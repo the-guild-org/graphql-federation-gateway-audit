@@ -301,4 +301,61 @@ export default [
       },
     }
   ),
+  createTest(
+    /* GraphQL */ `
+      query {
+        accounts {
+          id
+          isActive
+        }
+      }
+    `,
+    {
+      data: {
+        accounts: [
+          {
+            id: "u1",
+            isActive: false,
+          },
+          {
+            id: "u2",
+            isActive: false,
+          },
+          {
+            id: "u3",
+            isActive: false,
+          },
+        ],
+      },
+    }
+  ),
+  createTest(
+    /* GraphQL */ `
+      query {
+        accounts {
+          id
+          ... on Admin {
+            isActive
+          }
+        }
+      }
+    `,
+    {
+      data: {
+        accounts: [
+          {
+            id: "u1",
+            isActive: true,
+          },
+          {
+            id: "u2",
+            isActive: true,
+          },
+          {
+            id: "u3",
+          },
+        ],
+      },
+    }
+  ),
 ];

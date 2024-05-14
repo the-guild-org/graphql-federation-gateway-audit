@@ -19,11 +19,20 @@ export const accounts = [
     id: "u1",
     name: "Alice",
     isMain: false,
+    isActive: true,
   },
   {
     __typename: "Admin",
     id: "u2",
     name: "Bob",
     isMain: true,
+    isActive: true,
+  },
+  {
+    __typename: "Regular",
+    id: "u3",
+    name: "Charlie",
+    isMain: false,
+    isActive: true,
   },
 ];
