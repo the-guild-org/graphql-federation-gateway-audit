@@ -1,5 +1,5 @@
 import { createSubgraph } from "../../subgraph";
-import { product, punishNonPerformantPlans } from "./data";
+import { product, punishPoorPlans } from "./data";
 
 export default createSubgraph("category", {
   typeDefs: /* GraphQL */ `
@@ -29,7 +29,7 @@ export default createSubgraph("category", {
     },
     Product: {
       __resolveReference(key: { id: string }) {
-        if (punishNonPerformantPlans) {
+        if (punishPoorPlans) {
           throw new Error("You should be using the categories subgraph!");
         }
 

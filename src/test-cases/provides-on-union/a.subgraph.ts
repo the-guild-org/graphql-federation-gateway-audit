@@ -1,5 +1,5 @@
 import { createSubgraph } from "../../subgraph";
-import { medias, punishNonPerformantPlans } from "./data";
+import { medias, punishPoorPlans } from "./data";
 
 export default createSubgraph("a", {
   typeDefs: /* GraphQL */ `
@@ -26,7 +26,7 @@ export default createSubgraph("a", {
   resolvers: {
     Query: {
       media() {
-        if (punishNonPerformantPlans) {
+        if (punishPoorPlans) {
           throw new Error("You should not be using the 'a' subgraph!");
         }
 

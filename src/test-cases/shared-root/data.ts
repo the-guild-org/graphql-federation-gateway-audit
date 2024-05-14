@@ -1,4 +1,4 @@
-export const punishNonPerformantPlans = true;
+export const punishPoorPlans = true;
 
 export const product = {
   id: "1",

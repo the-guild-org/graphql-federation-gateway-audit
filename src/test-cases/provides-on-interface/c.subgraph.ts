@@ -1,5 +1,5 @@
 import { createSubgraph } from "../../subgraph";
-import { animals, medias, punishNonPerformantPlans } from "./data";
+import { animals, medias, pubishPoorPlans } from "./data";
 
 export default createSubgraph("c", {
   typeDefs: /* GraphQL */ `
@@ -39,7 +39,7 @@ export default createSubgraph("c", {
   resolvers: {
     Query: {
       media() {
-        if (punishNonPerformantPlans) {
+        if (pubishPoorPlans) {
           throw new Error("You should be using the 'a' subgraph!");
         }
 
@@ -93,7 +93,7 @@ export default createSubgraph("c", {
     },
     Dog: {
       __resolveReference(key: { id: string }) {
-        if (punishNonPerformantPlans) {
+        if (pubishPoorPlans) {
           // Nothing in tests should be calling this resolver
           throw new Error("You should be using the 'c' subgraph!");
         }
