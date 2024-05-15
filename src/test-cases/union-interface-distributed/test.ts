@@ -121,6 +121,9 @@ export default [
       }
     `,
     {
+      data: {
+        node: null,
+      },
       errors: true,
     }
   ),
@@ -135,6 +138,9 @@ export default [
       }
     `,
     {
+      data: {
+        node: null,
+      },
       errors: true,
     }
   ),
