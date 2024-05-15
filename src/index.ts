@@ -34,9 +34,11 @@ import circularReferenceInterface from "./test-cases/circular-reference-interfac
 import typename from "./test-cases/typename";
 import unionInterfaceDistributed from "./test-cases/union-interface-distributed";
 import mutations from "./test-cases/mutations";
+import abstractTypes from "./test-cases/abstract-types";
 
 const testCases = [
   mutations,
+  abstractTypes,
   corruptedSupergraphNodeId,
   unionIntersectionTestCase,
   simpleEntityCallTestCase,
