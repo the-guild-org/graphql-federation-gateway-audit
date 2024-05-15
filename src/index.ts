@@ -35,6 +35,7 @@ import typename from "./test-cases/typename";
 import unionInterfaceDistributed from "./test-cases/union-interface-distributed";
 import mutations from "./test-cases/mutations";
 import abstractTypes from "./test-cases/abstract-types";
+import { Env } from "./env";
 
 const testCases = [
   mutations,
@@ -79,7 +80,7 @@ function routerFetch(
   request: Request,
   env: {
     IS_DEV_MODE?: string;
-  }
+  } & Env
 ) {
   const isDevMode = env.IS_DEV_MODE === "true";
 
@@ -208,7 +209,7 @@ function routerFetch(
     }
 
     registeredNames.add(testCase.id);
-    testCase.createRoutes(router, isDevMode);
+    testCase.createRoutes(router, isDevMode, env);
   }
 
   router.route({
@@ -222,3 +223,5 @@ function routerFetch(
 export default {
   fetch: routerFetch,
 };
+
+export { MutationsTestStorage } from "./test-cases/mutations/data";

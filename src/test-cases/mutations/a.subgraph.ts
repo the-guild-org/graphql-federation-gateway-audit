@@ -1,5 +1,6 @@
+import { Env } from "../../env";
 import { createSubgraph } from "../../subgraph";
-import { deleteProductAt, getProducts, addProduct } from "./data";
+import { addProduct, deleteProduct, getProducts, initProducts } from "./data";
 
 export default createSubgraph("a", {
   typeDefs: /* GraphQL */ `
@@ -11,7 +12,8 @@ export default createSubgraph("a", {
     }
 
     type Query {
-      product: Product!
+      product(id: ID!): Product!
+      products: [Product!]!
     }
 
     input AddProductInput {
@@ -27,17 +29,27 @@ export default createSubgraph("a", {
   `,
   resolvers: {
     Query: {
-      product() {
-        const product = getProducts()[0];
+      async product(_: {}, { id }: { id: string }, ctx: { env: Env }) {
+        await initProducts(ctx.env);
+        const product = (await getProducts(ctx.env)).find((p) => p.id === id);
+
+        if (!product) {
+          return null;
+        }
+
         return {
           id: product.id,
           name: product.name,
           price: product.price,
         };
       },
+      async products(_: {}, __: {}, ctx: { env: Env }) {
+        await initProducts(ctx.env);
+        return getProducts(ctx.env);
+      },
     },
     Mutation: {
-      addProduct(
+      async addProduct(
         _: {},
         {
           input,
@@ -46,25 +58,22 @@ export default createSubgraph("a", {
             name: string;
             price: number;
           };
-        }
+        },
+        ctx: { env: Env }
       ) {
-        return addProduct(input.name, input.price);
+        return addProduct(ctx.env, input.name, input.price);
       },
     },
     Product: {
-      __resolveReference(key: { id: string }) {
-        const products = getProducts();
-        const productIndex = products.findIndex((p) => p.id === key.id);
-        const product = products[productIndex];
+      async __resolveReference(key: { id: string }, ctx: { env: Env }) {
+        const products = await getProducts(ctx.env);
+        const product = products.find((p) => p.id === key.id);
 
         if (!product) {
           return null;
         }
 
-        if (product.id.startsWith("p-added-")) {
-          // delete the product from the list (it's no longer needed)
-          deleteProductAt(productIndex);
-        }
+        await deleteProduct(ctx.env, product.id);
 
         return {
           id: product.id,
