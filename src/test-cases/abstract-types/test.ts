@@ -824,4 +824,173 @@ export default [
       },
     }
   ),
+  createTest(
+    /* GraphQL */ `
+      {
+        products {
+          id
+          reviews {
+            product {
+              id
+              ... on Magazine {
+                publisherType {
+                  ...Publisher
+                }
+              }
+              ... on Book {
+                publisherType {
+                  ...Publisher
+                }
+              }
+            }
+          }
+        }
+      }
+
+      fragment Publisher on PublisherType {
+        ... on Agency {
+          id
+          companyName
+        }
+        ... on Self {
+          email
+        }
+      }
+    `,
+    {
+      data: {
+        products: [
+          {
+            id: "p1",
+            reviews: [
+              {
+                product: {
+                  id: "p1",
+                  publisherType: {
+                    email: "u1@example.com",
+                  },
+                },
+              },
+              {
+                product: {
+                  id: "p1",
+                  publisherType: {
+                    email: "u1@example.com",
+                  },
+                },
+              },
+            ],
+          },
+          {
+            id: "p3",
+            reviews: [],
+          },
+          {
+            id: "p2",
+            reviews: [
+              {
+                product: {
+                  id: "p2",
+                  publisherType: {
+                    id: "a1",
+                    companyName: "Agency 1",
+                  },
+                },
+              },
+            ],
+          },
+          {
+            id: "p4",
+            reviews: [],
+          },
+        ],
+      },
+    }
+  ),
+  createTest(
+    /* GraphQL */ `
+      {
+        products {
+          id
+          reviews {
+            product {
+              id
+              ... on Magazine {
+                publisherType {
+                  ...Publisher
+                }
+              }
+              ... on Book {
+                publisherType {
+                  ...Publisher
+                }
+              }
+            }
+          }
+        }
+      }
+
+      fragment Publisher on PublisherType {
+        ... on Agency {
+          id
+          companyName
+        }
+        ... on Self {
+          email
+        }
+        ... on Group {
+          name
+        }
+      }
+    `,
+    {
+      data: {
+        products: [
+          {
+            id: "p1",
+            reviews: [
+              {
+                product: {
+                  id: "p1",
+                  publisherType: {
+                    email: "u1@example.com",
+                  },
+                },
+              },
+              {
+                product: {
+                  id: "p1",
+                  publisherType: {
+                    email: "u1@example.com",
+                  },
+                },
+              },
+            ],
+          },
+          {
+            id: "p3",
+            reviews: [],
+          },
+          {
+            id: "p2",
+            reviews: [
+              {
+                product: {
+                  id: "p2",
+                  publisherType: {
+                    id: "a1",
+                    companyName: "Agency 1",
+                  },
+                },
+              },
+            ],
+          },
+          {
+            id: "p4",
+            reviews: [],
+          },
+        ],
+      },
+    }
+  ),
 ];

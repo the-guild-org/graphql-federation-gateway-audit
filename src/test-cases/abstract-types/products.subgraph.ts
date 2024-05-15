@@ -40,6 +40,7 @@ export default createSubgraph("products", {
       createdBy: User
       similar: [Book]
       hidden: Boolean
+      publisherType: PublisherType
     }
 
     type Magazine implements Product & Similar @key(fields: "id") {
@@ -49,6 +50,17 @@ export default createSubgraph("products", {
       createdBy: User
       similar: [Magazine]
       hidden: Boolean
+      publisherType: PublisherType
+    }
+
+    union PublisherType = Agency | Self
+
+    type Agency {
+      id: ID! @shareable
+    }
+
+    type Self {
+      email: String
     }
 
     type User @key(fields: "email") {
@@ -66,6 +78,7 @@ export default createSubgraph("products", {
           dimensions: p.dimensions,
           createdBy: p.createdBy,
           hidden: p.hidden,
+          publisherType: p.publisher,
         }));
       },
       similar(_: {}, { id }: { id: string }) {
@@ -86,6 +99,7 @@ export default createSubgraph("products", {
           dimensions: b.dimensions,
           createdBy: b.createdBy,
           hidden: b.hidden,
+          publisherType: b.publisher,
         }));
       },
     },
@@ -101,6 +115,7 @@ export default createSubgraph("products", {
               dimensions: book.dimensions,
               createdBy: book.createdBy,
               hidden: book.hidden,
+              publisherType: book.publisher,
             }
           : null;
       },
@@ -114,6 +129,7 @@ export default createSubgraph("products", {
             dimensions: b.dimensions,
             createdBy: b.createdBy,
             hidden: b.hidden,
+            publisherType: b.publisher,
           }));
       },
       createdBy(book: { createdBy: string }) {
@@ -139,6 +155,7 @@ export default createSubgraph("products", {
               dimensions: magazine.dimensions,
               createdBy: magazine.createdBy,
               hidden: magazine.hidden,
+              publisherType: magazine.publisher,
             }
           : null;
       },
@@ -152,6 +169,7 @@ export default createSubgraph("products", {
             dimensions: m.dimensions,
             createdBy: m.createdBy,
             hidden: m.hidden,
+            publisherType: m.publisher,
           }));
       },
       createdBy(magazine: { createdBy: string }) {

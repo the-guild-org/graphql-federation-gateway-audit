@@ -27,6 +27,10 @@ export const books = [
       size: "small",
       weight: 0.5,
     },
+    publisher: {
+      __typename: "Self",
+      email: users[0].email,
+    },
     hidden: false,
   },
   {
@@ -38,6 +42,10 @@ export const books = [
     dimensions: {
       size: "small",
       weight: 0.6,
+    },
+    publisher: {
+      __typename: "Agency",
+      id: "a1",
     },
     hidden: false,
   },
@@ -54,6 +62,10 @@ export const magazines = [
       size: "small",
       weight: 0.2,
     },
+    publisher: {
+      __typename: "Agency",
+      id: "a1",
+    },
     hidden: false,
   },
   {
@@ -65,6 +77,10 @@ export const magazines = [
     dimensions: {
       size: "small",
       weight: 0.3,
+    },
+    publisher: {
+      __typename: "Self",
+      email: users[0].email,
     },
     hidden: true,
   },
@@ -90,5 +106,12 @@ export const reviews = [
     body: "review 3",
     productId: "p2",
     score: 5,
+  },
+] as const;
+
+export const agencies = [
+  {
+    id: "a1",
+    companyName: "Agency 1",
   },
 ] as const;
