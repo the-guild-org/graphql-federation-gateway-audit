@@ -1,5 +1,6 @@
+import { Env } from "../../env";
 import { createSubgraph } from "../../subgraph";
-import { getProducts } from "./data";
+import { deleteProduct, getProducts } from "./data";
 
 export default createSubgraph("b", {
   typeDefs: /* GraphQL */ `
@@ -18,12 +19,19 @@ export default createSubgraph("b", {
   `,
   resolvers: {
     Product: {
-      __resolveReference(key: { id: string; price?: number }) {
-        const product = getProducts().find((product) => product.id === key.id);
+      async __resolveReference(
+        key: { id: string; price?: number },
+        ctx: { env: Env }
+      ) {
+        const product = (await getProducts(ctx.env)).find(
+          (product) => product.id === key.id
+        );
 
         if (!product) {
           return null;
         }
+
+        await deleteProduct(ctx.env, product.id);
 
         if (typeof product.price === "number") {
           return {

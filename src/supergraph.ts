@@ -4,6 +4,7 @@ import { parse } from "graphql";
 import type { createRouter } from "fets";
 import { Response } from "fets";
 import type { createSubgraph } from "./subgraph";
+import { Env } from "./env";
 
 export function getSupergraph(
   subgraphs: Array<{
@@ -38,7 +39,11 @@ export function serve(
 ) {
   return {
     id,
-    createRoutes(router: ReturnType<typeof createRouter>, isDev: boolean) {
+    createRoutes(
+      router: ReturnType<typeof createRouter>,
+      isDev: boolean,
+      env: Env
+    ) {
       let subgraphNames = new Set<string>();
       for (const subgraph of subgraphs) {
         if (subgraphNames.has(subgraph.name)) {
@@ -46,7 +51,7 @@ export function serve(
         }
 
         subgraphNames.add(subgraph.name);
-        subgraph.createRoutes(id, router);
+        subgraph.createRoutes(id, router, env);
       }
 
       let checksumPromise: Promise<string>;

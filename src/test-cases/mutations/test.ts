@@ -26,7 +26,7 @@ export default [
   createTest(
     /* GraphQL */ `
       query {
-        product {
+        product(id: "p1") {
           id
           name
           price
