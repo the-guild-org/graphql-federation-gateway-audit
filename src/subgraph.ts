@@ -101,7 +101,32 @@ export function createSubgraph(
           },
         },
         async handler(req) {
-          return lazyYoga().fetch(req, {}) as Promise<any>;
+          const bodyAsString = JSON.stringify(
+            await req.clone().json(),
+            null,
+            2
+          );
+
+          return (lazyYoga().fetch(req, {}) as Promise<any>).then(
+            (response) => {
+              response
+                .clone()
+                .json()
+                .then((res: Response) => {
+                  console.log(
+                    [
+                      "\n",
+                      "Subgraph: " + name,
+                      "Request:",
+                      bodyAsString,
+                      "Response:",
+                      JSON.stringify(res, null, 2),
+                    ].join("\n")
+                  );
+                });
+              return response;
+            }
+          );
         },
       });
     },
