@@ -6,6 +6,7 @@ import productsSubgraph from "./products.subgraph";
 import reviewsSubgraph from "./reviews.subgraph";
 import magazinesSubgraph from "./magazines.subgraph";
 import agencySubgraph from "./agency.subgraph";
+import test from "./test";
 
 export default serve(
   "abstract-types",
@@ -18,5 +19,5 @@ export default serve(
     productsSubgraph,
     magazinesSubgraph,
   ],
-  []
+  test
 );
