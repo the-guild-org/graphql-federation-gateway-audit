@@ -8,3 +8,7 @@ cpu_ms = 100
 [[durable_objects.bindings]]
 name = "MUTATIONS"
 class_name = "MutationsTestStorage"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["MutationsTestStorage"]
