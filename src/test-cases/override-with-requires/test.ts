@@ -45,7 +45,176 @@ export default [
           cName: "c__u3-name",
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Parallel {
+        Sequence {
+          Fetch(service: "a") {
+            {
+              userInA {
+                __typename
+                id
+              }
+            }
+          },
+          Flatten(path: "userInA") {
+            Fetch(service: "b") {
+              {
+                ... on User {
+                  __typename
+                  id
+                }
+              } =>
+              {
+                ... on User {
+                  name
+                }
+              }
+            },
+          },
+          Parallel {
+            Flatten(path: "userInA") {
+              Fetch(service: "a") {
+                {
+                  ... on User {
+                    __typename
+                    name
+                    id
+                  }
+                } =>
+                {
+                  ... on User {
+                    aName
+                  }
+                }
+              },
+            },
+            Flatten(path: "userInA") {
+              Fetch(service: "c") {
+                {
+                  ... on User {
+                    __typename
+                    name
+                    id
+                  }
+                } =>
+                {
+                  ... on User {
+                    cName
+                  }
+                }
+              },
+            },
+          },
+        },
+        Sequence {
+          Fetch(service: "b") {
+            {
+              userInB {
+                __typename
+                id
+                name
+              }
+            }
+          },
+          Parallel {
+            Flatten(path: "userInB") {
+              Fetch(service: "c") {
+                {
+                  ... on User {
+                    __typename
+                    id
+                    name
+                  }
+                } =>
+                {
+                  ... on User {
+                    cName
+                  }
+                }
+              },
+            },
+            Flatten(path: "userInB") {
+              Fetch(service: "a") {
+                {
+                  ... on User {
+                    __typename
+                    id
+                    name
+                  }
+                } =>
+                {
+                  ... on User {
+                    aName
+                  }
+                }
+              },
+            },
+          },
+        },
+        Sequence {
+          Fetch(service: "c") {
+            {
+              userInC {
+                __typename
+                id
+              }
+            }
+          },
+          Flatten(path: "userInC") {
+            Fetch(service: "b") {
+              {
+                ... on User {
+                  __typename
+                  id
+                }
+              } =>
+              {
+                ... on User {
+                  name
+                }
+              }
+            },
+          },
+          Parallel {
+            Flatten(path: "userInC") {
+              Fetch(service: "c") {
+                {
+                  ... on User {
+                    __typename
+                    name
+                    id
+                  }
+                } =>
+                {
+                  ... on User {
+                    cName
+                  }
+                }
+              },
+            },
+            Flatten(path: "userInC") {
+              Fetch(service: "a") {
+                {
+                  ... on User {
+                    __typename
+                    name
+                    id
+                  }
+                } =>
+                {
+                  ... on User {
+                    aName
+                  }
+                }
+              },
+            },
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -61,7 +230,52 @@ export default [
           cName: "c__u3-name",
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "c") {
+          {
+            userInC {
+              __typename
+              id
+            }
+          }
+        },
+        Flatten(path: "userInC") {
+          Fetch(service: "b") {
+            {
+              ... on User {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on User {
+                name
+              }
+            }
+          },
+        },
+        Flatten(path: "userInC") {
+          Fetch(service: "c") {
+            {
+              ... on User {
+                __typename
+                name
+                id
+              }
+            } =>
+            {
+              ... on User {
+                cName
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -77,7 +291,52 @@ export default [
           cName: "c__u1-name",
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "a") {
+          {
+            userInA {
+              __typename
+              id
+            }
+          }
+        },
+        Flatten(path: "userInA") {
+          Fetch(service: "b") {
+            {
+              ... on User {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on User {
+                name
+              }
+            }
+          },
+        },
+        Flatten(path: "userInA") {
+          Fetch(service: "c") {
+            {
+              ... on User {
+                __typename
+                name
+                id
+              }
+            } =>
+            {
+              ... on User {
+                cName
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -93,6 +352,51 @@ export default [
           aName: "a__u1-name",
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "a") {
+          {
+            userInA {
+              __typename
+              id
+            }
+          }
+        },
+        Flatten(path: "userInA") {
+          Fetch(service: "b") {
+            {
+              ... on User {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on User {
+                name
+              }
+            }
+          },
+        },
+        Flatten(path: "userInA") {
+          Fetch(service: "a") {
+            {
+              ... on User {
+                __typename
+                name
+                id
+              }
+            } =>
+            {
+              ... on User {
+                aName
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
 ];

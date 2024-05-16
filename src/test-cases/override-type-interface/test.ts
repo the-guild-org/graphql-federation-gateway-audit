@@ -23,7 +23,40 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "a") {
+          {
+            feed {
+              __typename
+              id
+              ... on ImagePost {
+                __typename
+                id
+              }
+            }
+          }
+        },
+        Flatten(path: "feed.@") {
+          Fetch(service: "b") {
+            {
+              ... on ImagePost {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on ImagePost {
+                createdAt
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -40,7 +73,18 @@ export default [
       data: {
         feed: [{}, {}],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "a") {
+        {
+          feed {
+            __typename
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -61,7 +105,19 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "b") {
+        {
+          anotherFeed {
+            __typename
+            createdAt
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -89,6 +145,23 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "b") {
+        {
+          anotherFeed {
+            __typename
+            createdAt
+            id
+            ... on ImagePost {
+              createdAt
+              id
+            }
+          }
+        }
+      },
     }
+    `
   ),
 ];

@@ -1,6 +1,6 @@
 import { Env } from "../../env";
 import { createSubgraph } from "../../subgraph";
-import { deleteProduct, getProducts } from "./data";
+import { deleteNumber, deleteProduct, getProducts } from "./data";
 
 export default createSubgraph("b", {
   typeDefs: /* GraphQL */ `
@@ -16,8 +16,23 @@ export default createSubgraph("b", {
       isExpensive: Boolean! @requires(fields: "price")
       isAvailable: Boolean!
     }
+
+    type Mutation {
+      delete(requestId: String!): Int!
+    }
   `,
   resolvers: {
+    Mutation: {
+      delete(
+        _: {},
+        args: {
+          requestId: string;
+        },
+        ctx: { env: Env }
+      ) {
+        return deleteNumber(ctx.env, args.requestId);
+      },
+    },
     Product: {
       async __resolveReference(
         key: { id: string; price?: number },

@@ -17,7 +17,19 @@ export default [
           field: "foo",
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "b") {
+        {
+          b {
+            id
+            field
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -31,7 +43,10 @@ export default [
       data: {
         a: null,
       },
-    }
+    },
+    /* GraphQL */ `
+    QueryPlan {}
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -47,7 +62,18 @@ export default [
           id: "n1",
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "b") {
+        {
+          b {
+            id
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -62,7 +88,19 @@ export default [
         a: null,
       },
       errors: true,
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "a") {
+        {
+          a {
+            __typename
+            id
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -78,7 +116,18 @@ export default [
           id: "p1",
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "a") {
+        {
+          product {
+            id
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -109,6 +158,35 @@ export default [
           id: "p1",
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "a") {
+          {
+            product {
+              __typename
+              id
+            }
+          }
+        },
+        Flatten(path: "product") {
+          Fetch(service: "b") {
+            {
+              ... on Product {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Product {
+                __typename
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
 ];

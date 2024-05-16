@@ -24,7 +24,40 @@ export default () => {
             isAvailable: true,
           },
         },
+      },
+      /* GraphQL */ `
+      QueryPlan {
+        Sequence {
+          Fetch(service: "a") {
+            {
+              addProduct(input: {name: "new", price: 599.99}) {
+                __typename
+                id
+                name
+                price
+              }
+            }
+          },
+          Flatten(path: "addProduct") {
+            Fetch(service: "b") {
+              {
+                ... on Product {
+                  __typename
+                  id
+                  price
+                }
+              } =>
+              {
+                ... on Product {
+                  isExpensive
+                  isAvailable
+                }
+              }
+            },
+          },
+        },
       }
+      `
     ),
     createTest(
       /* GraphQL */ `
@@ -48,7 +81,40 @@ export default () => {
             isAvailable: true,
           },
         },
+      },
+      /* GraphQL */ `
+      QueryPlan {
+        Sequence {
+          Fetch(service: "a") {
+            {
+              product(id: "p1") {
+                __typename
+                id
+                name
+                price
+              }
+            }
+          },
+          Flatten(path: "product") {
+            Fetch(service: "b") {
+              {
+                ... on Product {
+                  __typename
+                  id
+                  price
+                }
+              } =>
+              {
+                ... on Product {
+                  isExpensive
+                  isAvailable
+                }
+              }
+            },
+          },
+        },
       }
+      `
     ),
     // Test correct order of execution
     // It obviously does not solve a problem with shared state and race conditions,
@@ -57,17 +123,45 @@ export default () => {
       /* GraphQL */ `
       mutation {
         five: add(num: 5, requestId: "${randomId}")
-        seven: add(num: 2, requestId: "${randomId}")
+        ten: multiply(by: 2, requestId: "${randomId}")
+        twelve: add(num: 2, requestId: "${randomId}")
         final: delete(requestId: "${randomId}")
       }
     `,
       {
         data: {
           five: 5,
-          seven: 7,
-          final: 7,
+          ten: 10,
+          twelve: 12,
+          final: 12,
+        },
+      },
+      /* GraphQL */ `
+      QueryPlan {
+        Sequence {
+          Fetch(service: "c") {
+            {
+              five: add(num: 5, requestId: "${randomId}")
+            }
+          },
+          Fetch(service: "a") {
+            {
+              ten: multiply(by: 2, requestId: "${randomId}")
+            }
+          },
+          Fetch(service: "c") {
+            {
+              twelve: add(num: 2, requestId: "${randomId}")
+            }
+          },
+          Fetch(service: "b") {
+            {
+              final: delete(requestId: "${randomId}")
+            }
+          },
         },
       }
+      `
     ),
   ];
 };

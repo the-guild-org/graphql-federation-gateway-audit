@@ -33,7 +33,38 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "age") {
+          {
+            usersInAge {
+              __typename
+              id
+            }
+          }
+        },
+        Flatten(path: "usersInAge.@") {
+          Fetch(service: "friends") {
+            {
+              ... on User {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on User {
+                friends {
+                  id
+                }
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -67,7 +98,21 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "friends") {
+        {
+          usersInFriends {
+            id
+            friends {
+              id
+            }
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -119,6 +164,21 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "friends") {
+        {
+          usersInFriends {
+            id
+            friends {
+              id
+              type
+            }
+          }
+        }
+      },
     }
+    `
   ),
 ];

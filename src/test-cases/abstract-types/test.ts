@@ -46,7 +46,23 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "products") {
+        {
+          products {
+            __typename
+            id
+            dimensions {
+              size
+              weight
+            }
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -66,7 +82,20 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "products") {
+        {
+          similar(id: "p1") {
+            __typename
+            id
+            sku
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -112,7 +141,133 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "products") {
+          {
+            book: similar(id: "p1") {
+              __typename
+              id
+              sku
+              ... on Book {
+                __typename
+                id
+                dimensions {
+                  size
+                  weight
+                }
+              }
+              ... on Magazine {
+                __typename
+                id
+                dimensions {
+                  size
+                  weight
+                }
+              }
+            }
+            magazine: similar(id: "p2") {
+              __typename
+              id
+              sku
+              ... on Book {
+                __typename
+                id
+                dimensions {
+                  size
+                  weight
+                }
+              }
+              ... on Magazine {
+                __typename
+                id
+                dimensions {
+                  size
+                  weight
+                }
+              }
+            }
+          }
+        },
+        Parallel {
+          Flatten(path: "book.@") {
+            Fetch(service: "inventory") {
+              {
+                ... on Book {
+                  __typename
+                  id
+                  dimensions {
+                    size
+                    weight
+                  }
+                }
+                ... on Magazine {
+                  __typename
+                  id
+                  dimensions {
+                    size
+                    weight
+                  }
+                }
+              } =>
+              {
+                ... on Book {
+                  delivery(zip: "1234") {
+                    fastestDelivery
+                    estimatedDelivery
+                  }
+                }
+                ... on Magazine {
+                  delivery(zip: "1234") {
+                    fastestDelivery
+                    estimatedDelivery
+                  }
+                }
+              }
+            },
+          },
+          Flatten(path: "magazine.@") {
+            Fetch(service: "inventory") {
+              {
+                ... on Book {
+                  __typename
+                  id
+                  dimensions {
+                    size
+                    weight
+                  }
+                }
+                ... on Magazine {
+                  __typename
+                  id
+                  dimensions {
+                    size
+                    weight
+                  }
+                }
+              } =>
+              {
+                ... on Book {
+                  delivery(zip: "1234") {
+                    fastestDelivery
+                    estimatedDelivery
+                  }
+                }
+                ... on Magazine {
+                  delivery(zip: "1234") {
+                    fastestDelivery
+                    estimatedDelivery
+                  }
+                }
+              }
+            },
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -160,7 +315,29 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "products") {
+        {
+          products {
+            __typename
+            sku
+            ... on Book {
+              sku
+            }
+            ... on Magazine {
+              sku
+            }
+            ... on Similar {
+              __typename
+              type: __typename
+            }
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -207,7 +384,43 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "products") {
+          {
+            products {
+              __typename
+              author: createdBy {
+                email
+                totalProductsCreated
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            }
+          }
+        },
+        Flatten(path: "products.@") {
+          Fetch(service: "magazines") {
+            {
+              ... on Magazine {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Magazine {
+                title
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -269,7 +482,116 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "products") {
+          {
+            products {
+              __typename
+              id
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            }
+          }
+        },
+        Flatten(path: "products.@") {
+          Fetch(service: "reviews") {
+            {
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Book {
+                reviews {
+                  product {
+                    __typename
+                    ... on Book {
+                      __typename
+                      id
+                      reviewsCount
+                    }
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+              ... on Magazine {
+                reviews {
+                  product {
+                    __typename
+                    ... on Book {
+                      __typename
+                      id
+                      reviewsCount
+                    }
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+            }
+          },
+        },
+        Parallel {
+          Flatten(path: "products.@.reviews.@.product") {
+            Fetch(service: "products") {
+              {
+                ... on Book {
+                  __typename
+                  id
+                }
+                ... on Magazine {
+                  __typename
+                  id
+                }
+              } =>
+              {
+                ... on Book {
+                  sku
+                }
+                ... on Magazine {
+                  sku
+                }
+              }
+            },
+          },
+          Flatten(path: "products.@.reviews.@.product") {
+            Fetch(service: "magazines") {
+              {
+                ... on Magazine {
+                  __typename
+                  id
+                }
+              } =>
+              {
+                ... on Magazine {
+                  title
+                }
+              }
+            },
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -314,7 +636,55 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "products") {
+          {
+            products {
+              __typename
+              id
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            }
+          }
+        },
+        Flatten(path: "products.@") {
+          Fetch(service: "reviews") {
+            {
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Book {
+                reviews {
+                  id
+                }
+              }
+              ... on Magazine {
+                reviews {
+                  id
+                }
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -376,7 +746,111 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "products") {
+          {
+            products {
+              __typename
+              id
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            }
+          }
+        },
+        Flatten(path: "products.@") {
+          Fetch(service: "reviews") {
+            {
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Book {
+                reviews {
+                  product {
+                    __typename
+                    id
+                    ... on Book @include(if: $title) {
+                      __typename
+                      id
+                    }
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+              ... on Magazine {
+                reviews {
+                  product {
+                    __typename
+                    id
+                    ... on Book @include(if: $title) {
+                      __typename
+                      id
+                    }
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+            }
+          },
+        },
+        Parallel {
+          Include(if: $title) {
+            Flatten(path: "products.@.reviews.@.product") {
+              Fetch(service: "books") {
+                {
+                  ... on Book {
+                    __typename
+                    id
+                  }
+                } =>
+                {
+                  ... on Book {
+                    title
+                  }
+                }
+              },
+            }
+          },
+          Flatten(path: "products.@.reviews.@.product") {
+            Fetch(service: "products") {
+              {
+                ... on Magazine {
+                  __typename
+                  id
+                }
+              } =>
+              {
+                ... on Magazine {
+                  sku
+                }
+              }
+            },
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -436,7 +910,111 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "products") {
+          {
+            products {
+              __typename
+              id
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            }
+          }
+        },
+        Flatten(path: "products.@") {
+          Fetch(service: "reviews") {
+            {
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Book {
+                reviews {
+                  product {
+                    __typename
+                    id
+                    ... on Book @include(if: $title) {
+                      __typename
+                      id
+                    }
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+              ... on Magazine {
+                reviews {
+                  product {
+                    __typename
+                    id
+                    ... on Book @include(if: $title) {
+                      __typename
+                      id
+                    }
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+            }
+          },
+        },
+        Parallel {
+          Include(if: $title) {
+            Flatten(path: "products.@.reviews.@.product") {
+              Fetch(service: "books") {
+                {
+                  ... on Book {
+                    __typename
+                    id
+                  }
+                } =>
+                {
+                  ... on Book {
+                    title
+                  }
+                }
+              },
+            }
+          },
+          Flatten(path: "products.@.reviews.@.product") {
+            Fetch(service: "products") {
+              {
+                ... on Magazine {
+                  __typename
+                  id
+                }
+              } =>
+              {
+                ... on Magazine {
+                  sku
+                }
+              }
+            },
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -498,7 +1076,111 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "products") {
+          {
+            products {
+              __typename
+              id
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            }
+          }
+        },
+        Flatten(path: "products.@") {
+          Fetch(service: "reviews") {
+            {
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Book {
+                reviews {
+                  product {
+                    __typename
+                    id
+                    ... on Book @skip(if: $title) {
+                      __typename
+                      id
+                    }
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+              ... on Magazine {
+                reviews {
+                  product {
+                    __typename
+                    id
+                    ... on Book @skip(if: $title) {
+                      __typename
+                      id
+                    }
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+            }
+          },
+        },
+        Parallel {
+          Skip(if: $title) {
+            Flatten(path: "products.@.reviews.@.product") {
+              Fetch(service: "books") {
+                {
+                  ... on Book {
+                    __typename
+                    id
+                  }
+                } =>
+                {
+                  ... on Book {
+                    title
+                  }
+                }
+              },
+            }
+          },
+          Flatten(path: "products.@.reviews.@.product") {
+            Fetch(service: "products") {
+              {
+                ... on Magazine {
+                  __typename
+                  id
+                }
+              } =>
+              {
+                ... on Magazine {
+                  sku
+                }
+              }
+            },
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -558,7 +1240,111 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "products") {
+          {
+            products {
+              __typename
+              id
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            }
+          }
+        },
+        Flatten(path: "products.@") {
+          Fetch(service: "reviews") {
+            {
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Book {
+                reviews {
+                  product {
+                    __typename
+                    id
+                    ... on Book @skip(if: $title) {
+                      __typename
+                      id
+                    }
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+              ... on Magazine {
+                reviews {
+                  product {
+                    __typename
+                    id
+                    ... on Book @skip(if: $title) {
+                      __typename
+                      id
+                    }
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+            }
+          },
+        },
+        Parallel {
+          Skip(if: $title) {
+            Flatten(path: "products.@.reviews.@.product") {
+              Fetch(service: "books") {
+                {
+                  ... on Book {
+                    __typename
+                    id
+                  }
+                } =>
+                {
+                  ... on Book {
+                    title
+                  }
+                }
+              },
+            }
+          },
+          Flatten(path: "products.@.reviews.@.product") {
+            Fetch(service: "products") {
+              {
+                ... on Magazine {
+                  __typename
+                  id
+                }
+              } =>
+              {
+                ... on Magazine {
+                  sku
+                }
+              }
+            },
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -623,7 +1409,126 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "products") {
+          {
+            products {
+              __typename
+              id
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            }
+          }
+        },
+        Flatten(path: "products.@") {
+          Fetch(service: "reviews") {
+            {
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Book {
+                reviews {
+                  product {
+                    __typename
+                    id
+                    ... on Book @skip(if: $title) {
+                      __typename
+                      id
+                    }
+                    ... on Book {
+                      __typename
+                      id
+                    }
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+              ... on Magazine {
+                reviews {
+                  product {
+                    __typename
+                    id
+                    ... on Book @skip(if: $title) {
+                      __typename
+                      id
+                    }
+                    ... on Book {
+                      __typename
+                      id
+                    }
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+            }
+          },
+        },
+        Parallel {
+          Skip(if: $title) {
+            Flatten(path: "products.@.reviews.@.product") {
+              Fetch(service: "books") {
+                {
+                  ... on Book {
+                    __typename
+                    id
+                  }
+                } =>
+                {
+                  ... on Book {
+                    title
+                  }
+                }
+              },
+            }
+          },
+          Flatten(path: "products.@.reviews.@.product") {
+            Fetch(service: "products") {
+              {
+                ... on Book {
+                  __typename
+                  id
+                }
+                ... on Magazine {
+                  __typename
+                  id
+                }
+              } =>
+              {
+                ... on Book {
+                  sku
+                }
+                ... on Magazine {
+                  sku
+                }
+              }
+            },
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -690,7 +1595,126 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "products") {
+          {
+            products {
+              __typename
+              id
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            }
+          }
+        },
+        Flatten(path: "products.@") {
+          Fetch(service: "reviews") {
+            {
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Book {
+                reviews {
+                  product {
+                    __typename
+                    id
+                    ... on Book @skip(if: $title) {
+                      __typename
+                      id
+                    }
+                    ... on Book {
+                      __typename
+                      id
+                    }
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+              ... on Magazine {
+                reviews {
+                  product {
+                    __typename
+                    id
+                    ... on Book @skip(if: $title) {
+                      __typename
+                      id
+                    }
+                    ... on Book {
+                      __typename
+                      id
+                    }
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+            }
+          },
+        },
+        Parallel {
+          Skip(if: $title) {
+            Flatten(path: "products.@.reviews.@.product") {
+              Fetch(service: "books") {
+                {
+                  ... on Book {
+                    __typename
+                    id
+                  }
+                } =>
+                {
+                  ... on Book {
+                    title
+                  }
+                }
+              },
+            }
+          },
+          Flatten(path: "products.@.reviews.@.product") {
+            Fetch(service: "products") {
+              {
+                ... on Book {
+                  __typename
+                  id
+                }
+                ... on Magazine {
+                  __typename
+                  id
+                }
+              } =>
+              {
+                ... on Book {
+                  sku
+                }
+                ... on Magazine {
+                  sku
+                }
+              }
+            },
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -757,7 +1781,118 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "products") {
+          {
+            products {
+              __typename
+              id
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            }
+          }
+        },
+        Flatten(path: "products.@") {
+          Fetch(service: "reviews") {
+            {
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Book {
+                reviews {
+                  product {
+                    __typename
+                    id
+                    ... on Book @include(if: $title) {
+                      __typename
+                      id
+                    }
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+              ... on Magazine {
+                reviews {
+                  product {
+                    __typename
+                    id
+                    ... on Book @include(if: $title) {
+                      __typename
+                      id
+                    }
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+            }
+          },
+        },
+        Parallel {
+          Flatten(path: "products.@.reviews.@.product") {
+            Fetch(service: "products") {
+              {
+                ... on Book {
+                  __typename
+                  id
+                }
+                ... on Magazine {
+                  __typename
+                  id
+                }
+              } =>
+              {
+                ... on Book @include(if: $title) {
+                  sku
+                }
+                ... on Magazine {
+                  sku
+                }
+              }
+            },
+          },
+          Include(if: $title) {
+            Flatten(path: "products.@.reviews.@.product") {
+              Fetch(service: "books") {
+                {
+                  ... on Book {
+                    __typename
+                    id
+                  }
+                } =>
+                {
+                  ... on Book {
+                    title
+                  }
+                }
+              },
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -822,7 +1957,130 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "products") {
+          {
+            products {
+              __typename
+              id
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            }
+          }
+        },
+        Flatten(path: "products.@") {
+          Fetch(service: "reviews") {
+            {
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Book {
+                reviews {
+                  product {
+                    __typename
+                    id
+                    ... on Book @include(if: $title) {
+                      __typename
+                      id
+                      ... on Book @skip(if: $title) {
+                        __typename
+                        id
+                      }
+                    }
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+              ... on Magazine {
+                reviews {
+                  product {
+                    __typename
+                    id
+                    ... on Book @include(if: $title) {
+                      __typename
+                      id
+                      ... on Book @skip(if: $title) {
+                        __typename
+                        id
+                      }
+                    }
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+            }
+          },
+        },
+        Parallel {
+          Include(if: $title) {
+            Flatten(path: "products.@.reviews.@.product") {
+              Fetch(service: "books") {
+                {
+                  ... on Book {
+                    __typename
+                    id
+                  }
+                } =>
+                {
+                  ... on Book {
+                    title
+                  }
+                }
+              },
+            }
+          },
+          Flatten(path: "products.@.reviews.@.product") {
+            Fetch(service: "products") {
+              {
+                ... on Book {
+                  ... on Book {
+                    __typename
+                    id
+                  }
+                }
+                ... on Magazine {
+                  __typename
+                  id
+                }
+              } =>
+              {
+                ... on Book @include(if: $title) {
+                  ... on Book @skip(if: $title) {
+                    sku
+                  }
+                }
+                ... on Magazine {
+                  sku
+                }
+              }
+            },
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -905,7 +2163,135 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "products") {
+          {
+            products {
+              __typename
+              id
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            }
+          }
+        },
+        Flatten(path: "products.@") {
+          Fetch(service: "reviews") {
+            {
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Book {
+                reviews {
+                  product {
+                    __typename
+                    id
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                    ... on Book {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+              ... on Magazine {
+                reviews {
+                  product {
+                    __typename
+                    id
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                    ... on Book {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+            }
+          },
+        },
+        Flatten(path: "products.@.reviews.@.product") {
+          Fetch(service: "products") {
+            {
+              ... on Magazine {
+                __typename
+                id
+              }
+              ... on Book {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Magazine {
+                publisherType {
+                  __typename
+                  ...Publisher
+                  ... on Agency {
+                    __typename
+                  }
+                }
+              }
+              ... on Book {
+                publisherType {
+                  __typename
+                  ...Publisher
+                  ... on Agency {
+                    __typename
+                  }
+                }
+              }
+            }
+            
+            fragment Publisher on PublisherType {
+              ... on Agency {
+                id
+              }
+              ... on Self {
+                email
+              }
+            }
+          },
+        },
+        Flatten(path: "products.@.reviews.@.product.publisherType") {
+          Fetch(service: "agency") {
+            {
+              ... on Agency {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Agency {
+                companyName
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -991,6 +2377,134 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "products") {
+          {
+            products {
+              __typename
+              id
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            }
+          }
+        },
+        Flatten(path: "products.@") {
+          Fetch(service: "reviews") {
+            {
+              ... on Book {
+                __typename
+                id
+              }
+              ... on Magazine {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Book {
+                reviews {
+                  product {
+                    __typename
+                    id
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                    ... on Book {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+              ... on Magazine {
+                reviews {
+                  product {
+                    __typename
+                    id
+                    ... on Magazine {
+                      __typename
+                      id
+                    }
+                    ... on Book {
+                      __typename
+                      id
+                    }
+                  }
+                }
+              }
+            }
+          },
+        },
+        Flatten(path: "products.@.reviews.@.product") {
+          Fetch(service: "products") {
+            {
+              ... on Magazine {
+                __typename
+                id
+              }
+              ... on Book {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Magazine {
+                publisherType {
+                  __typename
+                  ...Publisher
+                  ... on Agency {
+                    __typename
+                  }
+                }
+              }
+              ... on Book {
+                publisherType {
+                  __typename
+                  ...Publisher
+                  ... on Agency {
+                    __typename
+                  }
+                }
+              }
+            }
+            
+            fragment Publisher on PublisherType {
+              ... on Agency {
+                id
+              }
+              ... on Self {
+                email
+              }
+            }
+          },
+        },
+        Flatten(path: "products.@.reviews.@.product.publisherType") {
+          Fetch(service: "agency") {
+            {
+              ... on Agency {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Agency {
+                companyName
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
 ];

@@ -39,6 +39,52 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Parallel {
+        Sequence {
+          Fetch(service: "a") {
+            {
+              users {
+                __typename
+                id
+              }
+            }
+          },
+          Flatten(path: "users.@") {
+            Fetch(service: "b") {
+              {
+                ... on User {
+                  __typename
+                  id
+                }
+              } =>
+              {
+                ... on User {
+                  name
+                }
+              }
+            },
+          },
+        },
+        Fetch(service: "b") {
+          {
+            accounts {
+              __typename
+              ... on User {
+                id
+                name
+              }
+              ... on Admin {
+                id__alias_0: id
+                photo
+              }
+            }
+          }
+        },
+      },
     }
+    `
   ),
 ];

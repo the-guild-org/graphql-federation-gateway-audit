@@ -1,6 +1,12 @@
 import { Env } from "../../env";
 import { createSubgraph } from "../../subgraph";
-import { addProduct, deleteProduct, getProducts, initProducts } from "./data";
+import {
+  addProduct,
+  deleteProduct,
+  getProducts,
+  initProducts,
+  multiplyNumber,
+} from "./data";
 
 export default createSubgraph("a", {
   typeDefs: /* GraphQL */ `
@@ -9,6 +15,7 @@ export default createSubgraph("a", {
 
     type Mutation {
       addProduct(input: AddProductInput!): Product!
+      multiply(by: Int!, requestId: String!): Int!
     }
 
     type Query {
@@ -49,6 +56,16 @@ export default createSubgraph("a", {
       },
     },
     Mutation: {
+      async multiply(
+        _: {},
+        args: {
+          by: number;
+          requestId: string;
+        },
+        ctx: { env: Env }
+      ) {
+        return multiplyNumber(ctx.env, args.by, args.requestId);
+      },
       async addProduct(
         _: {},
         {

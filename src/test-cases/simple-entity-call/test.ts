@@ -18,6 +18,36 @@ export default [
           nickname: users[0].nickname,
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "email") {
+          {
+            user {
+              __typename
+              email
+              id
+            }
+          }
+        },
+        Flatten(path: "user") {
+          Fetch(service: "nickname") {
+            {
+              ... on User {
+                __typename
+                email
+              }
+            } =>
+            {
+              ... on User {
+                nickname
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
 ];

@@ -27,7 +27,25 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "b") {
+        {
+          media {
+            __typename
+            ... on Book {
+              id
+              title
+            }
+            ... on Movie {
+              id
+            }
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -57,6 +75,42 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "b") {
+          {
+            media {
+              __typename
+              ... on Book {
+                id
+                title
+              }
+              ... on Movie {
+                __typename
+                id
+              }
+            }
+          }
+        },
+        Flatten(path: "media.@") {
+          Fetch(service: "c") {
+            {
+              ... on Movie {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Movie {
+                title
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
 ];

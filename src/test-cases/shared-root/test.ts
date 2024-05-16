@@ -21,6 +21,34 @@ export default [
           category: "Category 1",
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Parallel {
+        Fetch(service: "name") {
+          {
+            product {
+              name
+            }
+          }
+        },
+        Fetch(service: "category") {
+          {
+            product {
+              category
+              id
+            }
+          }
+        },
+        Fetch(service: "price") {
+          {
+            product {
+              price
+            }
+          }
+        },
+      },
     }
+    `
   ),
 ];
