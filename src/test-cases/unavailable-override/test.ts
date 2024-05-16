@@ -70,6 +70,8 @@ export default [
               }
             }
           },
+          # Query.aFeed started in subgraph A, and Post.createdAt is available in subgraph A,
+          # but instead of fetching it from A, it is fetched from B as B overrides Post.createdAt for A.
           Flatten(path: "aFeed.@") {
             Fetch(service: "b") {
               {
