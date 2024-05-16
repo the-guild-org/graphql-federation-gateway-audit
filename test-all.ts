@@ -88,6 +88,14 @@ function normalizePlan(plan: string | undefined | null) {
   return stripIndent(
     plan
       .split("\n")
+      .map((line) => {
+        // remove comments
+        if (line.includes("#")) {
+          return line.split("#")[0];
+        }
+
+        return line;
+      })
       .filter((line) => line.trim() !== "")
       .join("\n")
   );

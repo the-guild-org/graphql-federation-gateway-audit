@@ -23,6 +23,13 @@ export default [
         Fetch(service: "a") {
           {
             media {
+              # Query.media returns an intersection of Media union from A and B subgraphs 
+              # Movie is only available in subgraph B
+              # Query planner could remove Movie from the query, but then the selection set would be empty.
+              # If it would not route the request there and simply return an empty object, the effect would be the same.
+              # I guess the query planner still want to make a request to subgraph A to see if it can resolve anything.
+              # One reason could be that Query.media requires authentication and it does not want to overwrite that logic,
+              # as it could possibly lead to successful request, even though the response should contain an error.
               __typename
             }
           }
@@ -162,6 +169,9 @@ export default [
       Fetch(service: "a") {
         {
           song {
+            # Query.song is only resolved in subgraph A
+            # Media = Book | Song in subgraph A
+            # Movie was removed from the query as it cannot be resolved by Query.song
             __typename
             ... on Song {
               title
@@ -172,11 +182,16 @@ export default [
           }
           media {
             __typename
+            # Movie and Song was removed from the query
+            # The only type that is common to Query.media in all subgraphs is Book
             ... on Book {
               title
             }
           }
           book {
+            # Query.book resolves Book, not an abstract type, in subgraph A
+            # Query.book resolves Media = Book | Movie in subgraph B
+            # The only possible type here is Book
             __typename
             title
           }
