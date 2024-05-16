@@ -35,6 +35,7 @@ export default [
         {
           products {
             __typename
+            # not sure to be honest why it converts ...Node to ...Over and ...Toaster
             ... on Oven {
               id
             }
@@ -78,6 +79,8 @@ export default [
         {
           nodes {
             __typename
+            # It drops ...Over from the query as it does not implement Node interface in subgraph A
+            # and Query.nodes resolves [Node]
             ... on Toaster {
               warranty
             }
@@ -157,6 +160,8 @@ export default [
       Fetch(service: "a") {
         {
           toasters {
+            # It merges selection sets from fragments
+            # to optimize the payload size I guess
             __typename
             id
           }
@@ -186,6 +191,11 @@ export default [
       Fetch(service: "a") {
         {
           node(id: "oven1") {
+            # It knows that Over is not implemented in subgraph A
+            # but it still sends the query to subgraph A.
+            # Not sure why it does that, it could be prevented by the gateway.
+            # It's really not spec complaint to have an interface in GraphQL API without any implementation.
+            # I know Arda had a case where a Java implementation allowed for that, but that's incorrect...
             __typename
           }
         }
