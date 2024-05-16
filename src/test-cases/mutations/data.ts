@@ -12,6 +12,23 @@ export class MutationsTestStorage extends DurableObject {
     return (await this.ctx.storage.get("products")) ?? [];
   }
 
+  async addNumber(num: number, requestId: string): Promise<number> {
+    const existingNumber = await this.getNumber(requestId);
+    const sum = existingNumber + num;
+    await this.ctx.storage.put(`number-of-${requestId}`, sum);
+    return sum;
+  }
+
+  async getNumber(requestId: string): Promise<number> {
+    return (await this.ctx.storage.get(`number-of-${requestId}`)) ?? 0;
+  }
+
+  async deleteNumber(requestId: string) {
+    const num = await this.getNumber(requestId);
+    await this.ctx.storage.delete(`number-of-${requestId}`);
+    return num;
+  }
+
   async addProduct(name: string, price: number): Promise<Product> {
     let products = await this.getProducts();
     const newProduct = {
@@ -71,4 +88,14 @@ export function deleteProduct(env: Env, id: string) {
 export function initProducts(env: Env) {
   const stub = getStub(env);
   return stub.initProducts();
+}
+
+export function addNumber(env: Env, num: number, requestId: string) {
+  const stub = getStub(env);
+  return stub.addNumber(num, requestId);
+}
+
+export function deleteNumber(env: Env, requestId: string) {
+  const stub = getStub(env);
+  return stub.deleteNumber(requestId);
 }

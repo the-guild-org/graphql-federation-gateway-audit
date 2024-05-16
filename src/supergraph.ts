@@ -32,10 +32,15 @@ export function getSupergraph(
 export function serve(
   id: string,
   subgraphs: Array<ReturnType<typeof createSubgraph>>,
-  tests: Array<{
-    query: string;
-    expected: any;
-  }>
+  tests:
+    | (() => Array<{
+        query: string;
+        expected: any;
+      }>)
+    | Array<{
+        query: string;
+        expected: any;
+      }>
 ) {
   return {
     id,
@@ -220,7 +225,8 @@ export function serve(
           },
         },
         handler() {
-          return Response.json(tests);
+          const testsArray = Array.isArray(tests) ? tests : tests();
+          return Response.json(testsArray);
         },
       });
 
