@@ -6,8 +6,7 @@
     "dev": "wrangler dev --port 4200 src/index.ts",
     "gateway": "node --import tsx/esm --watch --watch-path=./src --watch-path=./gateway.ts ./gateway.ts",
     "gateway:once": "node --import tsx/esm ./gateway.ts",
-    "test": "tsx ./test.ts",
-    "test-all": "tsx ./test-all.ts",
+    "test": "tsx ./test-all.ts",
     "deploy": "wrangler deploy --minify src/index.ts"
   },
   "dependencies": {

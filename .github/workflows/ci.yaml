@@ -16,7 +16,7 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v4
         with:
-          node-version: 21
+          node-version: 22
           cache: "npm"
 
       - name: install
@@ -33,7 +33,7 @@ jobs:
           npx wait-on http-get://localhost:4000/_health --timeout 5s --verbose
 
       - name: test
-        run: npm run test-all
+        run: npm run test
 
   deploy:
     runs-on: ubuntu-latest
@@ -47,7 +47,7 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v4
         with:
-          node-version: 21
+          node-version: 22
           cache: "npm"
 
       - name: install
