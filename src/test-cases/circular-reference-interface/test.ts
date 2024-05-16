@@ -25,7 +25,24 @@ export default [
           },
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "a") {
+        {
+          product {
+            __typename
+            samePriceProduct {
+              __typename
+              samePriceProduct {
+                __typename
+              }
+            }
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -73,6 +90,47 @@ export default [
           price: 10.99,
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "a") {
+          {
+            product {
+              __typename
+              ... on Book {
+                __typename
+                id
+                samePriceProduct {
+                  __typename
+                  id
+                  price
+                  samePriceProduct {
+                    __typename
+                    id
+                  }
+                }
+              }
+            }
+          }
+        },
+        Flatten(path: "product") {
+          Fetch(service: "b") {
+            {
+              ... on Book {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Book {
+                price
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
 ];

@@ -29,7 +29,24 @@ export default [
           ],
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "b") {
+        {
+          media {
+            __typename
+            id
+            animals {
+              __typename
+              id
+              name
+            }
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -63,6 +80,49 @@ export default [
           ],
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "b") {
+          {
+            media {
+              __typename
+              id
+              animals {
+                __typename
+                id
+                name
+              }
+              ... on Book {
+                __typename
+                id
+              }
+            }
+          }
+        },
+        Flatten(path: "media") {
+          Fetch(service: "c") {
+            {
+              ... on Book {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Book {
+                animals {
+                  __typename
+                  ... on Cat {
+                    age
+                  }
+                }
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
 ];

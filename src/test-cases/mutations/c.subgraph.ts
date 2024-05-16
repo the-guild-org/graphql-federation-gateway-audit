@@ -1,6 +1,6 @@
 import { Env } from "../../env";
 import { createSubgraph } from "../../subgraph";
-import { addNumber, deleteNumber } from "./data";
+import { addNumber } from "./data";
 
 export default createSubgraph("c", {
   typeDefs: /* GraphQL */ `
@@ -9,7 +9,6 @@ export default createSubgraph("c", {
 
     type Mutation {
       add(num: Int!, requestId: String!): Int!
-      delete(requestId: String!): Int!
     }
   `,
   resolvers: {
@@ -23,15 +22,6 @@ export default createSubgraph("c", {
         ctx: { env: Env }
       ) {
         return addNumber(ctx.env, args.num, args.requestId);
-      },
-      delete(
-        _: {},
-        args: {
-          requestId: string;
-        },
-        ctx: { env: Env }
-      ) {
-        return deleteNumber(ctx.env, args.requestId);
       },
     },
   },

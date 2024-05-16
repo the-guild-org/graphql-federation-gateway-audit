@@ -15,7 +15,57 @@ export default [
           city: "a1-city",
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "a") {
+          {
+            a {
+              __typename
+              id
+            }
+          }
+        },
+        Flatten(path: "a") {
+          Fetch(service: "b") {
+            {
+              ... on User {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on User {
+                address {
+                  __typename
+                  id
+                }
+              }
+            }
+          },
+        },
+        Flatten(path: "a") {
+          Fetch(service: "a") {
+            {
+              ... on User {
+                __typename
+                address {
+                  id
+                }
+                id
+              }
+            } =>
+            {
+              ... on User {
+                city
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -31,7 +81,43 @@ export default [
           city: "a2-city",
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "b") {
+          {
+            b {
+              __typename
+              id
+              address {
+                __typename
+                id
+              }
+            }
+          }
+        },
+        Flatten(path: "b") {
+          Fetch(service: "a") {
+            {
+              ... on User {
+                __typename
+                id
+                address {
+                  id
+                }
+              }
+            } =>
+            {
+              ... on User {
+                city
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -53,7 +139,39 @@ export default [
           },
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "a") {
+          {
+            a {
+              __typename
+              id
+            }
+          }
+        },
+        Flatten(path: "a") {
+          Fetch(service: "b") {
+            {
+              ... on User {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on User {
+                address {
+                  __typename
+                  id
+                }
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -75,6 +193,20 @@ export default [
           },
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "b") {
+        {
+          b {
+            address {
+              __typename
+              id
+            }
+          }
+        }
+      },
     }
+    `
   ),
 ];

@@ -19,6 +19,13 @@ export class MutationsTestStorage extends DurableObject {
     return sum;
   }
 
+  async multiplyNumber(by: number, requestId: string): Promise<number> {
+    const existingNumber = await this.getNumber(requestId);
+    const result = existingNumber * by;
+    await this.ctx.storage.put(`number-of-${requestId}`, result);
+    return result;
+  }
+
   async getNumber(requestId: string): Promise<number> {
     return (await this.ctx.storage.get(`number-of-${requestId}`)) ?? 0;
   }
@@ -93,6 +100,11 @@ export function initProducts(env: Env) {
 export function addNumber(env: Env, num: number, requestId: string) {
   const stub = getStub(env);
   return stub.addNumber(num, requestId);
+}
+
+export function multiplyNumber(env: Env, by: number, requestId: string) {
+  const stub = getStub(env);
+  return stub.multiplyNumber(by, requestId);
 }
 
 export function deleteNumber(env: Env, requestId: string) {
