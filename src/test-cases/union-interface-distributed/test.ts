@@ -28,7 +28,24 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "a") {
+        {
+          products {
+            __typename
+            ... on Oven {
+              id
+            }
+            ... on Toaster {
+              id
+            }
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -54,7 +71,21 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "a") {
+        {
+          nodes {
+            __typename
+            ... on Toaster {
+              warranty
+            }
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -75,7 +106,19 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "a") {
+        {
+          nodes {
+            __typename
+            id
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -108,7 +151,19 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "a") {
+        {
+          toasters {
+            __typename
+            id
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -125,7 +180,18 @@ export default [
         node: null,
       },
       errors: true,
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "a") {
+        {
+          node(id: "oven1") {
+            __typename
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -142,7 +208,21 @@ export default [
         node: null,
       },
       errors: true,
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "a") {
+        {
+          node(id: "oven1") {
+            __typename
+            ... on Toaster {
+              warranty
+            }
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -160,6 +240,20 @@ export default [
           warranty: 3,
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "a") {
+        {
+          node(id: "toaster1") {
+            __typename
+            ... on Toaster {
+              warranty
+            }
+          }
+        }
+      },
     }
+    `
   ),
 ];

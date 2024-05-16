@@ -22,7 +22,7 @@ export default createSubgraph("category", {
 
     type Category @key(fields: "id") {
       id: ID!
-      name: String @external
+      name: String
       subCategories: [Category] @external
     }
   `,

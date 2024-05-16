@@ -17,7 +17,19 @@ export default [
           typename: "Oven",
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "a") {
+        {
+          union {
+            __typename
+            typename: __typename
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -39,7 +51,21 @@ export default [
           t: "Toaster",
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "a") {
+        {
+          interface {
+            __typename
+            id
+            typename: __typename
+            t: __typename
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -62,7 +88,24 @@ export default [
           typename: "Oven",
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "a") {
+        {
+          union {
+            __typename
+            ... on Oven {
+              typename: __typename
+            }
+            ... on Toaster {
+              typename: __typename
+            }
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -85,7 +128,24 @@ export default [
           typename: "Toaster",
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "a") {
+        {
+          interface {
+            __typename
+            ... on Oven {
+              typename: __typename
+            }
+            ... on Toaster {
+              typename: __typename
+            }
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -106,7 +166,18 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "b") {
+        {
+          users {
+            id
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -127,6 +198,35 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "b") {
+          {
+            users {
+              __typename
+              id
+            }
+          }
+        },
+        Flatten(path: "users.@") {
+          Fetch(service: "a") {
+            {
+              ... on User {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on User {
+                __typename
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
 ];

@@ -26,7 +26,38 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "b") {
+          {
+            anotherUsers {
+              __typename
+              id
+              username
+            }
+          }
+        },
+        Flatten(path: "anotherUsers.@") {
+          Fetch(service: "a") {
+            {
+              ... on NodeWithName {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on NodeWithName {
+                __typename
+                name
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -53,7 +84,37 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "a") {
+          {
+            users {
+              __typename
+              id
+              name
+            }
+          }
+        },
+        Flatten(path: "users.@") {
+          Fetch(service: "b") {
+            {
+              ... on NodeWithName {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on NodeWithName {
+                username
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -76,7 +137,39 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "b") {
+          {
+            anotherUsers {
+              __typename
+              id
+            }
+          }
+        },
+        Flatten(path: "anotherUsers.@") {
+          Fetch(service: "a") {
+            {
+              ... on NodeWithName {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on NodeWithName {
+                __typename
+                ... on User {
+                  age
+                }
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -99,7 +192,21 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "a") {
+        {
+          users {
+            __typename
+            ... on User {
+              age
+            }
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -133,7 +240,57 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "b") {
+          {
+            anotherUsers {
+              __typename
+              id
+            }
+          }
+        },
+        Flatten(path: "anotherUsers.@") {
+          Fetch(service: "a") {
+            {
+              ... on NodeWithName {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on NodeWithName {
+                __typename
+                ... on User {
+                  age
+                  name
+                }
+                name
+              }
+            }
+          },
+        },
+        Flatten(path: "anotherUsers.@") {
+          Fetch(service: "b") {
+            {
+              ... on User {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on NodeWithName {
+                id
+                username
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -167,7 +324,43 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "a") {
+          {
+            users {
+              __typename
+              ... on User {
+                __typename
+                id
+                age
+                name
+              }
+              id
+              name
+            }
+          }
+        },
+        Flatten(path: "users.@") {
+          Fetch(service: "b") {
+            {
+              ... on User {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on NodeWithName {
+                username
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -201,7 +394,43 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "a") {
+          {
+            users {
+              __typename
+              ... on User {
+                __typename
+                id
+                age
+                name
+              }
+              id
+              name
+            }
+          }
+        },
+        Flatten(path: "users.@") {
+          Fetch(service: "b") {
+            {
+              ... on User {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on NodeWithName {
+                username
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   // Should be resolved by subgraph b, without any entity calls
   createTest(
@@ -226,7 +455,18 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "b") {
+        {
+          accounts {
+            name
+          }
+        }
+      },
     }
+    `
   ),
   // Should be resolved by subgraph b, with entity calls to subgraph a
   // as interfaceObject does not know the __typename
@@ -252,7 +492,51 @@ export default [
           {},
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "b") {
+          {
+            accounts {
+              __typename
+              id
+            }
+          }
+        },
+        Flatten(path: "accounts.@") {
+          Fetch(service: "a") {
+            {
+              ... on Account {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Account {
+                __typename
+              }
+            }
+          },
+        },
+        Flatten(path: "accounts.@") {
+          Fetch(service: "b") {
+            {
+              ... on Admin {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Account {
+                name
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   // Should be resolved by subgraph b, with entity calls to subgraph a
   // to resolve __typename (interfaceObject does not know the __typename)
@@ -282,7 +566,37 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "b") {
+          {
+            accounts {
+              __typename
+              id
+              name
+            }
+          }
+        },
+        Flatten(path: "accounts.@") {
+          Fetch(service: "a") {
+            {
+              ... on Account {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Account {
+                __typename
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   // Should be resolved by subgraph b, with entity calls to subgraph a
   // to resolve __typename (interfaceObject does not know the __typename)
@@ -308,7 +622,39 @@ export default [
           {},
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "b") {
+          {
+            accounts {
+              __typename
+              id
+            }
+          }
+        },
+        Flatten(path: "accounts.@") {
+          Fetch(service: "a") {
+            {
+              ... on Account {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Account {
+                __typename
+                ... on Admin {
+                  __typename
+                }
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -336,7 +682,36 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "b") {
+          {
+            accounts {
+              __typename
+              id
+            }
+          }
+        },
+        Flatten(path: "accounts.@") {
+          Fetch(service: "c") {
+            {
+              ... on Account {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Account {
+                isActive
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -365,6 +740,38 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "b") {
+          {
+            accounts {
+              __typename
+              id
+            }
+          }
+        },
+        Flatten(path: "accounts.@") {
+          Fetch(service: "a") {
+            {
+              ... on Account {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on Account {
+                __typename
+                ... on Admin {
+                  isActive
+                }
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
 ];
