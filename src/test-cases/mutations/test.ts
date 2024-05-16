@@ -51,6 +51,8 @@ export default () => {
       }
     ),
     // Test correct order of execution
+    // It obviously does not solve a problem with shared state and race conditions,
+    // but at least it reduces the risk a bit
     createTest(
       /* GraphQL */ `
       mutation {
