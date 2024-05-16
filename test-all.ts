@@ -3,6 +3,7 @@
  */
 
 import { ExecutionResult } from "graphql";
+import stripIndent from "strip-indent";
 import { fetchTests } from "./src/test";
 import { diff } from "jest-diff";
 import { describe, test } from "node:test";
@@ -34,18 +35,28 @@ for (const { id, testEndpoint } of testList) {
     const tests = await fetchTests(testEndpoint);
 
     let index = 0;
-    for (const { query, expected: expectedResult } of tests) {
+    for (const {
+      query,
+      expected: expectedResult,
+      plan: expectedPlan,
+    } of tests) {
       test(`${index++}`, async () => {
         const response = await graphql(GATEWAY_URL + "/" + id, query);
 
         const received = {
           data: response.data ?? null,
           errors: response.errors?.length ? true : false,
+          plan: normalizePlan(
+            expectedPlan
+              ? (response.extensions?.plan as string | undefined) ?? null
+              : null
+          ),
         };
 
         const expected = {
           data: expectedResult.data ?? null,
           errors: expectedResult.errors ?? false,
+          plan: normalizePlan(expectedPlan ?? null),
         };
 
         deepStrictEqual(
@@ -67,4 +78,17 @@ function graphql(endpoint: string, query: string) {
     },
     body: JSON.stringify({ query }),
   }).then((response) => response.json()) as Promise<ExecutionResult>;
+}
+
+function normalizePlan(plan: string | undefined | null) {
+  if (!plan) {
+    return null;
+  }
+
+  return stripIndent(
+    plan
+      .split("\n")
+      .filter((line) => line.trim() !== "")
+      .join("\n")
+  );
 }

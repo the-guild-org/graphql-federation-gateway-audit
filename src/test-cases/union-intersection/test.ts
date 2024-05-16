@@ -17,7 +17,18 @@ export default [
         // This is what @apollo/gateway returns as it calls subgraph A to resolve Movie, but subgraph A doesn't have a Movie type
         media: {},
       },
-    }
+    },
+    /* GraphQL */ `
+      QueryPlan {
+        Fetch(service: "a") {
+          {
+            media {
+              __typename
+            }
+          }
+        },
+      }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -36,7 +47,21 @@ export default [
           title: media.title,
         },
       },
-    }
+    },
+    /* GraphQL */ `
+      QueryPlan {
+        Fetch(service: "a") {
+          {
+            media {
+              __typename
+              ... on Book {
+                title
+              }
+            }
+          }
+        },
+      }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -58,7 +83,22 @@ export default [
           title: media.title,
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "a") {
+        {
+          media {
+            __typename
+            ... on Book {
+              title
+            }
+          }
+        }
+      },
     }
+    
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -116,6 +156,33 @@ export default [
           title: "Song Title",
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "a") {
+        {
+          song {
+            __typename
+            ... on Song {
+              title
+            }
+            ... on Book {
+              title
+            }
+          }
+          media {
+            __typename
+            ... on Book {
+              title
+            }
+          }
+          book {
+            __typename
+            title
+          }
+        }
+      },
     }
+    `
   ),
 ];

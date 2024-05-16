@@ -19,6 +19,7 @@
     "fets": "0.8.0"
   },
   "devDependencies": {
+    "strip-indent": "4.0.0",
     "jest-diff": "29.7.0",
     "tsx": "4.7.2",
     "@cloudflare/workers-types": "4.20240405.0",

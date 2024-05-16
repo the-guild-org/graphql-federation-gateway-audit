@@ -8,7 +8,7 @@ import { createServer } from "node:http";
 import { createRouter, Response } from "fets";
 import { getDocumentString, Plugin } from "@envelop/core";
 import { serializeQueryPlan } from "@apollo/query-planner";
-import { createYoga } from "graphql-yoga";
+import { createYoga, isAsyncIterable } from "graphql-yoga";
 
 const BASE_URL = process.env.BASE_URL ?? "http://localhost:4200";
 
@@ -46,16 +46,40 @@ for await (const { id, supergraph } of list) {
     supergraphSdl,
     experimental_didResolveQueryPlan(options) {
       if (options.requestContext.operationName !== "IntrospectionQuery") {
+        const serializedPlan = serializeQueryPlan(options.queryPlan);
+        options.requestContext.context.req.plan = serializedPlan;
+
         console.log("\n-----\n");
         console.log(options.requestContext.source);
         console.log("\n -> \n");
-        console.log(serializeQueryPlan(options.queryPlan));
+        console.log(serializedPlan);
       }
     },
   });
 
   const yoga = createYoga({
-    plugins: [useApolloFederation(gateway)],
+    plugins: [
+      useApolloFederation(gateway),
+      {
+        onExecute() {
+          return {
+            onExecuteDone(payload) {
+              if (isAsyncIterable(payload.result)) {
+                return;
+              }
+
+              if (payload.args.contextValue.req.plan) {
+                payload.result.extensions = {
+                  plan: payload.args.contextValue.req.plan,
+                };
+              }
+            },
+          };
+        },
+      } satisfies Plugin<{
+        req: { plan: string };
+      }>,
+    ],
     graphqlEndpoint: `/${id}`,
   });
 

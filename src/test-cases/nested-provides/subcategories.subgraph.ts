@@ -20,7 +20,6 @@ export default createSubgraph("subcategories", {
 
     type Category @key(fields: "id") {
       id: ID!
-      name: String @shareable
       subCategories: [Category] @shareable
     }
   `,
@@ -68,7 +67,6 @@ export default createSubgraph("subcategories", {
 
           return {
             id: cat.id,
-            name: cat.name,
             subCategories: cat.subCategories,
           };
         });
@@ -84,7 +82,6 @@ export default createSubgraph("subcategories", {
 
         return {
           id: cat.id,
-          name: cat.name,
           subCategories: cat.subCategories,
         };
       },
@@ -98,7 +95,6 @@ export default createSubgraph("subcategories", {
 
           return {
             id: cat.id,
-            name: cat.name,
             subCategories: cat.subCategories,
           };
         });

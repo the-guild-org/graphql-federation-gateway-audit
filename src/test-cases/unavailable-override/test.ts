@@ -20,7 +20,18 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "b") {
+        {
+          feed {
+            createdAt
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -46,6 +57,44 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Parallel {
+        Sequence {
+          Fetch(service: "a") {
+            {
+              aFeed {
+                __typename
+                id
+              }
+            }
+          },
+          Flatten(path: "aFeed.@") {
+            Fetch(service: "b") {
+              {
+                ... on Post {
+                  __typename
+                  id
+                }
+              } =>
+              {
+                ... on Post {
+                  createdAt
+                }
+              }
+            },
+          },
+        },
+        Fetch(service: "b") {
+          {
+            bFeed {
+              createdAt
+            }
+          }
+        },
+      },
     }
+    `
   ),
 ];

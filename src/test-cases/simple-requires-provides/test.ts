@@ -15,7 +15,18 @@ export default [
           id: "u1",
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "accounts") {
+        {
+          me {
+            id
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -42,7 +53,38 @@ export default [
           ],
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "accounts") {
+          {
+            me {
+              __typename
+              id
+            }
+          }
+        },
+        Flatten(path: "me") {
+          Fetch(service: "reviews") {
+            {
+              ... on User {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on User {
+                reviews {
+                  id
+                }
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -88,7 +130,61 @@ export default [
           ],
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "accounts") {
+          {
+            me {
+              __typename
+              id
+            }
+          }
+        },
+        Flatten(path: "me") {
+          Fetch(service: "reviews") {
+            {
+              ... on User {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on User {
+                reviews {
+                  id
+                  author {
+                    id
+                    username
+                  }
+                  product {
+                    __typename
+                    upc
+                  }
+                }
+              }
+            }
+          },
+        },
+        Flatten(path: "me.reviews.@.product") {
+          Fetch(service: "inventory") {
+            {
+              ... on Product {
+                __typename
+                upc
+              }
+            } =>
+            {
+              ... on Product {
+                inStock
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -109,7 +205,18 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "products") {
+        {
+          products {
+            name
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -130,7 +237,18 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Fetch(service: "products") {
+        {
+          products {
+            price
+          }
+        }
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -151,7 +269,40 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "products") {
+          {
+            products {
+              __typename
+              upc
+              price
+              weight
+            }
+          }
+        },
+        Flatten(path: "products.@") {
+          Fetch(service: "inventory") {
+            {
+              ... on Product {
+                __typename
+                upc
+                price
+                weight
+              }
+            } =>
+            {
+              ... on Product {
+                shippingEstimate
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -178,7 +329,40 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "products") {
+          {
+            products {
+              __typename
+              upc
+              price
+              weight
+            }
+          }
+        },
+        Flatten(path: "products.@") {
+          Fetch(service: "inventory") {
+            {
+              ... on Product {
+                __typename
+                upc
+                price
+                weight
+              }
+            } =>
+            {
+              ... on Product {
+                shippingEstimate
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -230,7 +414,79 @@ export default [
           },
         ],
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "products") {
+          {
+            products {
+              __typename
+              upc
+            }
+          }
+        },
+        Flatten(path: "products.@") {
+          Fetch(service: "reviews") {
+            {
+              ... on Product {
+                __typename
+                upc
+              }
+            } =>
+            {
+              ... on Product {
+                reviews {
+                  id
+                  author {
+                    username
+                  }
+                  product {
+                    __typename
+                    upc
+                  }
+                }
+              }
+            }
+          },
+        },
+        Flatten(path: "products.@.reviews.@.product") {
+          Fetch(service: "products") {
+            {
+              ... on Product {
+                __typename
+                upc
+              }
+            } =>
+            {
+              ... on Product {
+                name
+                price
+                weight
+              }
+            }
+          },
+        },
+        Flatten(path: "products.@.reviews.@.product") {
+          Fetch(service: "inventory") {
+            {
+              ... on Product {
+                __typename
+                price
+                weight
+                upc
+              }
+            } =>
+            {
+              ... on Product {
+                shippingEstimate
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -271,7 +527,42 @@ export default [
           ],
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "accounts") {
+          {
+            me {
+              __typename
+              id
+            }
+          }
+        },
+        Flatten(path: "me") {
+          Fetch(service: "reviews") {
+            {
+              ... on User {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on User {
+                reviews {
+                  product {
+                    reviews {
+                      id
+                    }
+                  }
+                }
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -302,7 +593,56 @@ export default [
           ],
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "accounts") {
+          {
+            me {
+              __typename
+              id
+            }
+          }
+        },
+        Flatten(path: "me") {
+          Fetch(service: "reviews") {
+            {
+              ... on User {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on User {
+                reviews {
+                  product {
+                    __typename
+                    upc
+                  }
+                }
+              }
+            }
+          },
+        },
+        Flatten(path: "me.reviews.@.product") {
+          Fetch(service: "inventory") {
+            {
+              ... on Product {
+                __typename
+                upc
+              }
+            } =>
+            {
+              ... on Product {
+                inStock
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
   createTest(
     /* GraphQL */ `
@@ -333,6 +673,73 @@ export default [
           ],
         },
       },
+    },
+    /* GraphQL */ `
+    QueryPlan {
+      Sequence {
+        Fetch(service: "accounts") {
+          {
+            me {
+              __typename
+              id
+            }
+          }
+        },
+        Flatten(path: "me") {
+          Fetch(service: "reviews") {
+            {
+              ... on User {
+                __typename
+                id
+              }
+            } =>
+            {
+              ... on User {
+                reviews {
+                  product {
+                    __typename
+                    upc
+                  }
+                }
+              }
+            }
+          },
+        },
+        Flatten(path: "me.reviews.@.product") {
+          Fetch(service: "products") {
+            {
+              ... on Product {
+                __typename
+                upc
+              }
+            } =>
+            {
+              ... on Product {
+                price
+                weight
+              }
+            }
+          },
+        },
+        Flatten(path: "me.reviews.@.product") {
+          Fetch(service: "inventory") {
+            {
+              ... on Product {
+                __typename
+                price
+                weight
+                upc
+              }
+            } =>
+            {
+              ... on Product {
+                shippingEstimate
+              }
+            }
+          },
+        },
+      },
     }
+    `
   ),
 ];
