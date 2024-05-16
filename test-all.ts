@@ -91,7 +91,7 @@ function normalizePlan(plan: string | undefined | null) {
       .map((line) => {
         // remove comments
         if (line.includes("#")) {
-          return line.split("#")[0];
+          return line.split("#")[0].trimEnd();
         }
 
         return line;
