@@ -40,6 +40,9 @@ export default [
         },
         Flatten(path: "anotherUsers.@") {
           Fetch(service: "a") {
+            # NOTE
+            # The only interesting thing here is that NodeWithName is an interface in subgraph A
+            # and the gateway asks "NodeWithName.__resolveReference" for the "username" field
             {
               ... on NodeWithName {
                 __typename
