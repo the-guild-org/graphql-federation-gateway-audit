@@ -32,6 +32,9 @@ export default [
       Sequence {
         Fetch(service: "b") {
           {
+            # NOTE
+            # id and username are available in the NodeWithName interfaceObject in subgraph B
+            # but we still need to resolve the name field.
             anotherUsers {
               __typename
               id
@@ -40,6 +43,10 @@ export default [
           }
         },
         Flatten(path: "anotherUsers.@") {
+          # NOTE
+          # We call subgraph A to resolve an object type based on "id" field.
+          # What's interesting here is that we trigger "__resolveReference" for NodeWithName
+          # and that's an interface... weird but hey, it is what it is.
           Fetch(service: "a") {
             {
               ... on NodeWithName {
@@ -50,7 +57,7 @@ export default [
             {
               ... on NodeWithName {
                 __typename
-                name
+                name # here we go
               }
             }
           },
@@ -87,6 +94,8 @@ export default [
     },
     /* GraphQL */ `
     QueryPlan {
+      # NOTE
+      # same story as in the test above 
       Sequence {
         Fetch(service: "a") {
           {
@@ -141,6 +150,8 @@ export default [
     /* GraphQL */ `
     QueryPlan {
       Sequence {
+        # NOTE
+        # same story as in the test above 
         Fetch(service: "b") {
           {
             anotherUsers {
@@ -195,6 +206,9 @@ export default [
     },
     /* GraphQL */ `
     QueryPlan {
+      # NOTE
+      # Query.users is only available in subgraph A
+      # It can resolve only User objects, so we don't really have to do any extra calls
       Fetch(service: "a") {
         {
           users {
@@ -252,6 +266,16 @@ export default [
             }
           }
         },
+        # NOTE
+        # Oh, Kamil, you said we don't need to do extra calls as in case of Query.users!!!
+        # We do need to do extra calls here, but we do them only for the User objects,
+        # the reason are additional fields like "age" and "name".
+        #
+        # Super interesting thing here is also the fact that we don't resolve the "username" field directly.
+        # Not sure why is that... maybe to check if User exists? But that's not true in my opinion.
+        # In other tests we resolve the "username" field directly.
+        # I think the only difference is that it's a fragment and we resolve it only for User objects,
+        # and since an @interfaceObject cannot tell the __typename, we need to confirm it first.
         Flatten(path: "anotherUsers.@") {
           Fetch(service: "a") {
             {
@@ -504,6 +528,12 @@ export default [
             }
           }
         },
+        # NOTE
+        # Here's a proof to what I said before, that when there's a fragment involved,
+        # and a field could be resolved directly from the interfaceObject,
+        # we still need to resolve an object via entity call to get the __typename.
+        # Without __typename (@interfaceObject returns __typename: "<name of the interface>" so we can't rely on it)
+        # we don't know if "name" field should be resolved or not.
         Flatten(path: "accounts.@") {
           Fetch(service: "a") {
             {
@@ -545,6 +575,8 @@ export default [
       query {
         accounts {
           name
+          # NOTE
+          # __typename is not available in the interfaceObject, needs to be resolved indirectly
           __typename
         }
       }
@@ -717,6 +749,8 @@ export default [
     /* GraphQL */ `
       query {
         accounts {
+          # NOTE
+          # id is available in the interfaceObject and can be resolved as there's no type condition involved
           id
           ... on Admin {
             isActive

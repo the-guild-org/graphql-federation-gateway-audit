@@ -11,6 +11,7 @@ export default createSubgraph("b", {
 
     type Query {
       usersByType(type: UserType!): [User!]
+      usersB: [User!]
     }
 
     extend type User @key(fields: "id") {
@@ -27,6 +28,9 @@ export default createSubgraph("b", {
     Query: {
       usersByType(_: {}, { type }: { type: string }) {
         return users.filter((u) => u.type === type);
+      },
+      usersB() {
+        return users;
       },
     },
     User: {

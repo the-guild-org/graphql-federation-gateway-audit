@@ -32,6 +32,7 @@ export default createSubgraph("a", {
       name: String! @shareable
       address: Address @external
       city: String @requires(fields: "address { id }")
+      country: String @requires(fields: "address { ... on WorkAddress { id } }")
     }
   `,
   resolvers: {
@@ -46,16 +47,14 @@ export default createSubgraph("a", {
       },
     },
     User: {
-      __resolveReference(
-        key: { id: string } | { id: string; address: { id: string } }
-      ) {
+      __resolveReference(key: { id: string; address?: { id?: string } }) {
         const user = users.find((user) => user.id === key.id);
 
         if (!user) {
           return null;
         }
 
-        if ("address" in key) {
+        if (key.address?.id) {
           return {
             id: user.id,
             name: user.name,
@@ -73,6 +72,10 @@ export default createSubgraph("a", {
       city(user: { address: { id: string } }) {
         return addresses.find((address) => address.id === user.address.id)
           ?.city;
+      },
+      country(user: { address?: { id?: string } }) {
+        return addresses.find((address) => address.id === user?.address?.id)
+          ?.country;
       },
     },
     HomeAddress: {

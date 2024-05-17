@@ -33,6 +33,9 @@ export default [
           product {
             __typename
             samePriceProduct {
+              # NOTE
+              # ... on Product was removed
+              # it's the name of the interface and matches the type of the field
               __typename
               samePriceProduct {
                 __typename

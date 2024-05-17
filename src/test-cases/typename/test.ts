@@ -204,7 +204,10 @@ export default [
       Sequence {
         Fetch(service: "b") {
           {
+            # NOTE
+            # it starts here, with an @interfaceObject
             users {
+              # @interfaceObject cannot resolve correct __typename as it's an object type that mimics an interface
               __typename
               id
             }
@@ -220,6 +223,8 @@ export default [
             } =>
             {
               ... on User {
+                # NOTE
+                # that's why it needs to be resolved in subgraph A (via entity call), in the actual object type
                 __typename
               }
             }

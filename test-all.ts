@@ -85,10 +85,25 @@ function normalizePlan(plan: string | undefined | null) {
     return null;
   }
 
-  return stripIndent(
+  const normalizedPlan = stripIndent(
     plan
       .split("\n")
+      .map((line) => {
+        // remove comments
+        if (line.includes("#")) {
+          return line.split("#")[0].trimEnd();
+        }
+
+        return line;
+      })
       .filter((line) => line.trim() !== "")
       .join("\n")
   );
+
+  // In case we have only comments
+  if (normalizedPlan.trim() === "") {
+    return null;
+  }
+
+  return normalizedPlan;
 }

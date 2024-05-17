@@ -27,6 +27,11 @@ export default createSubgraph("b", {
       city: String @shareable
     }
 
+    type SecondAddress implements Address @key(fields: "id") {
+      id: ID!
+      city: String @shareable
+    }
+
     type User @key(fields: "id") {
       id: ID!
       name: String! @shareable
