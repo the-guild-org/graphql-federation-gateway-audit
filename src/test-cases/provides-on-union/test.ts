@@ -36,6 +36,9 @@ export default [
             __typename
             ... on Book {
               id
+              # NOTE
+              # Book.title is provided by Query.media in subgraph B
+              # so there's no need to do any extra fetching.
               title
             }
             ... on Movie {
@@ -85,10 +88,13 @@ export default [
               __typename
               ... on Book {
                 id
+                # NOTE
+                # Book.title is provided by Query.media in subgraph B
                 title
               }
               ... on Movie {
                 __typename
+                # Movie.title is not available in subgraph B
                 id
               }
             }
@@ -104,6 +110,7 @@ export default [
             } =>
             {
               ... on Movie {
+                # so we fetch Movie.title from subgraph C
                 title
               }
             }
