@@ -57,6 +57,8 @@ export default [
             id
             name
             ... on Cat {
+              # NOTE
+              # Cat.age is resolvable only by subgraph C
               age
             }
           }
@@ -94,6 +96,10 @@ export default [
                 id
                 name
               }
+              # NOTE
+              # To get from subgraph B to Cat.age in subgraph C
+              # (where Cat is not an entity type there),
+              # we need to fetch it through it's parent entity type (Book).
               ... on Book {
                 __typename
                 id
@@ -114,6 +120,8 @@ export default [
                 animals {
                   __typename
                   ... on Cat {
+                    # NOTE
+                    # Here we get Cat.age from subgraph C
                     age
                   }
                 }
