@@ -24,6 +24,7 @@ export default [
     },
     /* GraphQL */ `
     QueryPlan {
+      # NOTE
       # What's interesting here is that the most efficient way to fetch the data
       # is to make parallel calls to Query.products in each service.
       # Each service has a different field that it can provide.

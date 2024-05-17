@@ -23,6 +23,7 @@ export default [
         Fetch(service: "a") {
           {
             media {
+              # NOTE
               # Query.media returns an intersection of Media union from A and B subgraphs 
               # Movie is only available in subgraph B
               # Query planner could remove Movie from the query, but then the selection set would be empty.
@@ -169,6 +170,7 @@ export default [
       Fetch(service: "a") {
         {
           song {
+            # NOTE
             # Query.song is only resolved in subgraph A
             # Media = Book | Song in subgraph A
             # Movie was removed from the query as it cannot be resolved by Query.song
@@ -182,6 +184,7 @@ export default [
           }
           media {
             __typename
+            # NOTE
             # Movie and Song was removed from the query
             # The only type that is common to Query.media in all subgraphs is Book
             ... on Book {
@@ -189,6 +192,7 @@ export default [
             }
           }
           book {
+            # NOTE
             # Query.book resolves Book, not an abstract type, in subgraph A
             # Query.book resolves Media = Book | Movie in subgraph B
             # The only possible type here is Book

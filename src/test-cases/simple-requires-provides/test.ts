@@ -66,6 +66,7 @@ export default [
           }
         },
         Flatten(path: "me") {
+          # NOTE
           # Nothing really interesting here, just fetching User.reviews.id, because subgraph Accounts could not provide it.
           Fetch(service: "reviews") {
             {
@@ -139,7 +140,9 @@ export default [
           {
             me {
               __typename
-              id  # This is required in order to resolve the User.reviews.* fields
+              # NOTE
+              # This is required in order to resolve the User.reviews.* fields
+              id
             }
           }
         },
@@ -161,7 +164,9 @@ export default [
                   }
                   product {
                     __typename
-                    upc # upc is a key field of Product in subgraph Inventory
+                    # NOTE
+                    # upc is a key field of Product in subgraph Inventory
+                    upc
                   }
                 }
               }
@@ -178,7 +183,9 @@ export default [
             } =>
             {
               ... on Product {
-                inStock # it's available only in Inventory
+                # NOTE
+                # it's available only in Inventory
+                inStock
               }
             }
           },
@@ -278,6 +285,7 @@ export default [
           {
             products {
               __typename
+              # NOTE
               upc # upc is a key field of Product in subgraph Inventory
               price # price is required to calculate shippingEstimate
               weight # weight is required to calculate shippingEstimate
@@ -296,7 +304,9 @@ export default [
             } =>
             {
               ... on Product {
-                shippingEstimate # got them all!
+                # NOTE
+                # got them all!
+                shippingEstimate
               }
             }
           },
@@ -423,6 +433,7 @@ export default [
           {
             products {
               __typename
+              # NOTE
               # We need to fetch Product.reviews.* fields from Reviews
               # upc is a key field of Product in subgraph Reviews
               upc
@@ -453,6 +464,7 @@ export default [
             }
           },
         },
+        # NOTE
         # we got Product.upc from Reviews, now we can fetch name, price and weight from Products subgraph
         # as it's needed to resolve shippingEstimate
         Flatten(path: "products.@.reviews.@.product") {

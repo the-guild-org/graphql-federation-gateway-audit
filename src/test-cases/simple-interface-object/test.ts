@@ -32,6 +32,7 @@ export default [
       Sequence {
         Fetch(service: "b") {
           {
+            # NOTE
             # id and username are available in the NodeWithName interfaceObject in subgraph B
             # but we still need to resolve the name field.
             anotherUsers {
@@ -42,6 +43,7 @@ export default [
           }
         },
         Flatten(path: "anotherUsers.@") {
+          # NOTE
           # We call subgraph A to resolve an object type based on "id" field.
           # What's interesting here is that we trigger "__resolveReference" for NodeWithName
           # and that's an interface... weird but hey, it is what it is.
@@ -92,6 +94,7 @@ export default [
     },
     /* GraphQL */ `
     QueryPlan {
+      # NOTE
       # same story as in the test above 
       Sequence {
         Fetch(service: "a") {
@@ -147,6 +150,7 @@ export default [
     /* GraphQL */ `
     QueryPlan {
       Sequence {
+        # NOTE
         # same story as in the test above 
         Fetch(service: "b") {
           {
@@ -202,6 +206,7 @@ export default [
     },
     /* GraphQL */ `
     QueryPlan {
+      # NOTE
       # Query.users is only available in subgraph A
       # It can resolve only User objects, so we don't really have to do any extra calls
       Fetch(service: "a") {
@@ -261,6 +266,7 @@ export default [
             }
           }
         },
+        # NOTE
         # Oh, Kamil, you said we don't need to do extra calls as in case of Query.users!!!
         # We do need to do extra calls here, but we do them only for the User objects,
         # the reason are additional fields like "age" and "name".
@@ -522,6 +528,7 @@ export default [
             }
           }
         },
+        # NOTE
         # Here's a proof to what I said before, that when there's a fragment involved,
         # and a field could be resolved directly from the interfaceObject,
         # we still need to resolve an object via entity call to get the __typename.
@@ -568,7 +575,9 @@ export default [
       query {
         accounts {
           name
-          __typename # __typename is not available in the interfaceObject, needs to be resolved indirectly
+          # NOTE
+          # __typename is not available in the interfaceObject, needs to be resolved indirectly
+          __typename
         }
       }
     `,
@@ -740,7 +749,9 @@ export default [
     /* GraphQL */ `
       query {
         accounts {
-          id # id is available in the interfaceObject and can be resolved as there's no type condition involved
+          # NOTE
+          # id is available in the interfaceObject and can be resolved as there's no type condition involved
+          id
           ... on Admin {
             isActive
           }

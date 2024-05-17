@@ -35,6 +35,7 @@ export default [
         {
           products {
             __typename
+            # NOTE
             # not sure to be honest why it converts ...Node to ...Over and ...Toaster
             ... on Oven {
               id
@@ -79,6 +80,7 @@ export default [
         {
           nodes {
             __typename
+            # NOTE
             # It drops ...Over from the query as it does not implement Node interface in subgraph A
             # and Query.nodes resolves [Node]
             ... on Toaster {
@@ -160,6 +162,7 @@ export default [
       Fetch(service: "a") {
         {
           toasters {
+            # NOTE
             # It merges selection sets from fragments
             # to optimize the payload size I guess
             __typename
@@ -191,6 +194,7 @@ export default [
       Fetch(service: "a") {
         {
           node(id: "oven1") {
+            # NOTE
             # It knows that Over is not implemented in subgraph A
             # but it still sends the query to subgraph A.
             # Not sure why it does that, it could be prevented by the gateway.
