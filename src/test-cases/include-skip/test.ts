@@ -26,6 +26,12 @@ export default [
               __typename
               id
               price
+              # NOTE
+              # Query planner cannot be sure if $bool is true or false
+              # so it's kept in the plan
+              # In order to get Product.neverCalledInclude,
+              # that requires Product.isExpensive field,
+              # it needs to fetch "price" first
               ... on Product @include(if: $bool) {
                 __typename
                 id
@@ -34,6 +40,11 @@ export default [
             }
           }
         },
+        # NOTE
+        # Interesting thing is that the query planner moves @include on top of the Sequence.
+        # It makes the plan conditional on the value of $bool.
+        # The execution engine will not execute the Sequence if $bool is false.
+        # It's a nice feature, makes the plan easy to read and understand.
         Include(if: $bool) {
           Sequence {
             Flatten(path: "product") {
