@@ -51,6 +51,10 @@ export default [
     QueryPlan {
       Fetch(service: "products") {
         {
+          # NOTE
+          # All fields are available in the interface
+          # and there are no type conditions
+          # so the entire query can be resolved in a single fetch
           products {
             __typename
             id
@@ -88,6 +92,8 @@ export default [
       Fetch(service: "products") {
         {
           similar(id: "p1") {
+            # NOTE
+            # No type conditions, all fields are available in the interface
             __typename
             id
             sku
@@ -151,6 +157,12 @@ export default [
               __typename
               id
               sku
+              # NOTE
+              # In order to resolve Product.delivery,
+              # we need to know the __typename.
+              # There's no type condition in the query, but Product.delivery
+              # cannot be resolved by Product alone, as Product interface has no @key directive,
+              # so you need to know the concrete type and make entity calls to the concrete types.
               ... on Book {
                 __typename
                 id
@@ -321,11 +333,17 @@ export default [
       Fetch(service: "products") {
         {
           products {
+            # NOTE
+            # ... on Product { sku } was deduplicated
+            # because "sku" was already requested.
             __typename
             sku
+            # NOTE
+            # ... on Book also be removed
             ... on Book {
               sku
             }
+            # ... on Magazine also be removed
             ... on Magazine {
               sku
             }
@@ -491,6 +509,12 @@ export default [
             products {
               __typename
               id
+              # NOTE
+              # Same story as in one of the previous examples.
+              # Product.reviews is an interface field,
+              # but because Product is not an entity interface,
+              # we can't resolve fields on it.
+              # We need to know the concrete type and make entity calls to the concrete types.
               ... on Book {
                 __typename
                 id
@@ -645,6 +669,12 @@ export default [
             products {
               __typename
               id
+              # NOTE
+              # Same story as in one of the previous examples.
+              # Product.reviews is an interface field,
+              # but because Product is not an entity interface,
+              # we can't resolve fields on it.
+              # We need to know the concrete type and make entity calls to the concrete types.
               ... on Book {
                 __typename
                 id
