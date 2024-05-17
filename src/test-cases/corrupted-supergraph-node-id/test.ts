@@ -10,12 +10,17 @@ export default [
       }
     `,
     {
-      // Query.node/a cannot resolve Chat.id, because it's @external
-      // Query.node/b cannot resolve Account.id, because it's @external
-      // Supergraph is composed of a and b, but it's simply impossible to resolve the query.
       errors: true,
       data: null,
-    }
+    },
+    /* GraphQL */ `
+      # NOTE
+      # The query planner fails to find a resolvable query path to the Query.node.id.
+      # Query.node in subgraph A can't resolve Chat.id, because it's @external
+      # Query.node in subgraph B can't resolve Account.id, because it's @external
+      # Supergraph was composed by the composition library, but it's impossible to resolve the query.
+      # A query planner should be able to detect this and return an error.
+    `
   ),
   createTest(
     /* GraphQL */ `
