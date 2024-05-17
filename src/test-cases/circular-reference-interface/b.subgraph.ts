@@ -14,6 +14,7 @@ export default createSubgraph("b", {
       price: Float @shareable
     }
   `,
+
   resolvers: {
     Book: {
       __resolveReference(key: { id: string }) {
