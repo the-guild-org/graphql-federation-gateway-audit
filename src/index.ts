@@ -35,6 +35,7 @@ import typename from "./test-cases/typename";
 import unionInterfaceDistributed from "./test-cases/union-interface-distributed";
 import mutations from "./test-cases/mutations";
 import abstractTypes from "./test-cases/abstract-types";
+import fed1ExternalExtendsResolvable from "./test-cases/fed1-external-extends-resolvable";
 import { Env } from "./env";
 
 const testCases = [
@@ -68,6 +69,7 @@ const testCases = [
   fed2ExternalExtends,
   fed1ExternalExtension,
   fed2ExternalExtension,
+  fed1ExternalExtendsResolvable,
   parentEntityCall,
   parentEntityCallComplex,
   sharedRoot,
