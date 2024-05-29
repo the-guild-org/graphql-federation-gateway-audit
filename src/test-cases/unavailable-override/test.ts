@@ -23,7 +23,7 @@ export default [
     },
     /* GraphQL */ `
     QueryPlan {
-      Fetch(service: "b") {
+      Fetch(service: "a") {
         {
           feed {
             createdAt
@@ -61,33 +61,12 @@ export default [
     /* GraphQL */ `
     QueryPlan {
       Parallel {
-        Sequence {
-          Fetch(service: "a") {
-            {
-              aFeed {
-                __typename
-                id
-              }
+        Fetch(service: "a") {
+          {
+            aFeed {
+              createdAt
             }
-          },
-          # NOTE
-          # Query.aFeed started in subgraph A, and Post.createdAt is available in subgraph A,
-          # but instead of fetching it from A, it is fetched from B as B overrides Post.createdAt for A.
-          Flatten(path: "aFeed.@") {
-            Fetch(service: "b") {
-              {
-                ... on Post {
-                  __typename
-                  id
-                }
-              } =>
-              {
-                ... on Post {
-                  createdAt
-                }
-              }
-            },
-          },
+          }
         },
         Fetch(service: "b") {
           {

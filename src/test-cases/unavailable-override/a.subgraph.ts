@@ -41,9 +41,6 @@ export default createSubgraph("a", {
           createdAt: post.createdAt,
         };
       },
-      createdAt() {
-        return "NEVER";
-      },
     },
   },
 });
