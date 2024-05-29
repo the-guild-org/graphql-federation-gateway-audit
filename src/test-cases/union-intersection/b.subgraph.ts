@@ -12,9 +12,11 @@ export default createSubgraph("b", {
     type Query {
       media: Media @shareable
       book: Media @shareable
+      viewer: Viewer @shareable
     }
 
     union Media = Book | Movie
+    union ViewerMedia = Book | Movie
 
     type Movie {
       title: String! @shareable
@@ -23,11 +25,22 @@ export default createSubgraph("b", {
     type Book {
       title: String! @shareable
     }
+
+    type Viewer {
+      media: ViewerMedia @shareable
+      book: ViewerMedia @shareable
+    }
   `,
   resolvers: {
     Query: {
       media: () => media,
       book: () => media,
+      viewer: () => {
+        return {
+          media,
+          book: media,
+        };
+      },
     },
   },
 });
