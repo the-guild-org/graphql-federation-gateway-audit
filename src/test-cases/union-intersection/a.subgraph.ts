@@ -10,6 +10,7 @@ export default createSubgraph("a", {
       )
 
     union Media = Book | Song
+    union ViewerMedia = Book | Song
 
     type Book {
       title: String! @shareable
@@ -23,6 +24,13 @@ export default createSubgraph("a", {
       media: Media @shareable
       book: Book @shareable
       song: Media @shareable
+      viewer: Viewer @shareable
+    }
+
+    type Viewer {
+      media: ViewerMedia @shareable
+      book: Book @shareable
+      song: ViewerMedia @shareable
     }
   `,
   resolvers: {
@@ -33,6 +41,16 @@ export default createSubgraph("a", {
         return {
           __typename: "Song",
           title: "Song Title",
+        };
+      },
+      viewer: () => {
+        return {
+          media: media,
+          book: media,
+          song: {
+            __typename: "Song",
+            title: "Song Title",
+          },
         };
       },
     },
