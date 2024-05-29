@@ -11,7 +11,7 @@ export default createSubgraph("b", {
 
     type Post @key(fields: "id") {
       id: ID!
-      createdAt: String! @override(from: "non-existing") @shareable
+      createdAt: String! @override(from: "a") @shareable
     }
 
     type Query {
