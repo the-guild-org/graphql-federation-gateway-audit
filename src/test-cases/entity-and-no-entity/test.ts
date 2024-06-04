@@ -77,6 +77,10 @@ export default [
                 name
               }
               ... on Admin {
+                # NOTE:
+                # User.id and Admin.id have similar output types,
+                # but one returns a non-nullable field and the other a nullable field.
+                # To avoid a GraphQL error, we need to alias the field.
                 id__alias_0: id
                 photo
               }
