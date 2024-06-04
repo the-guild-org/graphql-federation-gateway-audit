@@ -11,6 +11,7 @@ export default createSubgraph("price", {
 
     type Query {
       product: Product @shareable
+      products: [Product] @shareable
     }
 
     type Product @key(fields: "id") {
@@ -25,6 +26,14 @@ export default createSubgraph("price", {
           id: product.id,
           price: product.price,
         };
+      },
+      products() {
+        return [
+          {
+            id: product.id,
+            price: product.price,
+          },
+        ];
       },
     },
     Product: {
