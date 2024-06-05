@@ -36,6 +36,7 @@ import unionInterfaceDistributed from "./test-cases/union-interface-distributed"
 import mutations from "./test-cases/mutations";
 import abstractTypes from "./test-cases/abstract-types";
 import fed1ExternalExtendsResolvable from "./test-cases/fed1-external-extends-resolvable";
+import resolvedObjectInResolveRef from "./test-cases/resolved-object-in-resolve-ref";
 import { Env } from "./env";
 
 const testCases = [
@@ -76,6 +77,7 @@ const testCases = [
   includeSkip,
   circularReferenceInterface,
   typename,
+  resolvedObjectInResolveRef,
 ];
 
 function routerFetch(
