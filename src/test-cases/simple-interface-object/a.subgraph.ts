@@ -95,6 +95,10 @@ export default createSubgraph("a", {
           return null;
         }
 
+        if (admin.__typename !== "Admin") {
+          return null;
+        }
+
         return {
           __typename: admin.__typename,
           id: admin.id,
