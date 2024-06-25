@@ -1,6 +1,12 @@
 import { createSubgraph } from "../../subgraph";
-
 import { users } from "./data";
+
+function accounts() {
+  return [
+    ...users.map((user) => ({ __typename: "User", ...user })),
+    { __typename: "Admin", id: "a1", name: "a1-name" },
+  ];
+}
 
 export default createSubgraph("b", {
   typeDefs: /* GraphQL */ `
@@ -15,11 +21,13 @@ export default createSubgraph("b", {
     type User @key(fields: "id") {
       id: ID!
       name: String
+      similarAccounts: [Account!]!
     }
 
     type Admin {
       id: ID
-      photo: String @shareable
+      name: String @shareable
+      similarAccounts: [Account!]!
     }
 
     type Query {
@@ -28,17 +36,16 @@ export default createSubgraph("b", {
   `,
   resolvers: {
     Query: {
-      accounts() {
-        return [
-          ...users.map((user) => ({ __typename: "User", ...user })),
-          { __typename: "Admin", id: "a1", photo: "a1-photo" },
-        ];
-      },
+      accounts,
     },
     User: {
       __resolveReference(key: { id: string }) {
         return users.find((user) => user.id === key.id);
       },
+      similarAccounts: accounts,
+    },
+    Admin: {
+      similarAccounts: accounts,
     },
   },
 });
