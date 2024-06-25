@@ -3,7 +3,7 @@ import { createTest } from "../../test";
 export default [
   createTest(
     /* GraphQL */ `
-      query {
+      {
         users {
           id
           name
@@ -15,7 +15,7 @@ export default [
           }
           ... on Admin {
             id
-            photo
+            name
           }
         }
       }
@@ -24,18 +24,18 @@ export default [
       data: {
         users: [
           {
-            id: "n1",
-            name: "n1-profile",
+            id: "u1",
+            name: "u1-name",
           },
         ],
         accounts: [
           {
-            id: "n1",
-            name: "n1-profile",
+            id: "u1",
+            name: "u1-name",
           },
           {
             id: "a1",
-            photo: "a1-photo",
+            name: "a1-name",
           },
         ],
       },
@@ -82,7 +82,7 @@ export default [
                 # but one returns a non-nullable field and the other a nullable field.
                 # To avoid a GraphQL error, we need to alias the field.
                 id__alias_0: id
-                photo
+                name
               }
             }
           }
