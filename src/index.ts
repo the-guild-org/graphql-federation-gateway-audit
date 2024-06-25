@@ -13,7 +13,7 @@ import simpleInaccessible from "./test-cases/simple-inaccessible";
 import enumIntersection from "./test-cases/enum-intersection";
 import inputObjectIntersection from "./test-cases/input-object-intersection";
 import requiresWithFragments from "./test-cases/requires-with-fragments";
-import entityAndNoEntity from "./test-cases/entity-and-no-entity";
+import childTypeMismatch from "./test-cases/child-type-mismatch";
 import nonResolvableInterfaceObject from "./test-cases/non-resolvable-interface-object";
 import interfaceObjectWithRequires from "./test-cases/interface-object-with-requires";
 import requiresInterface from "./test-cases/requires-interface";
@@ -63,7 +63,7 @@ const testCases = [
   interfaceObjectWithRequires,
   overrideWithRequiresTestCase,
   requiresRequires,
-  entityAndNoEntity,
+  childTypeMismatch,
   nonResolvableInterfaceObject,
   fed1ExternalExtends,
   fed2ExternalExtends,
