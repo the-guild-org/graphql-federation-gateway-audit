@@ -1,0 +1,1 @@
+curl -sSL https://router.apollo.dev/download/nix/v1.51.0 | sh
