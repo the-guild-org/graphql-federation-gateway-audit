@@ -1,7 +1,0 @@
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  1944  100  1944    0     0  27622      0 --:--:-- --:--:-- --:--:-- 27380
-2024-07-21T20:01:58.469880Z  INFO Grafbase Gateway 0.6.1
-2024-07-21T20:01:58.475694Z  INFO GraphQL endpoint exposed at http://127.0.0.1:4000/graphql
-2024-07-21T20:01:59.582219Z ERROR gateway{http.request.method="POST" http.header.user_agent="node" server.address="127.0.0.1:4000" url.path="/graphql"}:graphql{otel.name="graphql" gql.operation.name="usersInA" otel.name="usersInA" gql.operation.query="query {\n  usersInA(filter: {}) {\n    id\n  }\n}\n" gql.operation.type="query" gql.response.status="REQUEST_ERROR" gql.response.request_errors_count=1}: Input object UsersFilter does not have a field named 'offset'
-2024-07-21T20:01:59.584766Z ERROR gateway{http.request.method="POST" http.header.user_agent="node" server.address="127.0.0.1:4000" url.path="/graphql"}:graphql{otel.name="graphql" gql.operation.name="usersInB" otel.name="usersInB" gql.operation.query="query {\n  usersInB(filter: {}) {\n    id\n  }\n}\n" gql.operation.type="query" gql.response.status="REQUEST_ERROR" gql.response.request_errors_count=1}: Input object UsersFilter does not have a field named 'offset'
