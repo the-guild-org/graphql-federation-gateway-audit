@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# I took their install script and modified it to download the gateway binary
+# to the current directory instead of /usr/local/bin
+
 VERSION="0.6.1"
 
 error() {

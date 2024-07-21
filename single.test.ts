@@ -4,24 +4,22 @@ import { diff } from "jest-diff";
 import { test } from "node:test";
 import { deepStrictEqual } from "node:assert";
 
-const TEST_CASE_URL = process.env.TEST_CASE_URL;
-const GATEWAY_URL = process.env.GATEWAY_URL;
+const TESTS_ENDPOINT = process.env.TESTS_ENDPOINT;
+const GRAPHQL_ENDPOINT = process.env.GRAPHQL_ENDPOINT;
 
-assert(TEST_CASE_URL, "TEST_CASE_URL is required");
-assert(GATEWAY_URL, "GATEWAY_URL is required");
+assert(TESTS_ENDPOINT, "TESTS_ENDPOINT is required");
+assert(GRAPHQL_ENDPOINT, "GRAPHQL_ENDPOINT is required");
 
-const testsEndpoint = `${TEST_CASE_URL}/tests`;
-
-console.log(`Using gateway at     ${GATEWAY_URL}`);
-console.log(`Fetching tests from  ${testsEndpoint}`);
+console.log(`Using gateway at     ${GRAPHQL_ENDPOINT}`);
+console.log(`Fetching tests from  ${TESTS_ENDPOINT}`);
 console.log(`\n`);
 
-const tests = await fetchTests(testsEndpoint);
+const tests = await fetchTests(TESTS_ENDPOINT);
 
 let index = 0;
 for (const { query, expected: expectedResult, plan: expectedPlan } of tests) {
   test(`${index++}`, async () => {
-    const response = await graphql(GATEWAY_URL, query);
+    const response = await graphql(GRAPHQL_ENDPOINT, query);
 
     const received = {
       data: response.data ?? null,

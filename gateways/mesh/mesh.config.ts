@@ -1,3 +1,3 @@
 export const serveConfig = {
-  supergraph: "supergraph.graphql",
+  supergraph: "./supergraph.graphql",
 };

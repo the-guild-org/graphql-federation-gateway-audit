@@ -2,6 +2,9 @@
 
 set -u
 
+# Cosmo has no install.sh script, so I took the install.sh script from the router gateway 
+# and modified it to download the Cosmo binary instead of the router binary
+
 BINARY_DOWNLOAD_PREFIX="https://github.com/wundergraph/cosmo/releases/download"
 
 DOWNLOAD_VERSION="0.97.0"

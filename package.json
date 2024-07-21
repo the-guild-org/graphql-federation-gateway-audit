@@ -8,6 +8,7 @@
     "gateway:once": "node --import tsx/esm ./gateway.ts",
     "test": "tsx ./test-all.ts",
     "test-single": "node --import tsx/esm --test --test-concurrency=1 --test-reporter=dot --test-reporter-destination=single.test.log --test-reporter=spec --test-reporter-destination=stdout ./single.test.ts",
+    "summary": "tsx ./summary.ts",
     "deploy": "wrangler deploy --minify src/index.ts"
   },
   "dependencies": {
