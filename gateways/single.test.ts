@@ -1,5 +1,5 @@
 import { ExecutionResult } from "graphql";
-import { fetchTests } from "./src/test";
+import { fetchTests } from "../src/test";
 import { diff } from "jest-diff";
 import { test } from "node:test";
 import { deepStrictEqual } from "node:assert";

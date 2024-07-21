@@ -7,8 +7,7 @@
     "gateway": "node --import tsx/esm --watch --watch-path=./src --watch-path=./gateway.ts ./gateway.ts",
     "gateway:once": "node --import tsx/esm ./gateway.ts",
     "test": "tsx ./test-all.ts",
-    "test-single": "node --import tsx/esm --test --test-concurrency=1 --test-reporter=dot --test-reporter-destination=single.test.log --test-reporter=spec --test-reporter-destination=stdout ./single.test.ts",
-    "summary": "tsx ./summary.ts",
+    "test-single": "node --import tsx/esm --test --test-concurrency=1 --test-reporter=dot --test-reporter-destination=single.test.log --test-reporter=spec --test-reporter-destination=stdout ./gateways/single.test.ts",
     "deploy": "wrangler deploy --minify src/index.ts"
   },
   "dependencies": {
