@@ -61,7 +61,7 @@ jobs:
 
       - name: gateways
         working-directory: gateways
-        run: make test-all
+        run: make test-all BASE_URL="http://localhost:4200"
 
       - name: summary
         run: cat gateways/summary.txt
