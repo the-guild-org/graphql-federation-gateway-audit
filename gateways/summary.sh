@@ -42,7 +42,7 @@ for filepath in $result_files; do
   fi
 
   # Append to the summary string
-  summary+="$gateway: $rate% $success/$total"$'\n'
+  summary+="$gateway\n$rate% $success/$total"$'\n\n'
 done
 
 # Write summary to summary.txt

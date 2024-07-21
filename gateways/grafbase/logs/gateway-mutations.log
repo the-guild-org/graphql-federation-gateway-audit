@@ -1,0 +1,5 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2592  100  2592    0     0   8027      0 --:--:-- --:--:-- --:--:--  8049
+2024-07-21T20:02:01.916252Z  INFO Grafbase Gateway 0.6.1
+2024-07-21T20:02:01.922146Z  INFO GraphQL endpoint exposed at http://127.0.0.1:4000/graphql

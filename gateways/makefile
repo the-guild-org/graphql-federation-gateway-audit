@@ -1,29 +1,25 @@
-BASE_URL := $(or $(BASE_URL),$(error BASE_URL is not set))
-
 install:
-	@for dir in ./gateways/*; do \
+	@for dir in ./*; do \
 		if [ -d $$dir ]; then \
 			echo "Installing $$dir"; \
 			(cd $$dir && ./install.sh); \
+			echo "\n"; \
 		fi; \
 	done
 
 test-cosmo:
-	(cd ./gateways && ./run-all.sh $(BASE_URL) cosmo http://127.0.0.1:4000/graphql http://127.0.0.1:4000/health)
+	./run-all.sh $(BASE_URL) cosmo http://127.0.0.1:4000/graphql http://127.0.0.1:4000/health 5s
 
 test-grafbase:
-	(cd ./gateways && ./run-all.sh $(BASE_URL) grafbase http://127.0.0.1:4000/graphql http://127.0.0.1:4000/health)
+	./run-all.sh $(BASE_URL) grafbase http://127.0.0.1:4000/graphql http://127.0.0.1:4000/health 5s
 
 test-mesh:
-	(cd ./gateways && ./run-all.sh $(BASE_URL) mesh http://127.0.0.1:4000/graphql http://127.0.0.1:4000/readiness)
+	./run-all.sh $(BASE_URL) mesh http://127.0.0.1:4000/graphql http://127.0.0.1:4000/healthcheck 30s
 
 test-router:
-	@echo "BASE_URL is: $(BASE_URL)"
-	(cd ./gateways && ./run-all.sh $(BASE_URL) router http://127.0.0.1:4000/ http://127.0.0.1:8088/health)
+	./run-all.sh $(BASE_URL) router http://127.0.0.1:4000/ http://127.0.0.1:8088/health 5s
 
-test-all: test-router test-mesh test-grafbase test-cosmo
+test-all: test-router test-mesh test-grafbase test-cosmo summary
 
-	
-	
-	
-
+summary:
+	./summary.sh

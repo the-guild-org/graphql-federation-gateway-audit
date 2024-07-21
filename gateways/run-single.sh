@@ -10,6 +10,8 @@ GATEWAY=$3
 GRAPHQL_ENDPOINT=$4
 # http://127.0.0.1:4000/health
 GATEWAY_HEALTH_CHECK=$5
+# 10s
+TIMEOUT=$6
 
 echo "
 Test suite id:
@@ -23,6 +25,12 @@ Gateway:
   
 GraphQL endpoint:
   $GRAPHQL_ENDPOINT
+
+Gateway health check:
+  $GATEWAY_HEALTH_CHECK
+
+Timeout:
+  $TIMEOUT
 
 "
 
@@ -45,13 +53,15 @@ TESTS_ENDPOINT="$BASE_URL/$TEST_SUITE_ID/tests"
 
 echo "Starting gateway..."
 cd "./$GATEWAY"
-nohup ./run.sh $SUPERGRAPH_URL > gateway-$TEST_SUITE_ID.log 2>&1 &
+mkdir -p "logs"
+nohup ./run.sh $SUPERGRAPH_URL > logs/gateway-$TEST_SUITE_ID.log 2>&1 &
 run_sh_pid=$!
 
 echo "Waiting for gateway to start..."
-npx --yes wait-on $GATEWAY_HEALTH_CHECK --timeout 30s --httpTimeout 500ms --delay 5000
+npx --yes wait-on $GATEWAY_HEALTH_CHECK --timeout $TIMEOUT --httpTimeout 500ms --verbose
 echo "Gateway started"
 
+# Back to root directory
 cd ../..
 echo "Running tests..."
 export TESTS_ENDPOINT
@@ -60,8 +70,8 @@ npm run test-single || echo "Tests failed"
 
 echo "Test suite complete"
 
-echo "$TEST_SUITE_ID" >> "results_$GATEWAY.txt"
+echo "$TEST_SUITE_ID" >> "gateways/results_$GATEWAY.txt"
 # append first line (dot reporter) of single.test.log
-head -n 1 ./single.test.log >> "results_$GATEWAY.txt"
+head -n 1 ./single.test.log >> "gateways/results_$GATEWAY.txt"
 
 cleanup
