@@ -35,6 +35,37 @@ jobs:
       - name: test
         run: npm run test
 
+  gateways:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.4
+          cache: "npm"
+
+      - name: install
+        run: |
+          npm ci
+          (cd gateways && make install)
+
+      - name: subgraphs
+        run: |
+          npm run dev &
+          npx wait-on http-get://localhost:4200/_health --timeout 5s --verbose
+
+      - name: gateways
+        working-directory: gateways
+        run: make test-all
+
+      - name: summary
+        run: cat gateways/summary.txt
+
   deploy:
     runs-on: ubuntu-latest
     name: Deploy
