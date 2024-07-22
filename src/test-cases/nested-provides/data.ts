@@ -1,5 +1,3 @@
-export const punishPoorPlans = true;
-
 export const products = [
   {
     id: "p1",

@@ -45,7 +45,7 @@ X
 provides-on-interface
 ..
 provides-on-union
-XX
+..
 requires-interface
 ..X..
 requires-requires

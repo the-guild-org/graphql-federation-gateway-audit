@@ -1,5 +1,5 @@
 import { createSubgraph } from "../../subgraph";
-import { product, punishPoorPlans } from "./data";
+import { product } from "./data";
 
 export default createSubgraph("price", {
   typeDefs: /* GraphQL */ `

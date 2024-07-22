@@ -33,7 +33,12 @@ test-router:
 run-router:
 	(cd router && ./run.sh "$(BASE_URL)/$(TEST)/supergraph")
 
-test-all: test-router test-mesh test-grafbase test-cosmo summary
+test-router-new:
+	./run-all.sh $(BASE_URL) router http://127.0.0.1:4000/ http://127.0.0.1:8088/health 5s $(TESTS)
+run-router-new:
+	(cd router-new && ./run.sh "$(BASE_URL)/$(TEST)/supergraph")
+
+test-all: test-router test-router-new test-mesh test-grafbase test-cosmo summary
 
 summary:
 	./summary.sh
