@@ -12,6 +12,8 @@ IFS=',' read -r -a TEST_SUITES_TO_RUN <<< "$TEST_SUITES_TO_RUN_RAW"
 
 # create a new file to store the test results
 rm -rf "./results_$GATEWAY.txt"
+# Kill any process running on port 4000
+# Make it available for the gateway
 lsof -t -i tcp:4000 | xargs kill
 
 cleanup() {

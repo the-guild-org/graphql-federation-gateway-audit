@@ -41,6 +41,8 @@ cleanup() {
     kill -s TERM "$run_sh_pid" 2>/dev/null
   fi
   wait "$run_sh_pid" 2>/dev/null
+  # Kill any process running on port 4000
+  # Make it available for the gateway
   lsof -t -i tcp:4000 | xargs kill
   echo "Cleanup complete"
 }
