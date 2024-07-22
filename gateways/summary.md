@@ -1,14 +1,16 @@
+
 # Compatibility Results
 
 ## Summary
 
 |  Gateway   | Compatibility | Success/Failure |
 | :--------: | :-----------: | :-------------: |
-|   router   |     100%      |     160/160     |
-| router-new |      96%      |     153/160     |
-|    mesh    |      96%      |     153/160     |
-|   cosmo    |      63%      |     100/160     |
-|  grafbase  |      46%      |     74/160      |
+| router | 100% | 160/160 |
+| router-new | 96% | 153/160 |
+| mesh | 96% | 153/160 |
+| cosmo | 63% | 100/160 |
+| grafbase | 46% | 74/160 |
+
 
 ## Detailed Results
 
@@ -29,7 +31,6 @@ You can look at the full list of tests [here](../src/test-cases/). Every test id
 
 ### router
 
-<summary>
 <details>
 <pre>
 abstract-types
@@ -108,11 +109,10 @@ union-intersection
 ........
 </pre>
 </details>
-</summary>
+
 
 ### router-new
 
-<summary>
 <details>
 <pre>
 abstract-types
@@ -191,11 +191,10 @@ union-intersection
 ........
 </pre>
 </details>
-</summary>
+
 
 ### mesh
 
-<summary>
 <details>
 <pre>
 abstract-types
@@ -274,11 +273,10 @@ union-intersection
 ........
 </pre>
 </details>
-</summary>
+
 
 ### cosmo
 
-<summary>
 <details>
 <pre>
 abstract-types
@@ -357,11 +355,10 @@ union-intersection
 XXXXXXXX
 </pre>
 </details>
-</summary>
+
 
 ### grafbase
 
-<summary>
 <details>
 <pre>
 abstract-types
@@ -440,4 +437,5 @@ union-intersection
 XXXXXXXX
 </pre>
 </details>
-</summary>
+
+

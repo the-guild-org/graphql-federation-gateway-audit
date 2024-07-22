@@ -118,13 +118,11 @@ for ((i=0; i<${#gateways[@]}; i++)); do
   markdown_details+="
 ### $gateway
 
-<summary>
 <details>
 <pre>
 $(cat "results_$gateway.txt")
 </pre>
 </details>
-</summary>
 
 "
 done
