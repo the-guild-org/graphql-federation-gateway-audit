@@ -38,7 +38,7 @@ cleanup() {
   echo "Terminating background process..."
   if [[ -n "$run_sh_pid" ]]; then
     echo "Killing process $run_sh_pid"
-    kill -TERM "$run_sh_pid" 2>/dev/null
+    kill -s TERM "$run_sh_pid" 2>/dev/null
   fi
   wait "$run_sh_pid" 2>/dev/null
   lsof -t -i tcp:4000 | xargs kill

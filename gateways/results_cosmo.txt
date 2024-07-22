@@ -33,7 +33,7 @@ mysterious-external
 nested-provides
 XX
 non-resolvable-interface-object
-.X.....
+.......
 override-type-interface
 .X..
 override-with-requires
@@ -53,7 +53,7 @@ requires-requires
 requires-with-fragments
 XXXXXX
 shared-root
-XX
+.X
 simple-entity-call
 .
 simple-inaccessible
@@ -65,7 +65,9 @@ simple-override
 simple-requires-provides
 ...........
 typename
-........
+......
+unavailable-override
+..
 union-interface-distributed
 X......
 union-intersection

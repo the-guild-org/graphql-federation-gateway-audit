@@ -4,4 +4,4 @@ dist
 single.test.log
 gateway.log
 .DS_Store
-gateways/*/*.log
+gateways/*/logs/*.log

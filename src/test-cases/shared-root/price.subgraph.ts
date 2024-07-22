@@ -14,9 +14,9 @@ export default createSubgraph("price", {
       products: [Product] @shareable
     }
 
-    type Product @key(fields: "id") {
-      id: ID!
-      price: Float
+    type Product {
+      id: ID! @shareable
+      price: Float @shareable
     }
   `,
   resolvers: {
@@ -34,22 +34,6 @@ export default createSubgraph("price", {
             price: product.price,
           },
         ];
-      },
-    },
-    Product: {
-      __resolveReference(key: { id: string }) {
-        if (punishPoorPlans) {
-          throw new Error("You should be using the categories subgraph!");
-        }
-
-        if (key.id !== product.id) {
-          return null;
-        }
-
-        return {
-          id: product.id,
-          price: product.price,
-        };
       },
     },
   },

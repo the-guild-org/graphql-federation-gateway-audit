@@ -33,7 +33,7 @@ mysterious-external
 nested-provides
 XX
 non-resolvable-interface-object
-XXX...X
+X.X...X
 override-type-interface
 XX..
 override-with-requires
