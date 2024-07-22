@@ -51,6 +51,7 @@ for filepath in $result_files; do
 done
 
 # Initialize summary variable
+table=""
 summary=""
 markdown_summary="
 # Compatibility Results
@@ -58,8 +59,7 @@ markdown_summary="
 ## Summary
 
 |  Gateway   | Compatibility | Success/Failure |
-| :--------: | :-----------: | :-------------: |
-"
+| :--------: | :-----------: | :-------------: |"
 
 markdown_details="
 ## Detailed Results
@@ -114,20 +114,55 @@ for ((i=0; i<${#gateways[@]}; i++)); do
   # Append to the summary string
   summary+="$gateway\n$rate% $success/$total"$'\n\n'
 
-  markdown_summary+="| $gateway | $rate% | $success/$total |\n"
+  table+="| $gateway | $rate% | $success/$total |\n"
   markdown_details+="
 ### $gateway
 
 <details>
-<pre>
-$(cat "results_$gateway.txt")
-</pre>
-</details>
+<summary>Results</summary>
+"
+  # Add the content with test case names as markdown links
+  while IFS= read -r line; do
+    if [[ $line =~ ^[.X] ]]; then
+      markdown_details+="<pre>$line</pre>\n"
+    else
+      markdown_details+="<a href=\"../src/test-cases/$line\">$line</a>\n"
+    fi
+  done < "results_$gateway.txt"
 
+  markdown_details+="
+</details>
 "
 done
 
 # Write summary to summary.txt
 echo -e "$summary" > summary.txt
 echo -e "$markdown_summary" > summary.md
+echo -e "$table" >> summary.md
 echo -e "$markdown_details" >> summary.md
+
+# Update README.md with the new table
+
+# Create a temporary file for the updated markdown content
+temp_file=$(mktemp)
+
+readme_table="
+|  Gateway   | Compatibility | Success/Failure |
+| :--------: | :-----------: | :-------------: |
+$table
+"
+
+
+# Extract file content before line <!-- gateways:start -->
+before_gateways=$(sed '/<!-- gateways:start -->/q' ../README.md)
+# Extract fiel content after line <!-- gateways:end -->
+after_gateways=$(sed -n '/<!-- gateways:end -->/,$p' ../README.md)
+
+
+new_readme="$before_gateways
+|  Gateway   | Compatibility | Success/Failure |
+| :--------: | :-----------: | :-------------: |
+$table
+$after_gateways"
+
+echo -e "$new_readme" > ../README.md
