@@ -45,7 +45,7 @@ https://federation-compatibility.the-guild.dev
 #### List of test-suite ids
 
 ```
-https://federation-compatibility.the-guild.dev/supergraphs
+https://federation-compatibility.the-guild.dev/ids
 ```
 
 #### List of tests
