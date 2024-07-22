@@ -71,6 +71,7 @@ jobs:
         working-directory: gateways
         run: |
           cat ./summary.txt
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "summary<<$EOF" >> "$GITHUB_ENV"
           cat ./summary.txt >> "$GITHUB_ENV"
           echo "$EOF" >> "$GITHUB_ENV"
