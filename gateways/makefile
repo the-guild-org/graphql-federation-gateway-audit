@@ -34,7 +34,7 @@ run-router:
 	(cd router && ./run.sh "$(BASE_URL)/$(TEST)/supergraph")
 
 test-router-new:
-	./run-all.sh $(BASE_URL) router http://127.0.0.1:4000/ http://127.0.0.1:8088/health 5s $(TESTS)
+	./run-all.sh $(BASE_URL) router-new http://127.0.0.1:4000/ http://127.0.0.1:8088/health 5s $(TESTS)
 run-router-new:
 	(cd router-new && ./run.sh "$(BASE_URL)/$(TEST)/supergraph")
 
