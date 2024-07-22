@@ -73,7 +73,7 @@ abstract-types
 ...X.X..
 \`\`\`
 
-This means that the test \`abstract-types\` failed on the 2nd, 4th, and 6th queries.
+This means that the test \`abstract-types\` failed on the 4th and 6th test case, while the rest passed.
 
 The \`.\` symbol represents a successful test, while the \`X\` symbol represents a failed test.
 
