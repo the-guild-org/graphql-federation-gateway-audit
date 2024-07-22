@@ -14,7 +14,7 @@ IFS=',' read -r -a TEST_SUITES_TO_RUN <<< "$TEST_SUITES_TO_RUN_RAW"
 rm -rf "./results_$GATEWAY.txt"
 # Kill any process running on port 4000
 # Make it available for the gateway
-lsof -t -i tcp:4000 | xargs kill
+lsof -t -i tcp:4000 | xargs kill -s TERM
 
 cleanup() {
   echo "Terminating script..."
