@@ -80,10 +80,7 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           header: Compatibility Summary
-          message: |
-            ```
-            ${{ env.summary }}
-            ```
+          message: ${{ env.summary }}
 
   deploy:
     runs-on: ubuntu-latest
