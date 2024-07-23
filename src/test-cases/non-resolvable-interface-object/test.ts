@@ -44,9 +44,8 @@ export default [
       }
     `,
     {
-      data: {
-        a: null,
-      },
+      data: null,
+      errors: true,
     },
     /* GraphQL */ `
     # NOTE

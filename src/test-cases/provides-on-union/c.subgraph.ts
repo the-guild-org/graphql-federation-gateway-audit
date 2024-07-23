@@ -1,5 +1,6 @@
+import { shouldPunishForPoorPlans } from "../../env";
 import { createSubgraph } from "../../subgraph";
-import { medias, punishPoorPlans } from "./data";
+import { medias } from "./data";
 
 export default createSubgraph("c", {
   typeDefs: /* GraphQL */ `
@@ -21,8 +22,8 @@ export default createSubgraph("c", {
   `,
   resolvers: {
     Book: {
-      __resolveReference(key: { id: string }) {
-        if (punishPoorPlans) {
+      __resolveReference(key: { id: string }, context: any) {
+        if (shouldPunishForPoorPlans(context)) {
           throw new Error("You should be using the 'b' subgraph!");
         }
 

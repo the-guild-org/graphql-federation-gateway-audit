@@ -1,0 +1,8 @@
+sandbox:
+  enabled: true
+homepage:
+  enabled: false
+supergraph:
+  listen: 0.0.0.0:4000
+  introspection: true
+experimental_query_planner_mode: new

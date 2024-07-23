@@ -1,5 +1,6 @@
+import { shouldPunishForPoorPlans } from "../../env";
 import { createSubgraph } from "../../subgraph";
-import { medias, punishPoorPlans } from "./data";
+import { medias } from "./data";
 
 export default createSubgraph("a", {
   typeDefs: /* GraphQL */ `
@@ -25,8 +26,8 @@ export default createSubgraph("a", {
   `,
   resolvers: {
     Query: {
-      media() {
-        if (punishPoorPlans) {
+      media(_p: unknown, _a: unknown, context: any) {
+        if (shouldPunishForPoorPlans(context)) {
           throw new Error("You should not be using the 'a' subgraph!");
         }
 

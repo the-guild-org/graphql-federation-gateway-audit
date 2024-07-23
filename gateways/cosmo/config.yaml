@@ -1,0 +1,6 @@
+dev_mode: true
+# Generated file
+router_config_path: config.json
+listen_addr: 127.0.0.1:4000
+graph:
+   token: ""

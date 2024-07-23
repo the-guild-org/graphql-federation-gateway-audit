@@ -4,6 +4,10 @@ on:
   push:
     branches: ["main"]
 
+permissions:
+  pull-requests: write
+  contents: read
+
 jobs:
   tests:
     runs-on: ubuntu-latest
@@ -16,7 +20,7 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 22.4
           cache: "npm"
 
       - name: install
@@ -34,6 +38,49 @@ jobs:
 
       - name: test
         run: npm run test
+
+  gateways:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.4
+          cache: "npm"
+
+      - name: install
+        run: |
+          npm ci
+          (cd gateways && make install)
+
+      - name: subgraphs
+        run: |
+          npm run dev &
+          npx wait-on http-get://localhost:4200/_health --timeout 5s --verbose
+
+      - name: gateways
+        working-directory: gateways
+        run: make test-all BASE_URL="http://localhost:4200"
+
+      - name: summary
+        working-directory: gateways
+        run: |
+          cat ./summary.txt
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "summary<<$EOF" >> "$GITHUB_ENV"
+          cat ./summary.md >> "$GITHUB_ENV"
+          echo "$EOF" >> "$GITHUB_ENV"
+
+      - name: publish summary
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: Compatibility Summary
+          message: ${{ env.summary }}
 
   deploy:
     runs-on: ubuntu-latest

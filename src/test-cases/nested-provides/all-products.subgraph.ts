@@ -1,5 +1,6 @@
+import { shouldPunishForPoorPlans } from "../../env";
 import { createSubgraph } from "../../subgraph";
-import { products, punishPoorPlans } from "./data";
+import { products } from "./data";
 
 // I deliberately name it all-products to make sure it's first in the list of subgraphs (in case the order matters)
 export default createSubgraph("all-products", {
@@ -20,16 +21,16 @@ export default createSubgraph("all-products", {
   `,
   resolvers: {
     Query: {
-      products() {
-        if (punishPoorPlans) {
+      products(_p: unknown, _a: unknown, context: any) {
+        if (shouldPunishForPoorPlans(context)) {
           throw new Error("You should be using the categories subgraph!");
         }
         return products.map((p) => ({ id: p.id }));
       },
     },
     Product: {
-      __resolveReference(key: { id: string }) {
-        if (punishPoorPlans) {
+      __resolveReference(key: { id: string }, context: any) {
+        if (shouldPunishForPoorPlans(context)) {
           throw new Error("You should be using the categories subgraph!");
         }
 

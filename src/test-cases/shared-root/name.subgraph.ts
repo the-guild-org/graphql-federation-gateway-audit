@@ -1,5 +1,5 @@
 import { createSubgraph } from "../../subgraph";
-import { product, punishPoorPlans } from "./data";
+import { product } from "./data";
 
 export default createSubgraph("name", {
   typeDefs: /* GraphQL */ `
@@ -14,9 +14,9 @@ export default createSubgraph("name", {
       products: [Product] @shareable
     }
 
-    type Product @key(fields: "id") {
-      id: ID!
-      name: String
+    type Product {
+      id: ID! @shareable
+      name: String @shareable
     }
   `,
   resolvers: {
@@ -34,22 +34,6 @@ export default createSubgraph("name", {
             name: product.name,
           },
         ];
-      },
-    },
-    Product: {
-      __resolveReference(key: { id: string }) {
-        if (punishPoorPlans) {
-          throw new Error("You should be using the categories subgraph!");
-        }
-
-        if (key.id !== product.id) {
-          return null;
-        }
-
-        return {
-          id: product.id,
-          name: product.name,
-        };
       },
     },
   },

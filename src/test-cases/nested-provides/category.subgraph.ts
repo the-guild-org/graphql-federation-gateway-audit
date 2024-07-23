@@ -1,5 +1,6 @@
+import { shouldPunishForPoorPlans } from "../../env";
 import { createSubgraph } from "../../subgraph";
-import { categories, products, punishPoorPlans } from "./data";
+import { categories, products } from "./data";
 
 export default createSubgraph("category", {
   typeDefs: /* GraphQL */ `
@@ -59,8 +60,8 @@ export default createSubgraph("category", {
       },
     },
     Product: {
-      __resolveReference(key: { id: string }) {
-        if (punishPoorPlans) {
+      __resolveReference(key: { id: string }, context: any) {
+        if (shouldPunishForPoorPlans(context)) {
           throw new Error("You should be using the categories subgraph!");
         }
 
@@ -76,8 +77,8 @@ export default createSubgraph("category", {
       },
     },
     Category: {
-      __resolveReference(key: { id: string }) {
-        if (punishPoorPlans) {
+      __resolveReference(key: { id: string }, context: any) {
+        if (shouldPunishForPoorPlans(context)) {
           throw new Error("You should be using the categories subgraph!");
         }
 
