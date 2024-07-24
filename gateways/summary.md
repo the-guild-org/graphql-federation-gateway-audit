@@ -7,7 +7,7 @@
 | :--------: | :-----------: | :-------------: |
 | mesh | 100% | 160/160 |
 | router | 100% | 160/160 |
-| router-new | 96% | 153/160 |
+| router-new | 96% | 154/160 |
 | cosmo | 63% | 100/160 |
 | grafbase | 46% | 74/160 |
 
@@ -224,7 +224,7 @@ You can look at the full list of tests [here](../src/test-cases/). Every test id
 <a href="../src/test-cases/interface-object-with-requires">interface-object-with-requires</a>
 <pre>.......</pre>
 <a href="../src/test-cases/mutations">mutations</a>
-<pre>..X</pre>
+<pre>...</pre>
 <a href="../src/test-cases/mysterious-external">mysterious-external</a>
 <pre>..</pre>
 <a href="../src/test-cases/nested-provides">nested-provides</a>

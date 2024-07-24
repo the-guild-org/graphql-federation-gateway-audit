@@ -11,7 +11,7 @@ A table of gateways that support Apollo Federation and their compatibility score
 | :--------: | :-----------: | :-------------: |
 | mesh | 100% | 160/160 |
 | router | 100% | 160/160 |
-| router-new | 96% | 153/160 |
+| router-new | 96% | 154/160 |
 | cosmo | 63% | 100/160 |
 | grafbase | 46% | 74/160 |
 

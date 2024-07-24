@@ -1,1 +1,1 @@
-curl -sSL https://router.apollo.dev/download/nix/v1.51.0 | sh
+curl -sSL https://router.apollo.dev/download/nix/v1.52.0-rc.0 | sh

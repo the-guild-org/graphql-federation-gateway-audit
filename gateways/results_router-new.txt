@@ -27,7 +27,7 @@ input-object-intersection
 interface-object-with-requires
 .......
 mutations
-..X
+...
 mysterious-external
 ..
 nested-provides
