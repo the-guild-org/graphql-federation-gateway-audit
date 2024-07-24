@@ -58,7 +58,7 @@ markdown_summary="
 
 ## Summary
 
-|  Gateway   | Compatibility | Success/Failure |
+|  Gateway   | Compatibility | Success/Total |
 | :--------: | :-----------: | :-------------: |"
 
 markdown_details="
@@ -146,12 +146,6 @@ echo -e "$markdown_details" >> summary.md
 # Create a temporary file for the updated markdown content
 temp_file=$(mktemp)
 
-readme_table="
-|  Gateway   | Compatibility | Success/Failure |
-| :--------: | :-----------: | :-------------: |
-$table
-"
-
 
 # Extract file content before line <!-- gateways:start -->
 before_gateways=$(sed '/<!-- gateways:start -->/q' ../README.md)
@@ -160,7 +154,7 @@ after_gateways=$(sed -n '/<!-- gateways:end -->/,$p' ../README.md)
 
 
 new_readme="$before_gateways
-|  Gateway   | Compatibility | Success/Failure |
+|  Gateway   | Compatibility | Success/Total |
 | :--------: | :-----------: | :-------------: |
 $table
 $after_gateways"

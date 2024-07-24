@@ -3,7 +3,7 @@
 
 ## Summary
 
-|  Gateway   | Compatibility | Success/Failure |
+|  Gateway   | Compatibility | Success/Total |
 | :--------: | :-----------: | :-------------: |
 | mesh | 100% | 160/160 |
 | router | 100% | 160/160 |

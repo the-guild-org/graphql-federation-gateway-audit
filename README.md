@@ -7,7 +7,7 @@ This repository contains a set of tests and a tool to evaluate and compare the c
 A table of gateways that support Apollo Federation and their compatibility score.
 
 <!-- gateways:start -->
-|  Gateway   | Compatibility | Success/Failure |
+|  Gateway   | Compatibility | Success/Total |
 | :--------: | :-----------: | :-------------: |
 | mesh | 100% | 160/160 |
 | router | 100% | 160/160 |
