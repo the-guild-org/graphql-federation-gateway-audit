@@ -1,4 +1,10 @@
-import { writeFileSync } from "node:fs";
+import { writeFileSync, readdirSync, unlinkSync } from "node:fs";
+
+for (const file of readdirSync("subgraphs")) {
+  if (file.endsWith(".graphql")) {
+    unlinkSync(`subgraphs/${file}`);
+  }
+}
 
 const [, , supergraphUrl] = process.argv;
 
@@ -17,13 +23,13 @@ subgraphs:
 `;
 
 for (const subgraph of subgraphs) {
-  writeFileSync(subgraph.name + ".graphql", subgraph.sdl, "utf-8");
+  writeFileSync(`subgraphs/${subgraph.name}.graphql`, subgraph.sdl, "utf-8");
 
   yaml += `
   - name: ${subgraph.name}
     routing_url: ${subgraph.url}
     schema:
-      file: ./${subgraph.name}.graphql
+      file: ./subgraphs/${subgraph.name}.graphql
 `;
 }
 

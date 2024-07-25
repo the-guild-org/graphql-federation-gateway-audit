@@ -8,6 +8,8 @@ gateways=()
 rates=()
 successes=()
 totals=()
+successful_groups=()
+total_groups=()
 
 # Process each result file
 for filepath in $result_files; do
@@ -21,9 +23,17 @@ for filepath in $result_files; do
   success=0
   failure=0
 
+  gateway_groups_total=0
+  gateway_groups_success=0
+
   # Process each line in the file content
   while IFS= read -r line; do
+    if [[ $line =~ ^[\.]+$ ]]; then
+      gateway_groups_success=$((gateway_groups_success + 1))
+    fi
+
     if [[ $line =~ ^[\.\X]+$ ]]; then
+      gateway_groups_total=$((gateway_groups_total + 1))
       for (( i=0; i<${#line}; i++ )); do
         char=${line:$i:1}
         if [[ $char == '.' ]]; then
@@ -48,18 +58,19 @@ for filepath in $result_files; do
   rates+=("$rate")
   successes+=("$success")
   totals+=("$total")
+  successful_groups+=("$gateway_groups_success")
+  total_groups+=("$gateway_groups_total")
 done
 
 # Initialize summary variable
 table=""
-summary=""
 markdown_summary="
 # Compatibility Results
 
 ## Summary
 
-|  Gateway   | Compatibility | Success/Total |
-| :--------: | :-----------: | :-------------: |"
+|  Gateway   | Compatibility | Success/Total (tests) | Success/Total (test groups) |
+| :--------: | :-----------: | :-------------------: | :------------------------: |"
 
 markdown_details="
 ## Detailed Results
@@ -100,6 +111,14 @@ for ((i=0; i<${#gateways[@]}; i++)); do
       temp=${totals[i]}
       totals[i]=${totals[j]}
       totals[j]=$temp
+      # Swap successful groups
+      temp=${successful_groups[i]}
+      successful_groups[i]=${successful_groups[j]}
+      successful_groups[j]=$temp
+      # Swap total groups
+      temp=${total_groups[i]}
+      total_groups[i]=${total_groups[j]}
+      total_groups[j]=$temp
     fi
   done
 done
@@ -110,11 +129,10 @@ for ((i=0; i<${#gateways[@]}; i++)); do
   rate=${rates[i]}
   success=${successes[i]}
   total=${totals[i]}
-  
-  # Append to the summary string
-  summary+="$gateway\n$rate% $success/$total"$'\n\n'
+  success_groups=${successful_groups[i]}
+  total_groups=${total_groups[i]}
 
-  table+="| $gateway | $rate% | $success/$total |\n"
+  table+="| $gateway | $rate% | $success/$total | $success_groups/$total_groups |\n"
   markdown_details+="
 ### $gateway
 
@@ -136,7 +154,6 @@ for ((i=0; i<${#gateways[@]}; i++)); do
 done
 
 # Write summary to summary.txt
-echo -e "$summary" > summary.txt
 echo -e "$markdown_summary" > summary.md
 echo -e "$table" >> summary.md
 echo -e "$markdown_details" >> summary.md
@@ -154,8 +171,8 @@ after_gateways=$(sed -n '/<!-- gateways:end -->/,$p' ../README.md)
 
 
 new_readme="$before_gateways
-|  Gateway   | Compatibility | Success/Total |
-| :--------: | :-----------: | :-------------: |
+|  Gateway   | Compatibility | Success/Total | Success/Total (test groups) |
+| :--------: | :-----------: | :-----------: | :------------------------: |
 $table
 $after_gateways"
 

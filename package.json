@@ -8,7 +8,8 @@
     "gateway:once": "node --import tsx/esm ./gateway.ts",
     "test": "tsx ./test-all.ts",
     "test-single": "node --import tsx/esm --test --test-concurrency=1 --test-reporter=dot --test-reporter-destination=single.test.log --test-reporter=spec --test-reporter-destination=stdout ./gateways/single.test.ts",
-    "deploy": "wrangler deploy --minify src/index.ts"
+    "deploy": "wrangler deploy --minify src/index.ts",
+    "format:md": "prettier --write '**/*.md'"
   },
   "dependencies": {
     "@apollo/subgraph": "2.8.3",
@@ -19,6 +20,7 @@
     "fets": "0.8.1"
   },
   "devDependencies": {
+    "prettier": "3.3.3",
     "wgc": "0.58.5",
     "strip-indent": "4.0.0",
     "jest-diff": "29.7.0",

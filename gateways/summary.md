@@ -1,16 +1,14 @@
-
 # Compatibility Results
 
 ## Summary
 
-|  Gateway   | Compatibility | Success/Total |
-| :--------: | :-----------: | :-------------: |
-| mesh | 100% | 160/160 |
-| router | 100% | 160/160 |
-| router-new | 96% | 153/160 |
-| cosmo | 63% | 100/160 |
-| grafbase | 46% | 74/160 |
-
+|  Gateway   | Compatibility | Success/Total (tests) | Success/Total (test groups) |
+| :--------: | :-----------: | :-------------------: | :-------------------------: |
+|    mesh    |     100%      |        160/160        |            37/37            |
+|   router   |     100%      |        160/160        |            37/37            |
+| router-new |      96%      |        153/160        |            34/37            |
+|   cosmo    |      63%      |        100/160        |            19/37            |
+|  grafbase  |      46%      |        74/160         |            11/37            |
 
 ## Detailed Results
 
@@ -433,4 +431,3 @@ You can look at the full list of tests [here](../src/test-cases/). Every test id
 <pre>XXXXXXXX</pre>
 
 </details>
-

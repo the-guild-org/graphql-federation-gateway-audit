@@ -1,4 +1,4 @@
-/*.graphql
+/subgraphs/*.graphql
 /cosmo
 /config.json
 /compose.yaml

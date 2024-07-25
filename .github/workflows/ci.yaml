@@ -54,9 +54,7 @@ jobs:
           cache: "npm"
 
       - name: install
-        run: |
-          npm ci
-          (cd gateways && make install)
+        run: make install
 
       - name: subgraphs
         run: |
@@ -64,16 +62,13 @@ jobs:
           npx wait-on http-get://localhost:4200/_health --timeout 5s --verbose
 
       - name: gateways
-        working-directory: gateways
         run: make test-all BASE_URL="http://localhost:4200"
 
       - name: summary
-        working-directory: gateways
         run: |
-          cat ./summary.txt
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "summary<<$EOF" >> "$GITHUB_ENV"
-          cat ./summary.md >> "$GITHUB_ENV"
+          cat ./gateways/summary.md >> "$GITHUB_ENV"
           echo "$EOF" >> "$GITHUB_ENV"
 
       - name: publish summary
