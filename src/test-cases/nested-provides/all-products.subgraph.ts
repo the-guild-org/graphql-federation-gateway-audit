@@ -1,6 +1,6 @@
-import { shouldPunishForPoorPlans } from "../../env";
-import { createSubgraph } from "../../subgraph";
-import { products } from "./data";
+import { shouldPunishForPoorPlans } from "../../env.js";
+import { createSubgraph } from "../../subgraph.js";
+import { products } from "./data.js";
 
 // I deliberately name it all-products to make sure it's first in the list of subgraphs (in case the order matters)
 export default createSubgraph("all-products", {

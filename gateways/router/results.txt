@@ -72,3 +72,8 @@ union-interface-distributed
 .......
 union-intersection
 ........
+
+---
+Passed: 160
+Failed: 0
+Total: 160

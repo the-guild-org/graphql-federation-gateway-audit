@@ -1,5 +1,5 @@
-import { createSubgraph } from "../../subgraph";
-import { products, reviews } from "./data";
+import { createSubgraph } from "../../subgraph.js";
+import { products, reviews } from "./data.js";
 
 const Product = {
   __resolveReference(key: { id: string; similar?: { id: string[] } }) {

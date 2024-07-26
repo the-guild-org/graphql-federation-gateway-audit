@@ -1,6 +1,6 @@
-import { shouldPunishForPoorPlans } from "../../env";
-import { createSubgraph } from "../../subgraph";
-import { categories, products } from "./data";
+import { shouldPunishForPoorPlans } from "../../env.js";
+import { createSubgraph } from "../../subgraph.js";
+import { categories, products } from "./data.js";
 
 export default createSubgraph("category", {
   typeDefs: /* GraphQL */ `

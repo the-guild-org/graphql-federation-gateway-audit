@@ -1,6 +1,5 @@
-import { Env } from "../../env";
-import { createSubgraph } from "../../subgraph";
-import { addNumber } from "./data";
+import { createSubgraph } from "../../subgraph.js";
+import { addNumber } from "./data.js";
 
 export default createSubgraph("c", {
   typeDefs: /* GraphQL */ `
@@ -18,10 +17,9 @@ export default createSubgraph("c", {
         args: {
           num: number;
           requestId: string;
-        },
-        ctx: { env: Env }
+        }
       ) {
-        return addNumber(ctx.env, args.num, args.requestId);
+        return addNumber(args.num, args.requestId);
       },
     },
   },

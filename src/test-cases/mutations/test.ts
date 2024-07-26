@@ -1,4 +1,4 @@
-import { createTest } from "../../test";
+import { createTest } from "../../testkit.js";
 
 export default () => {
   const randomId = Math.random().toString(16).substr(2);

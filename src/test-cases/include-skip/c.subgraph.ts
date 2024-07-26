@@ -1,5 +1,5 @@
-import { createSubgraph } from "../../subgraph";
-import { products } from "./data";
+import { createSubgraph } from "../../subgraph.js";
+import { products } from "./data.js";
 
 export default createSubgraph("c", {
   typeDefs: /* GraphQL */ `

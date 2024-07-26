@@ -1,7 +1,5 @@
 node_modules
 dist
 .wrangler
-single.test.log
-gateway.log
 .DS_Store
 gateways/*/logs/*.log

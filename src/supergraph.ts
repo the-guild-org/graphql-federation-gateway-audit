@@ -1,10 +1,8 @@
 import { composeServices } from "@apollo/composition";
-import { TextEncoder, crypto } from "@whatwg-node/fetch";
 import { parse } from "graphql";
 import type { createRouter } from "fets";
 import { Response } from "fets";
-import type { createSubgraph } from "./subgraph";
-import { Env } from "./env";
+import type { createSubgraph } from "./subgraph.js";
 
 export function getSupergraph(
   subgraphs: Array<{
@@ -44,11 +42,7 @@ export function serve(
 ) {
   return {
     id,
-    createRoutes(
-      router: ReturnType<typeof createRouter>,
-      isDev: boolean,
-      env: Env
-    ) {
+    createRoutes(router: ReturnType<typeof createRouter>) {
       let subgraphNames = new Set<string>();
       for (const subgraph of subgraphs) {
         if (subgraphNames.has(subgraph.name)) {
@@ -56,43 +50,10 @@ export function serve(
         }
 
         subgraphNames.add(subgraph.name);
-        subgraph.createRoutes(id, router, env);
-      }
-
-      let checksumPromise: Promise<string>;
-
-      function lazyChecksum() {
-        if (!checksumPromise) {
-          let checksum = "";
-
-          for (const subgraph of subgraphs) {
-            checksum += subgraph.name + ":" + subgraph.typeDefs;
-          }
-
-          checksumPromise = crypto.subtle
-            .digest("SHA-1", new TextEncoder().encode(checksum))
-            .then((buffer) =>
-              btoa(
-                String.fromCharCode.apply(
-                  null,
-                  new Uint8Array(buffer) as unknown as number[]
-                )
-              )
-            );
-        }
-
-        return checksumPromise;
+        subgraph.createRoutes(id, router);
       }
 
       async function serveSupergraph(request: { url: string; parsedUrl: URL }) {
-        const cache = await caches.open("supergraph");
-        const cacheId = `https://supergraph.com/${id}/${await lazyChecksum()}`;
-        const cached = await cache.match(new Request(cacheId));
-
-        if (!isDev && cached) {
-          return cached as Response<any, Record<string, string>, 200>;
-        }
-
         const supergraph = getSupergraph(
           subgraphs.map((subgraph) => ({
             name: subgraph.name,
@@ -109,8 +70,6 @@ export function serve(
               "public, max-age=604800, stale-while-revalidate=432000",
           },
         });
-
-        await cache.put(cacheId, response.clone());
 
         return response;
       }

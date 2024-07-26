@@ -1,12 +1,12 @@
-import { serve } from "../../supergraph";
-import inventorySubgraph from "./inventory.subgraph";
-import booksSubgraph from "./books.subgraph";
-import usersSubgraph from "./users.subgraph";
-import productsSubgraph from "./products.subgraph";
-import reviewsSubgraph from "./reviews.subgraph";
-import magazinesSubgraph from "./magazines.subgraph";
-import agencySubgraph from "./agency.subgraph";
-import test from "./test";
+import { serve } from "../../supergraph.js";
+import inventorySubgraph from "./inventory.subgraph.js";
+import booksSubgraph from "./books.subgraph.js";
+import usersSubgraph from "./users.subgraph.js";
+import productsSubgraph from "./products.subgraph.js";
+import reviewsSubgraph from "./reviews.subgraph.js";
+import magazinesSubgraph from "./magazines.subgraph.js";
+import agencySubgraph from "./agency.subgraph.js";
+import test from "./test.js";
 
 export default serve(
   "abstract-types",

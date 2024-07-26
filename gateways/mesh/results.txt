@@ -1,5 +1,5 @@
 abstract-types
-..............X..
+.................
 child-type-mismatch
 ....
 circular-reference-interface
@@ -27,7 +27,7 @@ input-object-intersection
 interface-object-with-requires
 .......
 mutations
-..X
+...
 mysterious-external
 ..
 nested-provides
@@ -59,7 +59,7 @@ simple-entity-call
 simple-inaccessible
 ....
 simple-interface-object
-.X..XXX.X....
+.............
 simple-override
 ..
 simple-requires-provides
@@ -72,3 +72,8 @@ union-interface-distributed
 .......
 union-intersection
 ........
+
+---
+Passed: 160
+Failed: 0
+Total: 160

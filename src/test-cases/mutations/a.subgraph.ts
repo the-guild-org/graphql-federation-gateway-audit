@@ -1,12 +1,11 @@
-import { Env } from "../../env";
-import { createSubgraph } from "../../subgraph";
+import { createSubgraph } from "../../subgraph.js";
 import {
   addProduct,
   deleteProduct,
   getProducts,
   initProducts,
   multiplyNumber,
-} from "./data";
+} from "./data.js";
 
 export default createSubgraph("a", {
   typeDefs: /* GraphQL */ `
@@ -36,9 +35,9 @@ export default createSubgraph("a", {
   `,
   resolvers: {
     Query: {
-      async product(_: {}, { id }: { id: string }, ctx: { env: Env }) {
-        await initProducts(ctx.env);
-        const product = (await getProducts(ctx.env)).find((p) => p.id === id);
+      async product(_: {}, { id }: { id: string }) {
+        await initProducts();
+        const product = (await getProducts()).find((p) => p.id === id);
 
         if (!product) {
           return null;
@@ -50,9 +49,9 @@ export default createSubgraph("a", {
           price: product.price,
         };
       },
-      async products(_: {}, __: {}, ctx: { env: Env }) {
-        await initProducts(ctx.env);
-        return getProducts(ctx.env);
+      async products() {
+        await initProducts();
+        return getProducts();
       },
     },
     Mutation: {
@@ -61,10 +60,9 @@ export default createSubgraph("a", {
         args: {
           by: number;
           requestId: string;
-        },
-        ctx: { env: Env }
+        }
       ) {
-        return multiplyNumber(ctx.env, args.by, args.requestId);
+        return multiplyNumber(args.by, args.requestId);
       },
       async addProduct(
         _: {},
@@ -75,22 +73,21 @@ export default createSubgraph("a", {
             name: string;
             price: number;
           };
-        },
-        ctx: { env: Env }
+        }
       ) {
-        return addProduct(ctx.env, input.name, input.price);
+        return addProduct(input.name, input.price);
       },
     },
     Product: {
-      async __resolveReference(key: { id: string }, ctx: { env: Env }) {
-        const products = await getProducts(ctx.env);
+      async __resolveReference(key: { id: string }) {
+        const products = await getProducts();
         const product = products.find((p) => p.id === key.id);
 
         if (!product) {
           return null;
         }
 
-        await deleteProduct(ctx.env, product.id);
+        await deleteProduct(product.id);
 
         return {
           id: product.id,

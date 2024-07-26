@@ -1,5 +1,5 @@
-import { createTest } from "../../test";
-import { media } from "./data";
+import { createTest } from "../../testkit.js";
+import { media } from "./data.js";
 
 export default [
   createTest(

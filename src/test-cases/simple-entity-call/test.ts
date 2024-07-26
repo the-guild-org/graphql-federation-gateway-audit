@@ -1,5 +1,5 @@
-import { createTest } from "../../test";
-import { users } from "./data";
+import { createTest } from "../../testkit.js";
+import { users } from "./data.js";
 
 export default [
   createTest(

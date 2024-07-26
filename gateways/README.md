@@ -11,12 +11,6 @@ make install
 > [!IMPORTANT]  
 > Be aware that `Node` and `npm` are required to run the whole setup.
 
-After that, you can start the subgraphs.
-
-```bash
-make subgraphs
-```
-
 ### Testing all gateways
 
 You can run the tests for each gateway by running the following command:
@@ -40,6 +34,8 @@ make test-router
 
 ### Running only a specific set of tests
 
+> TODO: not implemented yet
+
 In case you want to run only a limited set of tests, you can do so by running the following command:
 
 ```bash
@@ -51,6 +47,8 @@ make test-[name of the gateway] TESTS=[comma separated list of tests]
 ```
 
 ### Running a gateway for a specific supergraph
+
+> TODO: not implemented yet
 
 There's also the possibility to start a gateway for a selected supergraph, in case you want to run the queries yourself.
 

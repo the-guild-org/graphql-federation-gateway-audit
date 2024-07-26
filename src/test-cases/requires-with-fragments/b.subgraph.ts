@@ -1,5 +1,5 @@
-import { createSubgraph } from "../../subgraph";
-import { entities, bazs, quxs } from "./data";
+import { createSubgraph } from "../../subgraph.js";
+import { entities, bazs, quxs } from "./data.js";
 
 type WithData<T> = T & {
   data: {
@@ -130,7 +130,6 @@ export default createSubgraph("b", {
         throw new Error("Invalid data");
       },
       requirer(entity: WithData<{ id: string }>) {
-        console.log();
         if (!("data" in entity)) {
           throw new Error("Expected entity to have a data field");
         }
