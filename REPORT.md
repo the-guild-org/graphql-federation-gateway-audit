@@ -16,6 +16,8 @@ Take a closer look at the results for each gateway.
 
 You can look at the full list of tests [here](./src/test-suites/). Every test id corresponds to a directory in the `src/test-suites` folder.
 
+<a id="router"></a>
+
 ### Apollo Router
 
 <details>
@@ -95,6 +97,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/union-intersection">union-intersection</a>
 <pre>🟢🟢🟢🟢🟢🟢🟢🟢</pre>
 </details>
+
+<a id="mesh"></a>
 
 ### GraphQL Mesh
 
@@ -176,6 +180,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢🟢🟢🟢🟢🟢🟢🟢</pre>
 </details>
 
+<a id="router-new"></a>
+
 ### Apollo Router (Rust-based QP)
 
 <details>
@@ -256,6 +262,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢🟢🟢🟢🟢🟢🟢🟢</pre>
 </details>
 
+<a id="cosmo"></a>
+
 ### Cosmo Router
 
 <details>
@@ -335,6 +343,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/union-intersection">union-intersection</a>
 <pre>❌❌❌❌❌❌❌❌</pre>
 </details>
+
+<a id="grafbase"></a>
 
 ### Grafbase Gateway
 

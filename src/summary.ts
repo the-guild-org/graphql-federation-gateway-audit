@@ -122,16 +122,19 @@ let testDetailsMd = "";
 
 for (const gateway of gatewayResults) {
   const score = ((gateway.tests.passed * 100) / gateway.tests.total).toFixed(2);
+  const roundedScore = Math.round(
+    (gateway.tests.passed * 100) / gateway.tests.total
+  );
   tableMd += `\n| ${gateway.name} | ${score}% |  ${printResult(gateway.tests, "md")} | ${printResult(gateway.groups, "md")} |`;
 
   rowsHtml += `
-    <tr class="border-b">
-      <td class="p-4 align-middle font-medium">
+    <tr class="border-b transition-colors hover:bg-gray-100/50">
+      <td class="p-4 align-middle font-medium  border-l-2 border-${roundedScore === 100 ? "emerald" : roundedScore >= 75 ? "yellow" : "red"}-500">
         <a href="${gateway.repository}" class="hover:underline" title="Visit repository">
           ${gateway.name}
         </a>
       </td>
-      <td class="p-4 align-middle">${score}%</td>
+      <td class="p-4 align-middle font-semibold">${score}%</td>
       <td class="p-4 align-middle">
         ${printResult(gateway.tests, "html")}
       </td>
@@ -142,7 +145,8 @@ for (const gateway of gatewayResults) {
     </tr>
   `;
 
-  testDetailsMd += `\n### ${gateway.name}
+  testDetailsMd += `\n<a id="${gateway.id}"></a>
+### ${gateway.name}
 
 <details>
 <summary>Results</summary>\n`;
