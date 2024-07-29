@@ -1,84 +1,48 @@
 import { createServer } from "node:http";
 import { createRouter, Response } from "fets";
-import unionIntersectionTestCase from "./test-suites/union-intersection/index.js";
-import simpleEntityCallTestCase from "./test-suites/simple-entity-call/index.js";
-import complexEntityCallTestCase from "./test-suites/complex-entity-call/index.js";
-import mysteriousExternalTestCase from "./test-suites/mysterious-external/index.js";
-import simpleRequiresProvidesTestCase from "./test-suites/simple-requires-provides/index.js";
-import overrideTypeInterfaceTestCase from "./test-suites/override-type-interface/index.js";
-import simpleInterfaceObjectTestCase from "./test-suites/simple-interface-object/index.js";
-import simpleOverrideTestCae from "./test-suites/simple-override/index.js";
-import unavailableOverrideTestCase from "./test-suites/unavailable-override/index.js";
-import overrideWithRequiresTestCase from "./test-suites/override-with-requires/index.js";
-import simpleInaccessible from "./test-suites/simple-inaccessible/index.js";
-import enumIntersection from "./test-suites/enum-intersection/index.js";
-import inputObjectIntersection from "./test-suites/input-object-intersection/index.js";
-import requiresWithFragments from "./test-suites/requires-with-fragments/index.js";
-import childTypeMismatch from "./test-suites/child-type-mismatch/index.js";
-import nonResolvableInterfaceObject from "./test-suites/non-resolvable-interface-object/index.js";
-import interfaceObjectWithRequires from "./test-suites/interface-object-with-requires/index.js";
-import requiresInterface from "./test-suites/requires-interface/index.js";
-import fed1ExternalExtends from "./test-suites/fed1-external-extends/index.js";
-import fed2ExternalExtends from "./test-suites/fed2-external-extends/index.js";
-import fed1ExternalExtension from "./test-suites/fed1-external-extension/index.js";
-import fed2ExternalExtension from "./test-suites/fed2-external-extension/index.js";
-import parentEntityCall from "./test-suites/parent-entity-call/index.js";
-import corruptedSupergraphNodeId from "./test-suites/corrupted-supergraph-node-id/index.js";
-import parentEntityCallComplex from "./test-suites/parent-entity-call-complex/index.js";
-import sharedRoot from "./test-suites/shared-root/index.js";
-import nestedProvides from "./test-suites/nested-provides/index.js";
-import providesOnInterface from "./test-suites/provides-on-interface/index.js";
-import providesOnUnion from "./test-suites/provides-on-union/index.js";
-import requiresRequires from "./test-suites/requires-requires/index.js";
-import includeSkip from "./test-suites/include-skip/index.js";
-import circularReferenceInterface from "./test-suites/circular-reference-interface/index.js";
-import typename from "./test-suites/typename/index.js";
-import unionInterfaceDistributed from "./test-suites/union-interface-distributed/index.js";
-import mutations from "./test-suites/mutations/index.js";
-import abstractTypes from "./test-suites/abstract-types/index.js";
-import fed1ExternalExtendsResolvable from "./test-suites/fed1-external-extends-resolvable/index.js";
-import requiresWithArgument from "./test-suites/requires-with-argument/index.js";
 
-const testCases = [
-  mutations,
-  abstractTypes,
-  corruptedSupergraphNodeId,
-  unionIntersectionTestCase,
-  simpleEntityCallTestCase,
-  complexEntityCallTestCase,
-  mysteriousExternalTestCase,
-  simpleRequiresProvidesTestCase,
-  nestedProvides,
-  providesOnInterface,
-  providesOnUnion,
-  overrideTypeInterfaceTestCase,
-  simpleInterfaceObjectTestCase,
-  simpleOverrideTestCae,
-  unavailableOverrideTestCase,
-  simpleInaccessible,
-  enumIntersection,
-  unionInterfaceDistributed,
-  inputObjectIntersection,
-  requiresWithFragments,
-  requiresWithArgument,
-  requiresInterface,
-  interfaceObjectWithRequires,
-  overrideWithRequiresTestCase,
-  requiresRequires,
-  childTypeMismatch,
-  nonResolvableInterfaceObject,
-  fed1ExternalExtends,
-  fed2ExternalExtends,
-  fed1ExternalExtension,
-  fed2ExternalExtension,
-  fed1ExternalExtendsResolvable,
-  parentEntityCall,
-  parentEntityCallComplex,
-  sharedRoot,
-  includeSkip,
-  circularReferenceInterface,
-  typename,
-];
+const testCases = await Promise.all(
+  [
+    import("./test-suites/union-intersection/index.js"),
+    import("./test-suites/simple-entity-call/index.js"),
+    import("./test-suites/complex-entity-call/index.js"),
+    import("./test-suites/mysterious-external/index.js"),
+    import("./test-suites/simple-requires-provides/index.js"),
+    import("./test-suites/override-type-interface/index.js"),
+    import("./test-suites/simple-interface-object/index.js"),
+    import("./test-suites/simple-override/index.js"),
+    import("./test-suites/unavailable-override/index.js"),
+    import("./test-suites/override-with-requires/index.js"),
+    import("./test-suites/simple-inaccessible/index.js"),
+    import("./test-suites/enum-intersection/index.js"),
+    import("./test-suites/input-object-intersection/index.js"),
+    import("./test-suites/requires-with-fragments/index.js"),
+    import("./test-suites/child-type-mismatch/index.js"),
+    import("./test-suites/non-resolvable-interface-object/index.js"),
+    import("./test-suites/interface-object-with-requires/index.js"),
+    import("./test-suites/requires-interface/index.js"),
+    import("./test-suites/fed1-external-extends/index.js"),
+    import("./test-suites/fed2-external-extends/index.js"),
+    import("./test-suites/fed1-external-extension/index.js"),
+    import("./test-suites/fed2-external-extension/index.js"),
+    import("./test-suites/parent-entity-call/index.js"),
+    import("./test-suites/corrupted-supergraph-node-id/index.js"),
+    import("./test-suites/parent-entity-call-complex/index.js"),
+    import("./test-suites/shared-root/index.js"),
+    import("./test-suites/nested-provides/index.js"),
+    import("./test-suites/provides-on-interface/index.js"),
+    import("./test-suites/provides-on-union/index.js"),
+    import("./test-suites/requires-requires/index.js"),
+    import("./test-suites/include-skip/index.js"),
+    import("./test-suites/circular-reference-interface/index.js"),
+    import("./test-suites/typename/index.js"),
+    import("./test-suites/union-interface-distributed/index.js"),
+    import("./test-suites/mutations/index.js"),
+    import("./test-suites/abstract-types/index.js"),
+    import("./test-suites/fed1-external-extends-resolvable/index.js"),
+    import("./test-suites/requires-with-argument/index.js"),
+  ].map((i) => i.then((e) => e.default))
+);
 
 export function serve(port: number): Promise<void> {
   const router = createRouter({
