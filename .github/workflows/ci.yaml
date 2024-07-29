@@ -85,7 +85,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: federation-compatibility
+          projectName: ffederation-gateway-compatibility
           directory: ./website
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.event.pull_request.number != '' && format('pr-{0}', github.event.pull_request.number) || 'main' }}
