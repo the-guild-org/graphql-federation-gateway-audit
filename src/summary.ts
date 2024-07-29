@@ -142,7 +142,7 @@ for (const gateway of gatewayResults) {
     </tr>
   `;
 
-  testDetailsMd += `\n### router
+  testDetailsMd += `\n### ${gateway.name}
 
 <details>
 <summary>Results</summary>\n`;
