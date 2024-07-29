@@ -7,6 +7,7 @@ import {
   createWriteStream,
   mkdirSync,
   existsSync,
+  readFileSync,
 } from "node:fs";
 import yargs from "yargs";
 import waitOn from "wait-on";
@@ -43,7 +44,12 @@ function resolvePath(
 }
 
 yargs(hideBin(process.argv))
-  .scriptName("federation-gateway")
+  .scriptName("graphql-federation-audit")
+  .epilogue(
+    "for more information, find our manual at https://github.com/the-guild-org/federation-compatibility"
+  )
+  .version(readVersion() ?? "local")
+  .recommendCommands()
   .option("cwd", {
     describe: "Change the current working directory",
     type: "string",
@@ -506,4 +512,28 @@ async function* dot(source: any) {
 
 function getLineLength() {
   return Math.max(process.stdout.columns ?? 20, 20);
+}
+
+function readVersion(): string | undefined {
+  try {
+    // src/cli.ts
+    return (
+      "v" +
+      JSON.parse(readFileSync(join(__dirname, "../package.json"), "utf-8"))
+        .version
+    );
+  } catch {
+    //
+  }
+
+  try {
+    // dist/cli.js
+    return (
+      "v" +
+      JSON.parse(readFileSync(join(__dirname, "./package.json"), "utf-8"))
+        .version
+    );
+  } catch {
+    //
+  }
 }

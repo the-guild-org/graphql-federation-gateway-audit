@@ -1,11 +1,15 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
+    "strict": true,
     "target": "ESNext",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
     "skipLibCheck": true,
-    "strict": true
+    "declaration": true,
+    "declarationMap": true
   },
   "include": ["src"]
 }

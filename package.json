@@ -1,11 +1,53 @@
 {
-  "name": "federation-compatibility",
+  "name": "graphql-federation-audit",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
+  "description": "Audit tool for Apollo Federation Gateway",
+  "repository": {
+    "type": "git",
+    "url": "the-guild-org/federation-compatibility"
+  },
+  "homepage": "https://the-guild.dev/",
+  "author": {
+    "email": "contact@the-guild.dev",
+    "name": "The Guild",
+    "url": "https://the-guild.dev"
+  },
+  "license": "MIT",
+  "bin": {
+    "graphql-federation-audit": "./dist/cli.js"
+  },
+  "main": "dist/cli.js",
+  "module": "dist/cli.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "typings": "dist/index.d.ts",
+  "typescript": {
+    "definition": "dist/index.d.ts"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public",
+    "directory": "dist"
+  },
+  "sideEffects": false,
   "scripts": {
     "start": "tsx ./src/cli.ts",
     "summary": "tsx ./src/summary.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "kill-port-process": "3.2.1",
