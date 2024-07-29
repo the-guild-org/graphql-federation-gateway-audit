@@ -138,7 +138,7 @@ for (const gateway of gatewayResults) {
       <td class="p-4 align-middle">
         ${printResult(gateway.groups, "html")}
       </td>
-      <td class="p-4 align-middle"><a href="" class="text-sky-600 hover:underline">View report</a></td>
+      <td class="p-4 align-middle"><a href="https://github.com/the-guild-org/federation-compatibility/tree/main/REPORT.md#${gateway.id}" class="text-sky-600 hover:underline">View report</a></td>
     </tr>
   `;
 
