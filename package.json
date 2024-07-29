@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "start": "tsx ./src/cli.ts",
-    "build": "tsc",
-    "format:md": "prettier --write '**/*.md'"
+    "summary": "tsx ./src/summary.ts",
+    "build": "tsc"
   },
   "dependencies": {
     "kill-port-process": "3.2.1",

@@ -7,74 +7,60 @@ on:
 permissions:
   pull-requests: write
   contents: read
+  deployments: write
 
 jobs:
   tests:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 2
 
-      - name: setup node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22.4
+          node-version: 22
           cache: "npm"
 
-      - name: install
-        run: npm ci
+      - name: Install
+        run: make install
 
-      - name: subgraphs
-        run: |
-          npm run dev &
-          npx wait-on http-get://localhost:4200/_health --timeout 5s --verbose
-
-      - name: gateway
-        run: |
-          npm run gateway:once &
-          npx wait-on http-get://localhost:4000/_health --timeout 5s --verbose
-
-      - name: test
-        run: npm run test
+      - name: Test
+        run: npm --run start -- --test --cwd ./gateways/router --run-script ./run.sh  --reporter tap --graphql http://127.0.0.1:4000 --healthcheck http://127.0.0.1:8088/health --exit-on-fail
 
   gateways:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 2
 
-      - name: setup node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22.4
+          node-version: 22
           cache: "npm"
 
-      - name: install
+      - name: Prepare
         run: make install
 
-      - name: subgraphs
-        run: |
-          npm run dev &
-          npx wait-on http-get://localhost:4200/_health --timeout 5s --verbose
+      - name: Test Gateways
+        run: make test-all
 
-      - name: gateways
-        run: make test-all BASE_URL="http://localhost:4200"
-
-      - name: summary
+      - name: Summary
         run: |
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "summary<<$EOF" >> "$GITHUB_ENV"
-          cat ./gateways/summary.md >> "$GITHUB_ENV"
+          cat ./DETAILS.md >> "$GITHUB_ENV"
           echo "$EOF" >> "$GITHUB_ENV"
 
-      - name: publish summary
+      - name: Publish Summary
         uses: marocchino/sticky-pull-request-comment@v2
         with:
-          header: Compatibility Summary
+          header: "Test Results"
           message: ${{ env.summary }}
 
   deploy:
@@ -95,8 +81,11 @@ jobs:
       - name: install
         run: npm ci
 
-      - name: deploy
-        run: npm run deploy
-        env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: federation-compatibility
+          directory: ./website
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

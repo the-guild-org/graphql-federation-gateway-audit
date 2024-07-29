@@ -74,6 +74,6 @@ union-intersection
 ........
 
 ---
+Total: 160
 Passed: 160
 Failed: 0
-Total: 160

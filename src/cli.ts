@@ -129,7 +129,7 @@ yargs(hideBin(process.argv))
     }
   )
   .command(
-    "test-single",
+    "test-suite",
     "run a test group",
     (yargs) => {
       return yargs
@@ -137,8 +137,16 @@ yargs(hideBin(process.argv))
           describe: "Test group id",
           type: "string",
         })
+        .option("run-script", {
+          describe: "Path to a bash script to run before each test",
+          type: "string",
+        })
         .option("graphql", {
           describe: "GraphQL endpoint serving the supergraph",
+          type: "string",
+        })
+        .option("healthcheck", {
+          describe: "Health check endpoint",
           type: "string",
         })
         .option("port", {
@@ -153,22 +161,78 @@ yargs(hideBin(process.argv))
         .option("reporter", {
           describe: "Choose a reporter",
           choices: ["dot", "tap"],
-          default: "dot",
+          default: "tap",
         })
         .demandOption("test")
-        .demandOption("graphql");
+        .demandOption("graphql")
+        .demandOption("healthcheck")
+        .demandOption("run-script");
     },
     async (argv) => {
+      const abortSignal = new AbortController();
+      process.once("SIGINT", () => {
+        if (!abortSignal.signal.aborted) {
+          abortSignal.abort();
+        }
+      });
+      process.once("SIGTERM", () => {
+        if (!abortSignal.signal.aborted) {
+          abortSignal.abort();
+        }
+      });
+
       const port = argv.port ?? (await getPort());
       if (!argv["no-server"]) {
         await serve(port);
       }
 
-      await runTest({
+      process.stdout.write("\n");
+
+      if (!existsSync(resolvePath(argv, "./logs"))) {
+        mkdirSync(resolvePath(argv, "./logs"));
+      }
+
+      await killPortProcess(readPort(argv.graphql)).catch(() => {});
+      const logStream = createWriteStream(
+        resolvePath(argv, `./logs/${argv.test}-gateway.log`),
+        {
+          flags: "w+",
+        }
+      );
+
+      const gatewayExit = Promise.withResolvers<void>();
+      let gatewayExited = false;
+      const gateway = spawn("sh", [argv.runScript, argv.test], {
+        signal: abortSignal.signal,
+        stdio: "pipe",
+        cwd: dirname(resolvePath(argv, argv.runScript)),
+      });
+
+      gateway.once("exit", () => {
+        gatewayExited = true;
+        gatewayExit.resolve();
+      });
+
+      gateway.stdout.pipe(logStream);
+      gateway.stderr.pipe(logStream);
+
+      const result = await runTest({
         ...argv,
         reporter: argv.reporter === "tap" ? "tap" : "dot",
         port,
       });
+
+      if (!gatewayExited) {
+        gateway.kill();
+      }
+      await gatewayExit.promise;
+      process.stdout.write("\n");
+
+      if (result.includes("X")) {
+        process.exit(1);
+      } else {
+        process.exit(0);
+      }
     }
   )
   .command(
@@ -207,28 +271,16 @@ yargs(hideBin(process.argv))
           type: "string",
           default: "results.txt",
         })
+        .option("exit-on-fail", {
+          describe: "Exit with status 1 if any test fails",
+          type: "boolean",
+          default: false,
+        })
         .demandOption("graphql")
         .demandOption("healthcheck")
         .demandOption("run-script");
     },
     async (argv) => {
-      const port = argv.port ?? (await getPort());
-
-      if (!argv["no-server"]) {
-        await serve(port);
-      }
-
-      const ids = await fetch(`http://localhost:${port}/ids`).then(
-        (res) => res.json() as Promise<string[]>
-      );
-
-      const results: Array<{
-        id: string;
-        result: Array<"." | "X">;
-      }> = [];
-
-      process.stdout.write("Running " + ids.length + " tests\n");
-
       const abortSignal = new AbortController();
       process.once("SIGINT", () => {
         if (!abortSignal.signal.aborted) {
@@ -241,22 +293,30 @@ yargs(hideBin(process.argv))
         }
       });
 
+      const port = argv.port ?? (await getPort());
+
+      if (!argv["no-server"]) {
+        await serve(port);
+      }
+
+      const ids = await fetch(`http://localhost:${port}/ids`, {
+        signal: abortSignal.signal,
+      }).then((res) => res.json() as Promise<string[]>);
+
+      const results: Array<{
+        id: string;
+        result: Array<"." | "X">;
+      }> = [];
+
+      process.stdout.write("Running " + ids.length + " tests\n");
+
       if (!existsSync(resolvePath(argv, "./logs"))) {
         mkdirSync(resolvePath(argv, "./logs"));
       }
 
       process.stdout.write("\n");
       for await (const id of ids) {
-        const ports = [
-          readPort(argv.graphql),
-          // readPort(argv.healthcheck),
-        ].filter(
-          // deduplicate
-          (value, index, self) => self.indexOf(value) === index
-        );
-        await Promise.all(
-          ports.map((port) => killPortProcess(port).catch(() => {}))
-        );
+        await killPortProcess(readPort(argv.graphql)).catch(() => {});
         const logStream = createWriteStream(
           resolvePath(argv, `./logs/${id}-gateway.log`),
           {
@@ -315,6 +375,7 @@ yargs(hideBin(process.argv))
 
       process.stdout.write(styleText("bold", "Results") + "\n");
       process.stdout.write("-----------\n");
+      process.stdout.write(`Total:  ${total}\n`);
       process.stdout.write(
         `Passed: ${styleText("greenBright", passed + "")}\n`
       );
@@ -323,7 +384,6 @@ yargs(hideBin(process.argv))
           `Failed: ${styleText("redBright", failed + "")}\n`
         );
       }
-      process.stdout.write(`Total:  ${total}\n`);
       process.stdout.write("\n");
 
       if (failed > 0) {
@@ -343,13 +403,16 @@ yargs(hideBin(process.argv))
           .concat([
             "",
             "---",
+            `Total: ${total}`,
             `Passed: ${passed}`,
             `Failed: ${failed}`,
-            `Total: ${total}`,
           ])
           .join("\n")
       );
 
+      if (argv["exit-on-fail"] && failed > 0) {
+        process.exit(1);
+      }
       process.exit(0);
     }
   )

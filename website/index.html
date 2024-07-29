@@ -1,0 +1,225 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>
+      Federation-Compatible Gateway Implementations | Apollo Federation Support
+      Benchmark
+    </title>
+    <meta
+      name="description"
+      content="Benchmark of various GraphQL servers that support acting as an Apollo Federation Gateway. Check their compatibility with Apollo Federation and read detailed test reports."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Federation-Compatible Gateway Implementations",
+        "description": "Benchmark of various GraphQL servers that support acting as an Apollo Federation Gateway. Check their compatibility with Apollo Federation and read detailed test reports.",
+        "author": {
+          "@type": "Organization",
+          "name": "The Guild"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "The Guild",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://the-guild.dev/static/logo.png"
+          }
+        },
+        "datePublished": "2024-07-29",
+        "mainEntityOfPage": "https://the-guild.dev/federation-gateway-benchmark"
+      }
+    </script>
+  </head>
+  <body>
+    <div class="w-full max-w-6xl mx-auto px-4 md:px-6 py-12 md:py-20">
+      <div class="space-y-6">
+        <div class="space-y-4">
+          <h1 class="text-3xl md:text-4xl font-bold">
+            Federation-Compatible Gateway Implementations
+          </h1>
+          <p class="text-gray-500 text-lg md:text-xl">
+            The following GraphQL servers support acting as a Apollo Federation
+            Gateway.
+            <br />
+            Their support is tracked in The Guilds's gateway compatibility
+            repository. Check out the repository for details on the
+            compatibility tests listed in the table below.
+          </p>
+        </div>
+        <div class="overflow-x-auto">
+          <div class="relative w-full overflow-auto">
+            <table class="w-full caption-bottom text-sm">
+              <thead class="[&_tr]:border-b">
+                <tr class="border-b">
+                  <th class="px-4 text-left align-middle font-medium">
+                    Gateway
+                  </th>
+                  <th class="px-4 text-left align-middle font-medium">
+                    Compatibility
+                    <span class="md:inline-block hidden text-xs text-gray-500"
+                      >Pass rate of test cases</span
+                    >
+                  </th>
+                  <th class="px-4 text-left align-middle font-medium">
+                    Test Cases
+                    <span class="md:inline-block hidden text-xs text-gray-500"
+                      >All available test cases</span
+                    >
+                  </th>
+                  <th class="px-4 text-left align-middle font-medium">
+                    Test Suites
+                    <span class="md:inline-block hidden text-xs text-gray-500">
+                      Test cases grouped by feature
+                    </span>
+                  </th>
+                  <th class="px-4 text-left align-middle font-medium">
+                    Full report
+                    <span class="md:inline-block hidden text-xs text-gray-500">
+                      Detailed test results
+                    </span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="[&_tr:last-child]:border-0">
+                <!-- gateways:start -->
+
+                <tr class="border-b">
+                  <td class="p-4 align-middle font-medium">
+                    <a
+                      href="https://github.com/apollographql/router"
+                      class="hover:underline"
+                      title="Visit repository"
+                    >
+                      Apollo Router
+                    </a>
+                  </td>
+                  <td class="p-4 align-middle">100.00%</td>
+                  <td class="p-4 align-middle">
+                    <span class="text-emerald-600 mr-2">✓ 160</span>
+                  </td>
+                  <td class="p-4 align-middle">
+                    <span class="text-emerald-600 mr-2">✓ 37</span>
+                  </td>
+                  <td class="p-4 align-middle">
+                    <a href="" class="text-sky-600 hover:underline"
+                      >View report</a
+                    >
+                  </td>
+                </tr>
+
+                <tr class="border-b">
+                  <td class="p-4 align-middle font-medium">
+                    <a
+                      href="https://github.com/Urigo/graphql-mesh"
+                      class="hover:underline"
+                      title="Visit repository"
+                    >
+                      GraphQL Mesh
+                    </a>
+                  </td>
+                  <td class="p-4 align-middle">100.00%</td>
+                  <td class="p-4 align-middle">
+                    <span class="text-emerald-600 mr-2">✓ 160</span>
+                  </td>
+                  <td class="p-4 align-middle">
+                    <span class="text-emerald-600 mr-2">✓ 37</span>
+                  </td>
+                  <td class="p-4 align-middle">
+                    <a href="" class="text-sky-600 hover:underline"
+                      >View report</a
+                    >
+                  </td>
+                </tr>
+
+                <tr class="border-b">
+                  <td class="p-4 align-middle font-medium">
+                    <a
+                      href="https://github.com/apollographql/router"
+                      class="hover:underline"
+                      title="Visit repository"
+                    >
+                      Apollo Router (Rust-based QP)
+                    </a>
+                  </td>
+                  <td class="p-4 align-middle">95.63%</td>
+                  <td class="p-4 align-middle">
+                    <span class="text-emerald-600 mr-2">✓ 153</span>
+                    <span class="text-red-600">✗ 7</span>
+                  </td>
+                  <td class="p-4 align-middle">
+                    <span class="text-emerald-600 mr-2">✓ 34</span>
+                    <span class="text-red-600">✗ 3</span>
+                  </td>
+                  <td class="p-4 align-middle">
+                    <a href="" class="text-sky-600 hover:underline"
+                      >View report</a
+                    >
+                  </td>
+                </tr>
+
+                <tr class="border-b">
+                  <td class="p-4 align-middle font-medium">
+                    <a
+                      href="https://github.com/wundergraph/cosmo"
+                      class="hover:underline"
+                      title="Visit repository"
+                    >
+                      Cosmo Router
+                    </a>
+                  </td>
+                  <td class="p-4 align-middle">66.25%</td>
+                  <td class="p-4 align-middle">
+                    <span class="text-emerald-600 mr-2">✓ 106</span>
+                    <span class="text-red-600">✗ 54</span>
+                  </td>
+                  <td class="p-4 align-middle">
+                    <span class="text-emerald-600 mr-2">✓ 19</span>
+                    <span class="text-red-600">✗ 18</span>
+                  </td>
+                  <td class="p-4 align-middle">
+                    <a href="" class="text-sky-600 hover:underline"
+                      >View report</a
+                    >
+                  </td>
+                </tr>
+
+                <tr class="border-b">
+                  <td class="p-4 align-middle font-medium">
+                    <a
+                      href="https://github.com/grafbase/grafbase"
+                      class="hover:underline"
+                      title="Visit repository"
+                    >
+                      Grafbase Gateway
+                    </a>
+                  </td>
+                  <td class="p-4 align-middle">46.25%</td>
+                  <td class="p-4 align-middle">
+                    <span class="text-emerald-600 mr-2">✓ 74</span>
+                    <span class="text-red-600">✗ 86</span>
+                  </td>
+                  <td class="p-4 align-middle">
+                    <span class="text-emerald-600 mr-2">✓ 11</span>
+                    <span class="text-red-600">✗ 26</span>
+                  </td>
+                  <td class="p-4 align-middle">
+                    <a href="" class="text-sky-600 hover:underline"
+                      >View report</a
+                    >
+                  </td>
+                </tr>
+
+                <!-- gateways:end -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

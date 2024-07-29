@@ -1,0 +1,6 @@
+{
+  "name": "GraphQL Mesh",
+  "repository": "https://github.com/Urigo/graphql-mesh",
+  "graphql": "http://127.0.0.1:4000/graphql",
+  "health": "http://127.0.0.1:4000/healthcheck"
+}
