@@ -37,6 +37,7 @@ import unionInterfaceDistributed from "./test-suites/union-interface-distributed
 import mutations from "./test-suites/mutations/index.js";
 import abstractTypes from "./test-suites/abstract-types/index.js";
 import fed1ExternalExtendsResolvable from "./test-suites/fed1-external-extends-resolvable/index.js";
+import requiresWithArgument from "./test-suites/requires-with-argument/index.js";
 
 const testCases = [
   mutations,
@@ -59,6 +60,7 @@ const testCases = [
   unionInterfaceDistributed,
   inputObjectIntersection,
   requiresWithFragments,
+  requiresWithArgument,
   requiresInterface,
   interfaceObjectWithRequires,
   overrideWithRequiresTestCase,

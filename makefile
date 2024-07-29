@@ -16,7 +16,7 @@ endef
 
 define RUN_GATEWAY
 run-$(1):
-	(cd gateways/$(1) && ./run.sh "$(BASE_URL)/$(TEST_SUITE)/supergraph")
+	(cd gateways/$(1) && ./run.sh $(TEST_SUITE))
 endef
 
 install:
