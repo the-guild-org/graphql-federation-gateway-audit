@@ -6,12 +6,12 @@ GATEWAY_IDS := $(notdir $(GATEWAYS_DIR))
 
 define TEST_GATEWAY
 test-$(1):
-	node --run start -- test --cwd ./gateways/$(1) --run-script ./run.sh --reporter $(REPORTER) --graphql $(shell jq -r .graphql ./gateways/$(1)/gateway.json) --healthcheck $(shell jq -r .health ./gateways/$(1)/gateway.json)
+	npm start -- test --cwd ./gateways/$(1) --run-script ./run.sh --reporter $(REPORTER) --graphql $(shell jq -r .graphql ./gateways/$(1)/gateway.json) --healthcheck $(shell jq -r .health ./gateways/$(1)/gateway.json)
 endef
 
 define TEST_SUITE_GATEWAY
 test-suite-$(1):
-	node --run start -- test-suite --test $(TEST_SUITE) --cwd ./gateways/$(1) --run-script ./run.sh --graphql $(shell jq -r .graphql ./gateways/$(1)/gateway.json) --healthcheck $(shell jq -r .health ./gateways/$(1)/gateway.json)
+	npm start -- test-suite --test $(TEST_SUITE) --cwd ./gateways/$(1) --run-script ./run.sh --graphql $(shell jq -r .graphql ./gateways/$(1)/gateway.json) --healthcheck $(shell jq -r .health ./gateways/$(1)/gateway.json)
 endef
 
 define RUN_GATEWAY
@@ -30,7 +30,7 @@ install:
 	done
 
 subgraphs:
-	node --run start -- subgraphs
+	npm start -- subgraphs
 
 # Generate the test and run targets for each gateway
 $(foreach gateway,$(GATEWAY_IDS),$(eval $(call TEST_GATEWAY,$(gateway))))
@@ -40,4 +40,4 @@ $(foreach gateway,$(GATEWAY_IDS),$(eval $(call TEST_SUITE_GATEWAY,$(gateway))))
 test-all: $(addprefix test-,$(GATEWAY_IDS)) summary
 
 summary:
-	node --run summary
+	npm run summary

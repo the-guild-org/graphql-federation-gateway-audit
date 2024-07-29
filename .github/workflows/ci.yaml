@@ -28,7 +28,7 @@ jobs:
         run: make install
 
       - name: Test
-        run: npm --run start -- --test --cwd ./gateways/router --run-script ./run.sh  --reporter tap --graphql http://127.0.0.1:4000 --healthcheck http://127.0.0.1:8088/health --exit-on-fail
+        run: npm start -- test --cwd ./gateways/router --run-script ./run.sh  --reporter tap --graphql http://127.0.0.1:4000 --healthcheck http://127.0.0.1:8088/health --exit-on-fail
 
   gateways:
     runs-on: ubuntu-latest
