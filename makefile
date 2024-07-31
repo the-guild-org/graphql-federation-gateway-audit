@@ -30,7 +30,7 @@ install:
 	done
 
 subgraphs:
-	npm start -- subgraphs
+	npm start -- serve
 
 # Generate the test and run targets for each gateway
 $(foreach gateway,$(GATEWAY_IDS),$(eval $(call TEST_GATEWAY,$(gateway))))

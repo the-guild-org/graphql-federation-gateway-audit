@@ -4,11 +4,11 @@
 
 |            Gateway            | Compatibility |  Test Cases  | Test Suites |
 | :---------------------------: | :-----------: | :----------: | :---------: |
-|         Apollo Router         |    100.00%    |    🟢 160    |    🟢 37    |
-|         GraphQL Mesh          |    100.00%    |    🟢 160    |    🟢 37    |
-| Apollo Router (Rust-based QP) |    95.63%     | 🟢 153 ❌ 7  | 🟢 34 ❌ 3  |
-|         Cosmo Router          |    66.25%     | 🟢 106 ❌ 54 | 🟢 19 ❌ 18 |
-|       Grafbase Gateway        |    46.25%     | 🟢 74 ❌ 86  | 🟢 11 ❌ 26 |
+|         Apollo Router         |    100.00%    |    🟢 161    |    🟢 38    |
+|         GraphQL Mesh          |    100.00%    |    🟢 161    |    🟢 38    |
+| Apollo Router (Rust-based QP) |    95.65%     | 🟢 154 ❌ 7  | 🟢 35 ❌ 3  |
+|         Cosmo Router          |    65.84%     | 🟢 106 ❌ 55 | 🟢 19 ❌ 19 |
+|       Grafbase Gateway        |    46.58%     | 🟢 75 ❌ 86  | 🟢 12 ❌ 26 |
 
 ## Detailed Results
 
@@ -74,6 +74,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/requires-requires">requires-requires</a>
 <pre>🟢🟢🟢</pre>
+<a href="./src/test-suites/requires-with-argument">requires-with-argument</a>
+<pre>🟢</pre>
 <a href="./src/test-suites/requires-with-fragments">requires-with-fragments</a>
 <pre>🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/shared-root">shared-root</a>
@@ -156,6 +158,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/requires-requires">requires-requires</a>
 <pre>🟢🟢🟢</pre>
+<a href="./src/test-suites/requires-with-argument">requires-with-argument</a>
+<pre>🟢</pre>
 <a href="./src/test-suites/requires-with-fragments">requires-with-fragments</a>
 <pre>🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/shared-root">shared-root</a>
@@ -238,6 +242,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/requires-requires">requires-requires</a>
 <pre>🟢🟢🟢</pre>
+<a href="./src/test-suites/requires-with-argument">requires-with-argument</a>
+<pre>🟢</pre>
 <a href="./src/test-suites/requires-with-fragments">requires-with-fragments</a>
 <pre>🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/shared-root">shared-root</a>
@@ -320,6 +326,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢🟢❌🟢🟢</pre>
 <a href="./src/test-suites/requires-requires">requires-requires</a>
 <pre>🟢🟢🟢</pre>
+<a href="./src/test-suites/requires-with-argument">requires-with-argument</a>
+<pre>❌</pre>
 <a href="./src/test-suites/requires-with-fragments">requires-with-fragments</a>
 <pre>❌❌❌❌❌❌</pre>
 <a href="./src/test-suites/shared-root">shared-root</a>
@@ -402,6 +410,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>❌❌❌❌❌</pre>
 <a href="./src/test-suites/requires-requires">requires-requires</a>
 <pre>❌❌❌</pre>
+<a href="./src/test-suites/requires-with-argument">requires-with-argument</a>
+<pre>🟢</pre>
 <a href="./src/test-suites/requires-with-fragments">requires-with-fragments</a>
 <pre>❌❌❌❌❌❌</pre>
 <a href="./src/test-suites/shared-root">shared-root</a>
