@@ -1,5 +1,5 @@
-import { createServer } from "node:http";
 import { createRouter, Response } from "fets";
+import { createServer } from "node:http";
 
 const testCases = await Promise.all(
   [
@@ -13,6 +13,7 @@ const testCases = await Promise.all(
     import("./test-suites/simple-override/index.js"),
     import("./test-suites/unavailable-override/index.js"),
     import("./test-suites/override-with-requires/index.js"),
+    import("./test-suites/node/index.js"),
     import("./test-suites/simple-inaccessible/index.js"),
     import("./test-suites/enum-intersection/index.js"),
     import("./test-suites/input-object-intersection/index.js"),
