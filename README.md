@@ -2,96 +2,102 @@
 
 This repository contains a set of tests and a tool to evaluate and compare the compatibility of different GraphQL gateways with Apollo Federation.
 
-## Gateways compatibility table
-
-A table of gateways that support Apollo Federation and their compatibility score.
-
 <!-- gateways:start -->
 
-|  Gateway   | Compatibility | Success/Total | Success/Total (test groups) |
-| :--------: | :-----------: | :-----------: | :-------------------------: |
-|    mesh    |     100%      |    160/160    |            37/37            |
-|   router   |     100%      |    160/160    |            37/37            |
-| router-new |      96%      |    153/160    |            34/37            |
-|   cosmo    |      63%      |    100/160    |            19/37            |
-|  grafbase  |      46%      |    74/160     |            11/37            |
+|                             Gateway                             | Compatibility |  Test Cases  | Test Suites |
+| :-------------------------------------------------------------: | :-----------: | :----------: | :---------: |
+|         [Apollo Router](https://www.apollographql.com/)         |    100.00%    |    🟢 162    |    🟢 39    |
+|       [GraphQL Mesh](https://the-guild.dev/graphql/mesh)        |    100.00%    |    🟢 162    |    🟢 39    |
+| [Apollo Router (Rust-based QP)](https://www.apollographql.com/) |    96.30%     | 🟢 156 ❌ 6  | 🟢 37 ❌ 2  |
+|             [Cosmo Router](https://wundergraph.com)             |    63.58%     | 🟢 103 ❌ 59 | 🟢 18 ❌ 21 |
+|            [Grafbase Gateway](https://grafbase.com)             |    46.91%     | 🟢 76 ❌ 86  | 🟢 13 ❌ 26 |
 
 <!-- gateways:end -->
 
-[See the full report](./gateways/summary.md)
+[See the full report](./REPORT.md)
+
+## Apollo Federation Coverage
+
+The tests are based on the Apollo Federation specification and cover the following directives:
+
+- @interfaceObject
+- @key
+- @external
+- @provides
+- @requires
+- @extends
+- @inaccessible
+- @shareable
+- @skip
+- @include
+- @composeDirective
+- @override
+
+**Out of scope (limited by Enterprise license of Apollo Router):**
+
+We are not able to test the following directives on Apollo Router due to the limitations of the Enterprise license:
+
+- @authenticated
+- @policy
+- @requiresScopes
+- @override(label:)
+
+We plan to test these directives as soon as we have access to the Enterprise license.
 
 ---
 
-## Test suites and setup
+## CLI
 
-### Running the subgraphs
+> TODO
 
-```bash
-npm install
-npm run dev
-```
+## Instructions
 
-### Configuring the gateway
-
-All of them are configured in different ways, but one thing they need is the supergraph SDL.
-
-To get the supergraph, visit `http://localhost:4200/<id>/supergraph` and copy the SDL.
-
-### Running the tests
-
-Provide these environment variables to run the tests:
-
-- `BASE_URL` pointing to server that runs the subgraphs. (default: `http://localhost:4200`)
-- `GATEWAY_URL` pointing to the gateway. (default: `http://localhost:4000`)
+First of all, you need to install and prepare the gateways. You can do this by running the following command:
 
 ```bash
-BASE_URL=... GATEWAY_URL=... npm run test <id>
+make install
 ```
 
-### Example of running all tests locally
+> [!IMPORTANT]  
+> Be aware that `Node` and `npm` are required to run the whole setup.
 
-1. Start the subgraphs: `$ npm run dev`
-2. Start the gateway: `$ npm run gateway`
-3. Run the tests: `$ npm run test-all`
+### Testing all gateways
 
----
+You can run the tests for each gateway by running the following command:
 
-### Specification
-
-#### OpenAPI
-
-```
-https://federation-compatibility.the-guild.dev
+```bash
+make test-all
 ```
 
-##### List of test-suite ids
+### Testing a specific gateway
 
-```
-https://federation-compatibility.the-guild.dev/ids
-```
+You can run the tests for a specific gateway by running the following command:
 
-##### List of tests
+```bash
+make test-[name of the gateway]
 
-```
-https://federation-compatibility.the-guild.dev/tests
-```
-
-##### List of supergraphs
-
-```
-https://federation-compatibility.the-guild.dev/supergraphs
+make test-grafbase
+make test-cosmo
+make test-mesh
+make test-router
 ```
 
-#### `/tests` response
+### Running a gateway for a single test suite
 
-```js
-[
-  {
-    query: "query { ... }",
-    expected: {
-      data: any, // optional
-      errors: boolean, // whether the response should contain an error (default: false, optional)
-    },
-  },
-];
+In case you want to run only a limited set of tests, you can do so by running the following command:
+
+```bash
+make test-suite-[name of the gateway] TEST_SUITE=[id of the test suite]
 ```
+
+### Running a gateway for a specific supergraph
+
+There's also the possibility to start a gateway for a selected supergraph, in case you want to run the queries yourself.
+
+```bash
+make run-[name of the gateway] TEST_SUITE=[id of the test suite]
+```
+
+## Contributing or adding a new gateway
+
+[See the contributing guide](./.github/CONTRIBUTING.md)

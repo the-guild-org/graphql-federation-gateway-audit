@@ -2,7 +2,7 @@ import { createRouter, Response } from "fets";
 import { parse } from "graphql";
 import { buildSubgraphSchema } from "@apollo/subgraph";
 import { createYoga } from "graphql-yoga";
-import { Env } from "./env";
+import { env } from "./env.js";
 
 export function createSubgraph(
   name: string,
@@ -29,6 +29,7 @@ export function createSubgraph(
       yoga = createYoga({
         schema: lazySchema(),
         graphqlEndpoint: "*",
+        logging: false,
       });
     }
 
@@ -38,11 +39,7 @@ export function createSubgraph(
   let yoga: ReturnType<typeof createYoga>;
 
   return {
-    createRoutes(
-      testCaseId: string,
-      router: ReturnType<typeof createRouter>,
-      env: Env
-    ) {
+    createRoutes(testCaseId: string, router: ReturnType<typeof createRouter>) {
       router.route({
         method: "GET",
         path: `/${testCaseId}/${name}`,
@@ -106,32 +103,7 @@ export function createSubgraph(
           },
         },
         async handler(req) {
-          const bodyAsString = JSON.stringify(
-            await req.clone().json(),
-            null,
-            2
-          );
-
-          return (lazyYoga().fetch(req, { env }) as Promise<any>).then(
-            (response) => {
-              response
-                .clone()
-                .json()
-                .then((res: Response) => {
-                  console.log(
-                    [
-                      "\n",
-                      "Subgraph: " + name,
-                      "Request:",
-                      bodyAsString,
-                      "Response:",
-                      JSON.stringify(res, null, 2),
-                    ].join("\n")
-                  );
-                });
-              return response;
-            }
-          );
+          return lazyYoga().fetch(req, { env }) as Promise<any>;
         },
       });
     },

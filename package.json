@@ -1,34 +1,74 @@
 {
-  "name": "federation-compatibility",
+  "name": "graphql-federation-audit",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
+  "description": "Audit tool for Apollo Federation Gateway",
+  "repository": {
+    "type": "git",
+    "url": "the-guild-org/federation-compatibility"
+  },
+  "homepage": "https://the-guild.dev/",
+  "author": {
+    "email": "contact@the-guild.dev",
+    "name": "The Guild",
+    "url": "https://the-guild.dev"
+  },
+  "license": "MIT",
+  "bin": {
+    "graphql-federation-audit": "./dist/cli.js"
+  },
+  "main": "dist/cli.js",
+  "module": "dist/cli.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "typings": "dist/index.d.ts",
+  "typescript": {
+    "definition": "dist/index.d.ts"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public",
+    "directory": "dist"
+  },
+  "sideEffects": false,
   "scripts": {
-    "dev": "wrangler dev --port 4200 src/index.ts",
-    "gateway": "node --import tsx/esm --watch --watch-path=./src --watch-path=./gateway.ts ./gateway.ts",
-    "gateway:once": "node --import tsx/esm ./gateway.ts",
-    "test": "tsx ./test-all.ts",
-    "test-single": "node --import tsx/esm --test --test-concurrency=1 --test-reporter=dot --test-reporter-destination=single.test.log --test-reporter=spec --test-reporter-destination=stdout ./gateways/single.test.ts",
-    "deploy": "wrangler deploy --minify src/index.ts",
-    "format:md": "prettier --write '**/*.md'"
+    "start": "tsx ./src/cli.ts",
+    "summary": "tsx ./src/summary.ts",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@apollo/subgraph": "2.8.3",
-    "@apollo/gateway": "2.8.3",
-    "@apollo/query-planner": "2.8.3",
+    "kill-port-process": "3.2.1",
+    "dotenv": "16.4.5",
+    "@apollo/subgraph": "2.8.4",
+    "@apollo/composition": "2.8.4",
     "graphql-yoga": "5.6.1",
     "graphql": "16.9.0",
-    "fets": "0.8.1"
+    "fets": "0.8.1",
+    "jest-diff": "29.7.0",
+    "wait-on": "7.2.0",
+    "yargs": "17.7.2",
+    "get-port": "7.1.0"
   },
   "devDependencies": {
+    "@types/node": "20.14.12",
+    "@types/wait-on": "5.3.4",
+    "@types/yargs": "17.0.32",
+    "typescript": "5.5.4",
     "prettier": "3.3.3",
-    "wgc": "0.58.5",
-    "strip-indent": "4.0.0",
-    "jest-diff": "29.7.0",
-    "tsx": "4.15.7",
-    "@cloudflare/workers-types": "4.20240620.0",
-    "wrangler": "3.61.0",
-    "@apollo/composition": "2.8.3",
-    "vitest": "2.0.3",
-    "wait-on": "7.2.0"
+    "wgc": "0.58.7",
+    "tsx": "4.15.7"
   }
 }

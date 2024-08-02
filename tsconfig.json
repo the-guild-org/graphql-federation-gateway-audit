@@ -1,11 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "outDir": "./dist",
     "strict": true,
-    "lib": ["ESNext"],
-    "types": ["@cloudflare/workers-types"],
-    "jsx": "react-jsx"
-  }
+    "target": "ESNext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": true
+  },
+  "include": ["src"]
 }

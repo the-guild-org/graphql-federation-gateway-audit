@@ -1,5 +1,23 @@
 BASE_URL := $(or $(BASE_URL), "http://localhost:4200")
-TESTS := $(or $(TESTS), "")
+TEST_SUITE := $(or $(TEST_SUITE), "")
+REPORTER := $(or $(REPORTER), "dot")
+GATEWAYS_DIR := $(wildcard ./gateways/*)
+GATEWAY_IDS := $(notdir $(GATEWAYS_DIR))
+
+define TEST_GATEWAY
+test-$(1):
+	npm start -- test --cwd ./gateways/$(1) --run-script ./run.sh --reporter $(REPORTER) --graphql $(shell jq -r .graphql ./gateways/$(1)/gateway.json) --healthcheck $(shell jq -r .health ./gateways/$(1)/gateway.json)
+endef
+
+define TEST_SUITE_GATEWAY
+test-suite-$(1):
+	npm start -- test-suite --test $(TEST_SUITE) --cwd ./gateways/$(1) --run-script ./run.sh --graphql $(shell jq -r .graphql ./gateways/$(1)/gateway.json) --healthcheck $(shell jq -r .health ./gateways/$(1)/gateway.json)
+endef
+
+define RUN_GATEWAY
+run-$(1):
+	(cd gateways/$(1) && ./run.sh $(TEST_SUITE))
+endef
 
 install:
 	npm install
@@ -12,34 +30,14 @@ install:
 	done
 
 subgraphs:
-	npm run dev
+	npm start -- serve
 
-test-cosmo:
-	(cd gateways && ./run-all.sh $(BASE_URL) cosmo http://127.0.0.1:4000/graphql http://127.0.0.1:4000/health 5s $(TESTS))
-run-cosmo:
-	(cd gateways/cosmo && ./run.sh "$(BASE_URL)/$(TEST)/supergraph")
+# Generate the test and run targets for each gateway
+$(foreach gateway,$(GATEWAY_IDS),$(eval $(call TEST_GATEWAY,$(gateway))))
+$(foreach gateway,$(GATEWAY_IDS),$(eval $(call RUN_GATEWAY,$(gateway))))
+$(foreach gateway,$(GATEWAY_IDS),$(eval $(call TEST_SUITE_GATEWAY,$(gateway))))
 
-test-grafbase:
-	(cd gateways && ./run-all.sh $(BASE_URL) grafbase http://127.0.0.1:4000/graphql http://127.0.0.1:4000/health 5s $(TESTS))
-run-grafbase:
-	(cd gateways/grafbase && ./run.sh "$(BASE_URL)/$(TEST)/supergraph")
-
-test-mesh:
-	(cd gateways && ./run-all.sh $(BASE_URL) mesh http://127.0.0.1:4000/graphql http://127.0.0.1:4000/healthcheck 30s $(TESTS))
-run-mesh:
-	(cd gateways/mesh && ./run.sh "$(BASE_URL)/$(TEST)/supergraph")
-
-test-router:
-	(cd gateways && ./run-all.sh $(BASE_URL) router http://127.0.0.1:4000/ http://127.0.0.1:8088/health 5s $(TESTS))
-run-router:
-	(cd gateways/router && ./run.sh "$(BASE_URL)/$(TEST)/supergraph")
-
-test-router-new:
-	(cd gateways && ./run-all.sh $(BASE_URL) router-new http://127.0.0.1:4000/ http://127.0.0.1:8088/health 5s $(TESTS))
-run-router-new:
-	(cd gateways/router-new && ./run.sh "$(BASE_URL)/$(TEST)/supergraph")
-
-test-all: test-router test-router-new test-mesh test-grafbase test-cosmo summary
+test-all: $(addprefix test-,$(GATEWAY_IDS)) summary
 
 summary:
-	(cd gateways && ./summary.sh) && npm run format:md
+	npm run summary

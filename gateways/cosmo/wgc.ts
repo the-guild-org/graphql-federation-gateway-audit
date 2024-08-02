@@ -1,4 +1,4 @@
-import { writeFileSync, readdirSync, unlinkSync } from "node:fs";
+import { writeFileSync, readFileSync, readdirSync, unlinkSync } from "node:fs";
 
 for (const file of readdirSync("subgraphs")) {
   if (file.endsWith(".graphql")) {
@@ -6,16 +6,11 @@ for (const file of readdirSync("subgraphs")) {
   }
 }
 
-const [, , supergraphUrl] = process.argv;
-
-const subgraphsUrl = supergraphUrl.replace("supergraph", "subgraphs");
-
-const res = await fetch(subgraphsUrl);
-const subgraphs = (await res.json()) as Array<{
+const subgraphs: Array<{
   name: string;
   url: string;
   sdl: string;
-}>;
+}> = JSON.parse(readFileSync("subgraphs.json", "utf-8"));
 
 let yaml = `
 version: 1

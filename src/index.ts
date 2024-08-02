@@ -1,91 +1,51 @@
 import { createRouter, Response } from "fets";
-import unionIntersectionTestCase from "./test-cases/union-intersection";
-import simpleEntityCallTestCase from "./test-cases/simple-entity-call";
-import complexEntityCallTestCase from "./test-cases/complex-entity-call";
-import mysteriousExternalTestCase from "./test-cases/mysterious-external";
-import simpleRequiresProvidesTestCase from "./test-cases/simple-requires-provides";
-import overrideTypeInterfaceTestCase from "./test-cases/override-type-interface";
-import simpleInterfaceObjectTestCase from "./test-cases/simple-interface-object";
-import simpleOverrideTestCae from "./test-cases/simple-override";
-import unavailableOverrideTestCase from "./test-cases/unavailable-override";
-import overrideWithRequiresTestCase from "./test-cases/override-with-requires";
-import simpleInaccessible from "./test-cases/simple-inaccessible";
-import enumIntersection from "./test-cases/enum-intersection";
-import inputObjectIntersection from "./test-cases/input-object-intersection";
-import requiresWithFragments from "./test-cases/requires-with-fragments";
-import childTypeMismatch from "./test-cases/child-type-mismatch";
-import nonResolvableInterfaceObject from "./test-cases/non-resolvable-interface-object";
-import interfaceObjectWithRequires from "./test-cases/interface-object-with-requires";
-import requiresInterface from "./test-cases/requires-interface";
-import fed1ExternalExtends from "./test-cases/fed1-external-extends";
-import fed2ExternalExtends from "./test-cases/fed2-external-extends";
-import fed1ExternalExtension from "./test-cases/fed1-external-extension";
-import fed2ExternalExtension from "./test-cases/fed2-external-extension";
-import parentEntityCall from "./test-cases/parent-entity-call";
-import corruptedSupergraphNodeId from "./test-cases/corrupted-supergraph-node-id";
-import parentEntityCallComplex from "./test-cases/parent-entity-call-complex";
-import sharedRoot from "./test-cases/shared-root";
-import nestedProvides from "./test-cases/nested-provides";
-import providesOnInterface from "./test-cases/provides-on-interface";
-import providesOnUnion from "./test-cases/provides-on-union";
-import requiresRequires from "./test-cases/requires-requires";
-import includeSkip from "./test-cases/include-skip";
-import circularReferenceInterface from "./test-cases/circular-reference-interface";
-import typename from "./test-cases/typename";
-import unionInterfaceDistributed from "./test-cases/union-interface-distributed";
-import mutations from "./test-cases/mutations";
-import abstractTypes from "./test-cases/abstract-types";
-import fed1ExternalExtendsResolvable from "./test-cases/fed1-external-extends-resolvable";
-import { Env } from "./env";
+import { createServer } from "node:http";
 
-const testCases = [
-  mutations,
-  abstractTypes,
-  corruptedSupergraphNodeId,
-  unionIntersectionTestCase,
-  simpleEntityCallTestCase,
-  complexEntityCallTestCase,
-  mysteriousExternalTestCase,
-  simpleRequiresProvidesTestCase,
-  nestedProvides,
-  providesOnInterface,
-  providesOnUnion,
-  overrideTypeInterfaceTestCase,
-  simpleInterfaceObjectTestCase,
-  simpleOverrideTestCae,
-  unavailableOverrideTestCase,
-  simpleInaccessible,
-  enumIntersection,
-  unionInterfaceDistributed,
-  inputObjectIntersection,
-  requiresWithFragments,
-  requiresInterface,
-  interfaceObjectWithRequires,
-  overrideWithRequiresTestCase,
-  requiresRequires,
-  childTypeMismatch,
-  nonResolvableInterfaceObject,
-  fed1ExternalExtends,
-  fed2ExternalExtends,
-  fed1ExternalExtension,
-  fed2ExternalExtension,
-  fed1ExternalExtendsResolvable,
-  parentEntityCall,
-  parentEntityCallComplex,
-  sharedRoot,
-  includeSkip,
-  circularReferenceInterface,
-  typename,
-];
+const testCases = await Promise.all(
+  [
+    import("./test-suites/union-intersection/index.js"),
+    import("./test-suites/simple-entity-call/index.js"),
+    import("./test-suites/complex-entity-call/index.js"),
+    import("./test-suites/mysterious-external/index.js"),
+    import("./test-suites/simple-requires-provides/index.js"),
+    import("./test-suites/override-type-interface/index.js"),
+    import("./test-suites/simple-interface-object/index.js"),
+    import("./test-suites/simple-override/index.js"),
+    import("./test-suites/unavailable-override/index.js"),
+    import("./test-suites/override-with-requires/index.js"),
+    import("./test-suites/node/index.js"),
+    import("./test-suites/simple-inaccessible/index.js"),
+    import("./test-suites/enum-intersection/index.js"),
+    import("./test-suites/input-object-intersection/index.js"),
+    import("./test-suites/requires-with-fragments/index.js"),
+    import("./test-suites/child-type-mismatch/index.js"),
+    import("./test-suites/non-resolvable-interface-object/index.js"),
+    import("./test-suites/interface-object-with-requires/index.js"),
+    import("./test-suites/requires-interface/index.js"),
+    import("./test-suites/fed1-external-extends/index.js"),
+    import("./test-suites/fed2-external-extends/index.js"),
+    import("./test-suites/fed1-external-extension/index.js"),
+    import("./test-suites/fed2-external-extension/index.js"),
+    import("./test-suites/parent-entity-call/index.js"),
+    import("./test-suites/corrupted-supergraph-node-id/index.js"),
+    import("./test-suites/parent-entity-call-complex/index.js"),
+    import("./test-suites/shared-root/index.js"),
+    import("./test-suites/nested-provides/index.js"),
+    import("./test-suites/provides-on-interface/index.js"),
+    import("./test-suites/provides-on-union/index.js"),
+    import("./test-suites/requires-requires/index.js"),
+    import("./test-suites/include-skip/index.js"),
+    import("./test-suites/circular-reference-interface/index.js"),
+    import("./test-suites/typename/index.js"),
+    import("./test-suites/union-interface-distributed/index.js"),
+    import("./test-suites/mutations/index.js"),
+    import("./test-suites/abstract-types/index.js"),
+    import("./test-suites/fed1-external-extends-resolvable/index.js"),
+    import("./test-suites/requires-with-argument/index.js"),
+  ].map((i) => i.then((e) => e.default))
+);
 
-function routerFetch(
-  request: Request,
-  env: {
-    IS_DEV_MODE?: string;
-  } & Env
-) {
-  const isDevMode = env.IS_DEV_MODE === "true";
-
+export function serve(port: number): Promise<void> {
   const router = createRouter({
     landingPage: false,
     swaggerUI: {
@@ -211,7 +171,7 @@ function routerFetch(
     }
 
     registeredNames.add(testCase.id);
-    testCase.createRoutes(router, isDevMode, env);
+    testCase.createRoutes(router);
   }
 
   router.route({
@@ -219,11 +179,43 @@ function routerFetch(
     handler: () => new Response("Not found", { status: 404 }),
   });
 
-  return router.fetch(request, {});
+  const { resolve, reject, promise } = Promise.withResolvers<void>();
+
+  let started = false;
+  const server = createServer(router).listen(port, () => {
+    started = true;
+    resolve();
+  });
+
+  server.once("error", (error) => {
+    if (!started) {
+      reject(error);
+    } else {
+      process.stderr.write("Server error: " + String(error));
+    }
+  });
+
+  function close() {
+    if (server.listening) {
+      server.close();
+    }
+  }
+
+  server.once("close", () => {
+    console.log("Server closed");
+  });
+
+  process.once("exit", () => {
+    close();
+  });
+
+  process.once("SIGINT", () => {
+    close();
+  });
+
+  process.once("SIGTERM", () => {
+    close();
+  });
+
+  return promise;
 }
-
-export default {
-  fetch: routerFetch,
-};
-
-export { MutationsTestStorage } from "./test-cases/mutations/data";

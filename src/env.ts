@@ -1,14 +1,13 @@
-import { MutationsTestStorage } from "./test-cases/mutations/data";
+import { config } from "dotenv";
+
+export const env = config().parsed ?? {
+  PUNISH_FOR_POOR_PLANS: "1",
+};
 
 export interface Env {
-  MUTATIONS: DurableObjectNamespace<MutationsTestStorage>;
-  PUNISH_FOR_POOR_PLANS?: "true" | "false";
+  PUNISH_FOR_POOR_PLANS?: "1" | "0";
 }
 
 export function shouldPunishForPoorPlans(context: { env: Env }) {
-  console.log(
-    "punishing for poor plans?",
-    context.env.PUNISH_FOR_POOR_PLANS === "true" ? "yes" : "no"
-  );
-  return context.env.PUNISH_FOR_POOR_PLANS === "true";
+  return context.env.PUNISH_FOR_POOR_PLANS === "1";
 }
