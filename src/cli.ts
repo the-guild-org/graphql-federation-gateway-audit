@@ -447,11 +447,12 @@ async function runTest(args: {
   if (args.healthcheck) {
     try {
       await waitOn({
-        resources: [args.healthcheck],
-        timeout: 10_000,
-        httpTimeout: 500,
+        // Make sure the health check is a GET request
+        resources: [args.healthcheck.replace('http://', 'http-get://')],
+        timeout: 5_000,
+        httpTimeout: 200,
         log: false,
-        // verbose: true,
+        verbose: false,
       });
     } catch (err) {
       logStream.write("\nHealth check failed\n");
