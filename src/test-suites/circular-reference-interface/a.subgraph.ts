@@ -37,7 +37,7 @@ export default createSubgraph("a", {
     Book: {
       samePriceProduct(book: { id: string; price: number }) {
         const samePriceBook = books.find(
-          (b) => b.price === book.price && b.id !== book.id
+          (b) => b.price === book.price && b.id !== book.id,
         );
 
         if (!samePriceBook) {

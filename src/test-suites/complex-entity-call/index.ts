@@ -8,5 +8,5 @@ import test from "./test.js";
 export default serve(
   "complex-entity-call",
   [link, list, price, products],
-  test
+  test,
 );

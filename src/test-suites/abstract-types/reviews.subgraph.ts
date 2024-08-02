@@ -18,7 +18,7 @@ const Product = {
       .filter((review) => review.productId === product.id)
       .map((review) => {
         const product = products.find(
-          (product) => product.id === review.productId
+          (product) => product.id === review.productId,
         );
 
         return {
@@ -39,7 +39,7 @@ const Product = {
   },
   reviewsScore(product: { id: string }) {
     const productReviews = reviews.filter(
-      (review) => review.productId === product.id
+      (review) => review.productId === product.id,
     );
 
     if (productReviews.length === 0) {
@@ -52,14 +52,15 @@ const Product = {
   reviewsOfSimilar(product: { __typename: string; similar: { id: string[] } }) {
     const similarProducts = products.filter(
       (p) =>
-        p.__typename === product.__typename && product.similar.id.includes(p.id)
+        p.__typename === product.__typename &&
+        product.similar.id.includes(p.id),
     );
 
     return similarProducts
       .flatMap((p) => reviews.filter((review) => review.productId === p.id))
       .map((review) => {
         const product = products.find(
-          (product) => product.id === review.productId
+          (product) => product.id === review.productId,
         );
 
         return {
@@ -136,7 +137,7 @@ export default createSubgraph("reviews", {
         }
 
         const product = products.find(
-          (product) => product.id === review.productId
+          (product) => product.id === review.productId,
         );
 
         return {

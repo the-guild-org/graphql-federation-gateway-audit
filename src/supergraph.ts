@@ -9,14 +9,14 @@ export function getSupergraph(
     name: string;
     url: string;
     typeDefs: string;
-  }>
+  }>,
 ) {
   const result = composeServices(
     subgraphs.map((subgraph) => ({
       name: subgraph.name,
       typeDefs: parse(subgraph.typeDefs),
       url: subgraph.url,
-    }))
+    })),
   );
 
   if (!result.supergraphSdl) {
@@ -38,7 +38,7 @@ export function serve(
     | Array<{
         query: string;
         expected: any;
-      }>
+      }>,
 ) {
   return {
     id,
@@ -59,7 +59,7 @@ export function serve(
             name: subgraph.name,
             typeDefs: subgraph.typeDefs,
             url: `${request.parsedUrl.origin}/${id}/${subgraph.name}`,
-          }))
+          })),
         );
 
         const response = new Response(supergraph, {
@@ -138,7 +138,7 @@ export function serve(
               name: subgraph.name,
               sdl: subgraph.typeDefs,
               url: `${req.parsedUrl.origin}/${id}/${subgraph.name}`,
-            }))
+            })),
           );
         },
       });

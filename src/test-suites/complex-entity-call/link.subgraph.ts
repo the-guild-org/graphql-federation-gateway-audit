@@ -21,11 +21,11 @@ export default createSubgraph("link", {
             }
           | {
               id: string;
-            }
+            },
       ) {
         if ("pid" in key) {
           return products.find(
-            (product) => product.id === key.id && product.pid === key.pid
+            (product) => product.id === key.id && product.pid === key.pid,
           );
         }
 

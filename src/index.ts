@@ -42,6 +42,7 @@ const testCases = await Promise.all(
     import("./test-suites/abstract-types/index.js"),
     import("./test-suites/fed1-external-extends-resolvable/index.js"),
     import("./test-suites/requires-with-argument/index.js"),
+    import("./test-suites/keys-mashup/index.js"),
   ].map((i) => i.then((e) => e.default))
 );
 

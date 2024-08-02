@@ -18,6 +18,6 @@ export default [
           nickname: users[0].nickname,
         },
       },
-    }
+    },
   ),
 ];

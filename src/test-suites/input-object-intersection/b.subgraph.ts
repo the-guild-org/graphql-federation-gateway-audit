@@ -27,7 +27,7 @@ export default createSubgraph("b", {
     Query: {
       usersInB(
         _: {},
-        { filter }: { filter: { offset?: number; first: number } }
+        { filter }: { filter: { offset?: number; first: number } },
       ) {
         if ("offset" in filter) {
           return [];

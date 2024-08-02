@@ -19,7 +19,7 @@ export default [
           name: "name-1",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -46,6 +46,6 @@ export default [
           },
         ],
       },
-    }
+    },
   ),
 ];

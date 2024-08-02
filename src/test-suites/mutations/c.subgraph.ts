@@ -17,7 +17,7 @@ export default createSubgraph("c", {
         args: {
           num: number;
           requestId: string;
-        }
+        },
       ) {
         return addNumber(args.num, args.requestId);
       },

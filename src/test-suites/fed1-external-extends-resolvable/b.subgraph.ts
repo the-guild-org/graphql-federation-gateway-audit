@@ -31,7 +31,7 @@ export default createSubgraph("b", {
           | { id: string; name: string }
           | {
               upc: string;
-            }
+            },
       ) => {
         const product =
           "id" in key

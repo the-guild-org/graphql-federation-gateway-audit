@@ -12,7 +12,7 @@ export default [
     {
       errors: true,
       data: null,
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -34,7 +34,7 @@ export default [
           __typename: "Chat",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -64,7 +64,7 @@ export default [
           text: "c1-text",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -86,7 +86,7 @@ export default [
         account: {},
         chat: {},
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -114,7 +114,7 @@ export default [
           __typename: "Chat",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -136,7 +136,7 @@ export default [
     {
       data: null,
       errors: true,
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -152,7 +152,7 @@ export default [
           id: "c1",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -168,7 +168,7 @@ export default [
           id: "a1",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -192,7 +192,7 @@ export default [
           },
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -218,6 +218,6 @@ export default [
           ],
         },
       },
-    }
+    },
   ),
 ];

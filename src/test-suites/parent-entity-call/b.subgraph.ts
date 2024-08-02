@@ -24,7 +24,7 @@ export default createSubgraph("b", {
     Product: {
       __resolveReference(key: { id: string; pid: string }) {
         const product = products.find(
-          (p) => p.id === key.id && p.pid === key.pid
+          (p) => p.id === key.id && p.pid === key.pid,
         );
 
         if (!product) {

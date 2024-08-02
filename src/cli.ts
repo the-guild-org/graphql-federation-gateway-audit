@@ -448,7 +448,7 @@ async function runTest(args: {
     try {
       await waitOn({
         // Make sure the health check is a GET request
-        resources: [args.healthcheck.replace('http://', 'http-get://')],
+        resources: [args.healthcheck.replace("http://", "http-get://")],
         timeout: 5_000,
         httpTimeout: 200,
         log: false,

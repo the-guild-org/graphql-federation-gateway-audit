@@ -7,5 +7,5 @@ import test from "./test.js";
 export default serve(
   "nested-provides",
   [allProducts, category, subcategories],
-  test
+  test,
 );

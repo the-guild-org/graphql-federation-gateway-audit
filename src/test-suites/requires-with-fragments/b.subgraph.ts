@@ -95,7 +95,10 @@ export default createSubgraph("b", {
     },
     Entity: {
       __resolveReference(
-        key: { id: string } | WithData<{ id: string }> | WithFoo<{ id: string }>
+        key:
+          | { id: string }
+          | WithData<{ id: string }>
+          | WithFoo<{ id: string }>,
       ) {
         const entity = entities.find((e) => e.id === key.id);
 

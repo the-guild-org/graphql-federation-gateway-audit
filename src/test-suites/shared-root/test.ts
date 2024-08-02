@@ -21,7 +21,7 @@ export default [
           category: "Category 1",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -45,6 +45,6 @@ export default [
           },
         ],
       },
-    }
+    },
   ),
 ];

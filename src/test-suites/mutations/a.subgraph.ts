@@ -60,7 +60,7 @@ export default createSubgraph("a", {
         args: {
           by: number;
           requestId: string;
-        }
+        },
       ) {
         return multiplyNumber(args.by, args.requestId);
       },
@@ -73,7 +73,7 @@ export default createSubgraph("a", {
             name: string;
             price: number;
           };
-        }
+        },
       ) {
         return addProduct(input.name, input.price);
       },

@@ -24,7 +24,7 @@ export default createSubgraph("list", {
     ProductList: {
       __resolveReference(key: { products: { id: string; pid: string }[] }) {
         const prods = products.filter((p) =>
-          key.products.some((k) => k.id === p.id && k.pid === p.pid)
+          key.products.some((k) => k.id === p.id && k.pid === p.pid),
         );
         return {
           products: prods,
@@ -36,7 +36,7 @@ export default createSubgraph("list", {
     Product: {
       __resolveReference(key: { id: string; pid: string }) {
         return products.find(
-          (product) => product.id === key.id && product.pid === key.pid
+          (product) => product.id === key.id && product.pid === key.pid,
         );
       },
     },

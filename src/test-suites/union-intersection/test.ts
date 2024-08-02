@@ -16,7 +16,7 @@ export default [
       data: {
         media: {},
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -34,7 +34,7 @@ export default [
           title: media.title,
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -55,7 +55,7 @@ export default [
           title: media.title,
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -117,7 +117,7 @@ export default [
           },
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -137,7 +137,7 @@ export default [
           media: {},
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -159,7 +159,7 @@ export default [
           },
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -184,7 +184,7 @@ export default [
           },
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -246,6 +246,6 @@ export default [
           },
         },
       },
-    }
+    },
   ),
 ];

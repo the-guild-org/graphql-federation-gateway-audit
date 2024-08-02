@@ -25,7 +25,7 @@ export default [
           },
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -73,6 +73,6 @@ export default [
           price: 10.99,
         },
       },
-    }
+    },
   ),
 ];

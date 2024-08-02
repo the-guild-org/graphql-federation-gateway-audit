@@ -15,7 +15,7 @@ export default [
           city: "a1-city",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -31,7 +31,7 @@ export default [
           city: "a2-city",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -47,7 +47,7 @@ export default [
           country: null,
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -69,7 +69,7 @@ export default [
           },
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -91,6 +91,6 @@ export default [
           },
         },
       },
-    }
+    },
   ),
 ];

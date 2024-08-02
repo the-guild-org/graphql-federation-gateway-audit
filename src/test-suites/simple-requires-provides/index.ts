@@ -8,5 +8,5 @@ import test from "./test.js";
 export default serve(
   "simple-requires-provides",
   [accounts, inventory, products, reviews],
-  test
+  test,
 );

@@ -31,7 +31,7 @@ export default [
           },
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -47,7 +47,7 @@ export default [
           requirer: "q1-foo_requirer",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -69,7 +69,7 @@ export default [
           requirer: "q1-foo_requirer",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -91,7 +91,7 @@ export default [
           requirer: "q1-foo_requirer",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -111,7 +111,7 @@ export default [
           requirer: "b1-foo_requirer",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -133,6 +133,6 @@ export default [
           requirer2: "q1-foo_requirer2",
         },
       },
-    }
+    },
   ),
 ];

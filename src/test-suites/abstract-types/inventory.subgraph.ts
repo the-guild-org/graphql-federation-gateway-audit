@@ -62,7 +62,7 @@ export default createSubgraph("inventory", {
       },
       delivery(
         { dimensions }: { dimensions?: { size: string; weight: number } },
-        { zip }: { zip?: string }
+        { zip }: { zip?: string },
       ) {
         if (!zip) {
           return null;
@@ -111,7 +111,7 @@ export default createSubgraph("inventory", {
       },
       delivery(
         { dimensions }: { dimensions?: { size: string; weight: number } },
-        { zip }: { zip?: string }
+        { zip }: { zip?: string },
       ) {
         if (!zip) {
           return null;

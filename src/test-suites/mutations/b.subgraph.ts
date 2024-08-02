@@ -26,7 +26,7 @@ export default createSubgraph("b", {
         _: {},
         args: {
           requestId: string;
-        }
+        },
       ) {
         return deleteNumber(args.requestId);
       },
@@ -34,7 +34,7 @@ export default createSubgraph("b", {
     Product: {
       async __resolveReference(key: { id: string; price?: number }) {
         const product = (await getProducts()).find(
-          (product) => product.id === key.id
+          (product) => product.id === key.id,
         );
 
         if (!product) {

@@ -93,7 +93,7 @@ export default createSubgraph("price", {
             }
 
             return false;
-          })
+          }),
         );
 
         return {

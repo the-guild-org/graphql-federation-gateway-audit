@@ -26,6 +26,8 @@ input-object-intersection
 ...
 interface-object-with-requires
 .......
+keys-mashup
+X
 mutations
 ...
 mysterious-external
@@ -78,6 +80,6 @@ union-intersection
 ........
 
 ---
-Total: 162
+Total: 163
 Passed: 156
-Failed: 6
+Failed: 7
