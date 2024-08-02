@@ -4,11 +4,11 @@
 
 |            Gateway            | Compatibility |  Test Cases  | Test Suites |
 | :---------------------------: | :-----------: | :----------: | :---------: |
-|         Apollo Router         |    100.00%    |    🟢 161    |    🟢 38    |
-|         GraphQL Mesh          |    100.00%    |    🟢 161    |    🟢 38    |
-| Apollo Router (Rust-based QP) |    95.65%     | 🟢 154 ❌ 7  | 🟢 35 ❌ 3  |
-|         Cosmo Router          |    65.84%     | 🟢 106 ❌ 55 | 🟢 19 ❌ 19 |
-|       Grafbase Gateway        |    46.58%     | 🟢 75 ❌ 86  | 🟢 12 ❌ 26 |
+|         Apollo Router         |    100.00%    |    🟢 162    |    🟢 39    |
+|         GraphQL Mesh          |    100.00%    |    🟢 162    |    🟢 39    |
+| Apollo Router (Rust-based QP) |    96.30%     | 🟢 156 ❌ 6  | 🟢 37 ❌ 2  |
+|         Cosmo Router          |    63.58%     | 🟢 103 ❌ 59 | 🟢 18 ❌ 21 |
+|       Grafbase Gateway        |    46.91%     | 🟢 76 ❌ 86  | 🟢 13 ❌ 26 |
 
 ## Detailed Results
 
@@ -56,6 +56,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/nested-provides">nested-provides</a>
 <pre>🟢🟢</pre>
+<a href="./src/test-suites/node">node</a>
+<pre>🟢</pre>
 <a href="./src/test-suites/non-resolvable-interface-object">non-resolvable-interface-object</a>
 <pre>🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/override-type-interface">override-type-interface</a>
@@ -140,6 +142,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/nested-provides">nested-provides</a>
 <pre>🟢🟢</pre>
+<a href="./src/test-suites/node">node</a>
+<pre>🟢</pre>
 <a href="./src/test-suites/non-resolvable-interface-object">non-resolvable-interface-object</a>
 <pre>🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/override-type-interface">override-type-interface</a>
@@ -219,11 +223,13 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/interface-object-with-requires">interface-object-with-requires</a>
 <pre>🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/mutations">mutations</a>
-<pre>🟢🟢❌</pre>
+<pre>🟢🟢🟢</pre>
 <a href="./src/test-suites/mysterious-external">mysterious-external</a>
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/nested-provides">nested-provides</a>
 <pre>🟢🟢</pre>
+<a href="./src/test-suites/node">node</a>
+<pre>🟢</pre>
 <a href="./src/test-suites/non-resolvable-interface-object">non-resolvable-interface-object</a>
 <pre>🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/override-type-interface">override-type-interface</a>
@@ -308,6 +314,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/nested-provides">nested-provides</a>
 <pre>❌❌</pre>
+<a href="./src/test-suites/node">node</a>
+<pre>🟢</pre>
 <a href="./src/test-suites/non-resolvable-interface-object">non-resolvable-interface-object</a>
 <pre>🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/override-type-interface">override-type-interface</a>
@@ -319,9 +327,9 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/parent-entity-call-complex">parent-entity-call-complex</a>
 <pre>❌</pre>
 <a href="./src/test-suites/provides-on-interface">provides-on-interface</a>
-<pre>🟢🟢</pre>
+<pre>❌❌</pre>
 <a href="./src/test-suites/provides-on-union">provides-on-union</a>
-<pre>🟢🟢</pre>
+<pre>❌❌</pre>
 <a href="./src/test-suites/requires-interface">requires-interface</a>
 <pre>🟢🟢❌🟢🟢</pre>
 <a href="./src/test-suites/requires-requires">requires-requires</a>
@@ -392,6 +400,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/nested-provides">nested-provides</a>
 <pre>❌❌</pre>
+<a href="./src/test-suites/node">node</a>
+<pre>🟢</pre>
 <a href="./src/test-suites/non-resolvable-interface-object">non-resolvable-interface-object</a>
 <pre>❌🟢❌🟢🟢🟢❌</pre>
 <a href="./src/test-suites/override-type-interface">override-type-interface</a>

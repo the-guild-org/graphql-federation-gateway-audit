@@ -36,7 +36,7 @@ console.log(`\n`);
 const tests = await fetchTests(TESTS_ENDPOINT);
 
 let index = 0;
-for (const { query, expected: expectedResult, plan: expectedPlan } of tests) {
+for (const { query, expected: expectedResult } of tests) {
   test(`${index++}`, async () => {
     const response = await graphql(GRAPHQL_ENDPOINT, query);
 

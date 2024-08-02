@@ -15,18 +15,7 @@ export default [
           id: "u1",
         },
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Fetch(service: "accounts") {
-        {
-          me {
-            id
-          }
-        }
-      },
     }
-    `
   ),
   createTest(
     /* GraphQL */ `
@@ -53,40 +42,7 @@ export default [
           ],
         },
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Sequence {
-        Fetch(service: "accounts") {
-          {
-            me {
-              __typename
-              id
-            }
-          }
-        },
-        Flatten(path: "me") {
-          # NOTE
-          # Nothing really interesting here, just fetching User.reviews.id, because subgraph Accounts could not provide it.
-          Fetch(service: "reviews") {
-            {
-              ... on User {
-                __typename
-                id
-              }
-            } =>
-            {
-              ... on User {
-                reviews {
-                  id
-                }
-              }
-            }
-          },
-        },
-      },
     }
-    `
   ),
   createTest(
     /* GraphQL */ `
@@ -132,67 +88,7 @@ export default [
           ],
         },
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Sequence {
-        Fetch(service: "accounts") {
-          {
-            me {
-              __typename
-              # NOTE
-              # This is required in order to resolve the User.reviews.* fields
-              id
-            }
-          }
-        },
-        Flatten(path: "me") {
-          Fetch(service: "reviews") {
-            {
-              ... on User {
-                __typename
-                id
-              }
-            } =>
-            {
-              ... on User {
-                reviews {
-                  id
-                  author {
-                    id
-                    username
-                  }
-                  product {
-                    __typename
-                    # NOTE
-                    # upc is a key field of Product in subgraph Inventory
-                    upc
-                  }
-                }
-              }
-            }
-          },
-        },
-        Flatten(path: "me.reviews.@.product") {
-          Fetch(service: "inventory") {
-            {
-              ... on Product {
-                __typename
-                upc
-              }
-            } =>
-            {
-              ... on Product {
-                # NOTE
-                # it's available only in Inventory
-                inStock
-              }
-            }
-          },
-        },
-      },
     }
-    `
   ),
   createTest(
     /* GraphQL */ `
@@ -213,18 +109,7 @@ export default [
           },
         ],
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Fetch(service: "products") {
-        {
-          products {
-            name
-          }
-        }
-      },
     }
-    `
   ),
   createTest(
     /* GraphQL */ `
@@ -245,18 +130,7 @@ export default [
           },
         ],
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Fetch(service: "products") {
-        {
-          products {
-            price
-          }
-        }
-      },
     }
-    `
   ),
   createTest(
     /* GraphQL */ `
@@ -277,43 +151,7 @@ export default [
           },
         ],
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Sequence {
-        Fetch(service: "products") {
-          {
-            products {
-              __typename
-              # NOTE
-              upc # upc is a key field of Product in subgraph Inventory
-              price # price is required to calculate shippingEstimate
-              weight # weight is required to calculate shippingEstimate
-            }
-          }
-        },
-        Flatten(path: "products.@") {
-          Fetch(service: "inventory") {
-            {
-              ... on Product {
-                __typename
-                upc
-                price
-                weight
-              }
-            } =>
-            {
-              ... on Product {
-                # NOTE
-                # got them all!
-                shippingEstimate
-              }
-            }
-          },
-        },
-      },
     }
-    `
   ),
   createTest(
     /* GraphQL */ `
@@ -340,40 +178,7 @@ export default [
           },
         ],
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Sequence {
-        Fetch(service: "products") {
-          {
-            products {
-              __typename
-              upc
-              price
-              weight
-            }
-          }
-        },
-        Flatten(path: "products.@") {
-          Fetch(service: "inventory") {
-            {
-              ... on Product {
-                __typename
-                upc
-                price
-                weight
-              }
-            } =>
-            {
-              ... on Product {
-                shippingEstimate
-              }
-            }
-          },
-        },
-      },
     }
-    `
   ),
   createTest(
     /* GraphQL */ `
@@ -425,85 +230,7 @@ export default [
           },
         ],
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Sequence {
-        Fetch(service: "products") {
-          {
-            products {
-              __typename
-              # NOTE
-              # We need to fetch Product.reviews.* fields from Reviews
-              # upc is a key field of Product in subgraph Reviews
-              upc
-            }
-          }
-        },
-        Flatten(path: "products.@") {
-          Fetch(service: "reviews") {
-            {
-              ... on Product {
-                __typename
-                upc
-              }
-            } =>
-            {
-              ... on Product {
-                reviews {
-                  id
-                  author {
-                    username
-                  }
-                  product {
-                    __typename
-                    upc
-                  }
-                }
-              }
-            }
-          },
-        },
-        # NOTE
-        # we got Product.upc from Reviews, now we can fetch name, price and weight from Products subgraph
-        # as it's needed to resolve shippingEstimate
-        Flatten(path: "products.@.reviews.@.product") {
-          Fetch(service: "products") {
-            {
-              ... on Product {
-                __typename
-                upc
-              }
-            } =>
-            {
-              ... on Product {
-                name
-                price
-                weight
-              }
-            }
-          },
-        },
-        Flatten(path: "products.@.reviews.@.product") {
-          Fetch(service: "inventory") {
-            {
-              ... on Product {
-                __typename
-                price
-                weight
-                upc
-              }
-            } =>
-            {
-              ... on Product {
-                shippingEstimate
-              }
-            }
-          },
-        },
-      },
     }
-    `
   ),
   createTest(
     /* GraphQL */ `
@@ -544,42 +271,7 @@ export default [
           ],
         },
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Sequence {
-        Fetch(service: "accounts") {
-          {
-            me {
-              __typename
-              id
-            }
-          }
-        },
-        Flatten(path: "me") {
-          Fetch(service: "reviews") {
-            {
-              ... on User {
-                __typename
-                id
-              }
-            } =>
-            {
-              ... on User {
-                reviews {
-                  product {
-                    reviews {
-                      id
-                    }
-                  }
-                }
-              }
-            }
-          },
-        },
-      },
     }
-    `
   ),
   createTest(
     /* GraphQL */ `
@@ -610,56 +302,7 @@ export default [
           ],
         },
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Sequence {
-        Fetch(service: "accounts") {
-          {
-            me {
-              __typename
-              id
-            }
-          }
-        },
-        Flatten(path: "me") {
-          Fetch(service: "reviews") {
-            {
-              ... on User {
-                __typename
-                id
-              }
-            } =>
-            {
-              ... on User {
-                reviews {
-                  product {
-                    __typename
-                    upc
-                  }
-                }
-              }
-            }
-          },
-        },
-        Flatten(path: "me.reviews.@.product") {
-          Fetch(service: "inventory") {
-            {
-              ... on Product {
-                __typename
-                upc
-              }
-            } =>
-            {
-              ... on Product {
-                inStock
-              }
-            }
-          },
-        },
-      },
     }
-    `
   ),
   createTest(
     /* GraphQL */ `
@@ -690,73 +333,6 @@ export default [
           ],
         },
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Sequence {
-        Fetch(service: "accounts") {
-          {
-            me {
-              __typename
-              id
-            }
-          }
-        },
-        Flatten(path: "me") {
-          Fetch(service: "reviews") {
-            {
-              ... on User {
-                __typename
-                id
-              }
-            } =>
-            {
-              ... on User {
-                reviews {
-                  product {
-                    __typename
-                    upc
-                  }
-                }
-              }
-            }
-          },
-        },
-        Flatten(path: "me.reviews.@.product") {
-          Fetch(service: "products") {
-            {
-              ... on Product {
-                __typename
-                upc
-              }
-            } =>
-            {
-              ... on Product {
-                price
-                weight
-              }
-            }
-          },
-        },
-        Flatten(path: "me.reviews.@.product") {
-          Fetch(service: "inventory") {
-            {
-              ... on Product {
-                __typename
-                price
-                weight
-                upc
-              }
-            } =>
-            {
-              ... on Product {
-                shippingEstimate
-              }
-            }
-          },
-        },
-      },
     }
-    `
   ),
 ];

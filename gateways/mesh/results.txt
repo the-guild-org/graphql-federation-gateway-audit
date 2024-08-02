@@ -32,6 +32,8 @@ mysterious-external
 ..
 nested-provides
 ..
+node
+.
 non-resolvable-interface-object
 .......
 override-type-interface
@@ -76,6 +78,6 @@ union-intersection
 ........
 
 ---
-Total: 161
-Passed: 161
+Total: 162
+Passed: 162
 Failed: 0

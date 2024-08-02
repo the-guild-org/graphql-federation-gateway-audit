@@ -27,11 +27,13 @@ input-object-intersection
 interface-object-with-requires
 .......
 mutations
-..X
+...
 mysterious-external
 ..
 nested-provides
 ..
+node
+.
 non-resolvable-interface-object
 .......
 override-type-interface
@@ -76,6 +78,6 @@ union-intersection
 ........
 
 ---
-Total: 161
-Passed: 154
-Failed: 7
+Total: 162
+Passed: 156
+Failed: 6

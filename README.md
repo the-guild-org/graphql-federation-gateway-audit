@@ -6,11 +6,11 @@ This repository contains a set of tests and a tool to evaluate and compare the c
 
 |            Gateway            | Compatibility |  Test Cases  | Test Suites |
 | :---------------------------: | :-----------: | :----------: | :---------: |
-|         Apollo Router         |    100.00%    |    🟢 161    |    🟢 38    |
-|         GraphQL Mesh          |    100.00%    |    🟢 161    |    🟢 38    |
-| Apollo Router (Rust-based QP) |    95.65%     | 🟢 154 ❌ 7  | 🟢 35 ❌ 3  |
-|         Cosmo Router          |    65.84%     | 🟢 106 ❌ 55 | 🟢 19 ❌ 19 |
-|       Grafbase Gateway        |    46.58%     | 🟢 75 ❌ 86  | 🟢 12 ❌ 26 |
+|         Apollo Router         |    100.00%    |    🟢 162    |    🟢 39    |
+|         GraphQL Mesh          |    100.00%    |    🟢 162    |    🟢 39    |
+| Apollo Router (Rust-based QP) |    96.30%     | 🟢 156 ❌ 6  | 🟢 37 ❌ 2  |
+|         Cosmo Router          |    63.58%     | 🟢 103 ❌ 59 | 🟢 18 ❌ 21 |
+|       Grafbase Gateway        |    46.91%     | 🟢 76 ❌ 86  | 🟢 13 ❌ 26 |
 
 <!-- gateways:end -->
 

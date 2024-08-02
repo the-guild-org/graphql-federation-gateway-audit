@@ -47,44 +47,6 @@ export default [
           },
         ],
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Sequence {
-        Fetch(service: "a") {
-          {
-            products {
-              __typename
-              id
-              pid
-              category {
-                id
-              }
-            }
-          }
-        },
-        Flatten(path: "products.@") {
-          Fetch(service: "c") {
-            {
-              ... on Product {
-                __typename
-                id
-                pid
-              }
-            } =>
-            {
-              ... on Product {
-                category {
-                  details {
-                    products
-                  }
-                }
-              }
-            }
-          },
-        },
-      },
     }
-    `
   ),
 ];

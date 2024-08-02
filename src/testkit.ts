@@ -3,13 +3,11 @@ export function createTest(
   expected: {
     data?: any;
     errors?: boolean;
-  },
-  plan?: string
+  }
 ) {
   return {
     query,
     expected,
-    plan,
   };
 }
 

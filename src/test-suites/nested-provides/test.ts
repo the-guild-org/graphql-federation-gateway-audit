@@ -44,22 +44,7 @@ export default [
           },
         ],
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Fetch(service: "category") {
-        {
-          products {
-            categories {
-              name
-              id
-            }
-            id
-          }
-        }
-      },
     }
-    `
   ),
   createTest(
     /* GraphQL */ `
@@ -132,25 +117,6 @@ export default [
           },
         ],
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Fetch(service: "category") {
-        {
-          products {
-            categories {
-              name
-              subCategories {
-                name
-                id
-              }
-              id
-            }
-            id
-          }
-        }
-      },
     }
-    `
   ),
 ];

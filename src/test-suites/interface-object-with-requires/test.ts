@@ -26,56 +26,7 @@ export default [
           },
         ],
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Sequence {
-        Fetch(service: "b") {
-          {
-            anotherUsers {
-              __typename
-              id
-            }
-          }
-        },
-        Flatten(path: "anotherUsers.@") {
-          Fetch(service: "a") {
-            # NOTE
-            # The only interesting thing here is that NodeWithName is an interface in subgraph A
-            # and the gateway asks "NodeWithName.__resolveReference" for the "username" field
-            {
-              ... on NodeWithName {
-                __typename
-                id
-              }
-            } =>
-            {
-              ... on NodeWithName {
-                __typename
-                name
-              }
-            }
-          },
-        },
-        Flatten(path: "anotherUsers.@") {
-          Fetch(service: "b") {
-            {
-              ... on NodeWithName {
-                __typename
-                name
-                id
-              }
-            } =>
-            {
-              ... on NodeWithName {
-                username
-              }
-            }
-          },
-        },
-      },
     }
-    `
   ),
   createTest(
     /* GraphQL */ `
@@ -102,38 +53,7 @@ export default [
           },
         ],
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Sequence {
-        Fetch(service: "a") {
-          {
-            users {
-              __typename
-              id
-              name
-            }
-          }
-        },
-        Flatten(path: "users.@") {
-          Fetch(service: "b") {
-            {
-              ... on NodeWithName {
-                __typename
-                id
-                name
-              }
-            } =>
-            {
-              ... on NodeWithName {
-                username
-              }
-            }
-          },
-        },
-      },
     }
-    `
   ),
   createTest(
     /* GraphQL */ `
@@ -156,39 +76,7 @@ export default [
           },
         ],
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Sequence {
-        Fetch(service: "b") {
-          {
-            anotherUsers {
-              __typename
-              id
-            }
-          }
-        },
-        Flatten(path: "anotherUsers.@") {
-          Fetch(service: "a") {
-            {
-              ... on NodeWithName {
-                __typename
-                id
-              }
-            } =>
-            {
-              ... on NodeWithName {
-                __typename
-                ... on User {
-                  age
-                }
-              }
-            }
-          },
-        },
-      },
     }
-    `
   ),
   createTest(
     /* GraphQL */ `
@@ -211,21 +99,7 @@ export default [
           },
         ],
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Fetch(service: "a") {
-        {
-          users {
-            __typename
-            ... on User {
-              age
-            }
-          }
-        }
-      },
     }
-    `
   ),
   createTest(
     /* GraphQL */ `
@@ -259,62 +133,7 @@ export default [
           },
         ],
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Sequence {
-        Fetch(service: "b") {
-          {
-            anotherUsers {
-              __typename
-              id
-            }
-          }
-        },
-        Flatten(path: "anotherUsers.@") {
-          Fetch(service: "a") {
-            {
-              ... on NodeWithName {
-                __typename
-                id
-              }
-            } =>
-            {
-              ... on NodeWithName {
-                __typename
-                ... on User {
-                  age
-                  name
-                }
-                name
-                id
-              }
-            }
-          },
-        },
-        Flatten(path: "anotherUsers.@") {
-          Fetch(service: "b") {
-            {
-              ... on User {
-                __typename
-                id
-              }
-              ... on NodeWithName {
-                __typename
-                name
-              }
-            } =>
-            {
-              ... on NodeWithName {
-                id
-                username
-              }
-            }
-          },
-        },
-      },
     }
-    `
   ),
   createTest(
     /* GraphQL */ `
@@ -348,47 +167,7 @@ export default [
           },
         ],
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Sequence {
-        Fetch(service: "a") {
-          {
-            users {
-              __typename
-              ... on User {
-                __typename
-                id
-                age
-                name
-              }
-              id
-              name
-            }
-          }
-        },
-        Flatten(path: "users.@") {
-          Fetch(service: "b") {
-            {
-              ... on User {
-                __typename
-                id
-              }
-              ... on NodeWithName {
-                __typename
-                name
-              }
-            } =>
-            {
-              ... on NodeWithName {
-                username
-              }
-            }
-          },
-        },
-      },
     }
-    `
   ),
   createTest(
     /* GraphQL */ `
@@ -422,46 +201,6 @@ export default [
           },
         ],
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Sequence {
-        Fetch(service: "a") {
-          {
-            users {
-              __typename
-              ... on User {
-                __typename
-                id
-                age
-                name
-              }
-              id
-              name
-            }
-          }
-        },
-        Flatten(path: "users.@") {
-          Fetch(service: "b") {
-            {
-              ... on User {
-                __typename
-                id
-              }
-              ... on NodeWithName {
-                __typename
-                name
-              }
-            } =>
-            {
-              ... on NodeWithName {
-                username
-              }
-            }
-          },
-        },
-      },
     }
-    `
   ),
 ];

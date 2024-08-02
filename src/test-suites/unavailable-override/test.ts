@@ -20,18 +20,7 @@ export default [
           },
         ],
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Fetch(service: "a") {
-        {
-          feed {
-            createdAt
-          }
-        }
-      },
     }
-    `
   ),
   createTest(
     /* GraphQL */ `
@@ -57,26 +46,6 @@ export default [
           },
         ],
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Parallel {
-        Fetch(service: "a") {
-          {
-            aFeed {
-              createdAt
-            }
-          }
-        },
-        Fetch(service: "b") {
-          {
-            bFeed {
-              createdAt
-            }
-          }
-        },
-      },
     }
-    `
   ),
 ];

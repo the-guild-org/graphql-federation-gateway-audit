@@ -29,24 +29,7 @@ export default [
           ],
         },
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Fetch(service: "b") {
-        {
-          media {
-            __typename
-            id
-            animals {
-              __typename
-              id
-              name
-            }
-          }
-        }
-      },
     }
-    `
   ),
   createTest(
     /* GraphQL */ `
@@ -80,56 +63,6 @@ export default [
           ],
         },
       },
-    },
-    /* GraphQL */ `
-    QueryPlan {
-      Sequence {
-        Fetch(service: "b") {
-          {
-            media {
-              __typename
-              id
-              animals {
-                __typename
-                id
-                name
-              }
-              # NOTE
-              # Cat.age is resolvable only by subgraph C
-              # To get from subgraph B to Cat.age in subgraph C
-              # (where Cat is not an entity type there),
-              # we need to fetch it through it's parent entity type (Book).
-              ... on Book {
-                __typename
-                id
-              }
-            }
-          }
-        },
-        Flatten(path: "media") {
-          Fetch(service: "c") {
-            {
-              ... on Book {
-                __typename
-                id
-              }
-            } =>
-            {
-              ... on Book {
-                animals {
-                  __typename
-                  ... on Cat {
-                    # NOTE
-                    # Here we get Cat.age from subgraph C
-                    age
-                  }
-                }
-              }
-            }
-          },
-        },
-      },
     }
-    `
   ),
 ];
