@@ -7,7 +7,7 @@ const gatewayResults = readdirSync("./gateways")
   .map((id) => {
     const gatewayDetails = JSON.parse(
       readFileSync(join("./gateways", id, "gateway.json"), "utf-8")
-    ) as { name: string; repository: string };
+    ) as { name: string; repository: string; website: string };
 
     const lines = readFileSync(
       join("./gateways", id, "results.txt"),
@@ -70,6 +70,7 @@ const gatewayResults = readdirSync("./gateways")
       id,
       name,
       repository: gatewayDetails.repository,
+      website: gatewayDetails.website,
       groups,
       tests,
       dot,
@@ -130,7 +131,7 @@ for (const gateway of gatewayResults) {
   rowsHtml += `
     <tr class="border-b transition-colors hover:bg-gray-100/50">
       <td class="p-4 align-middle font-medium  border-l-2 border-${roundedScore === 100 ? "emerald" : roundedScore >= 75 ? "yellow" : "red"}-500">
-        <a href="${gateway.repository}" class="hover:underline" title="Visit repository">
+        <a href="${gateway.website}" class="hover:underline" title="Visit ${gateway.name} website">
           ${gateway.name}
         </a>
       </td>

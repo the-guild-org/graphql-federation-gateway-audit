@@ -1,6 +1,7 @@
 {
   "name": "Cosmo Router",
   "repository": "https://github.com/wundergraph/cosmo",
+  "website": "https://wundergraph.com",
   "graphql": "http://127.0.0.1:4000/graphql",
   "health": "http://127.0.0.1:4000/health/ready"
 }
