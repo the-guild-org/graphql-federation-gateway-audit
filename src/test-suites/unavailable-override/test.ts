@@ -20,7 +20,7 @@ export default [
           },
         ],
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -46,6 +46,6 @@ export default [
           },
         ],
       },
-    }
+    },
   ),
 ];

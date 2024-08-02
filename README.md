@@ -6,11 +6,11 @@ This repository contains a set of tests and a tool to evaluate and compare the c
 
 |                             Gateway                             | Compatibility |  Test Cases  | Test Suites |
 | :-------------------------------------------------------------: | :-----------: | :----------: | :---------: |
-|         [Apollo Router](https://www.apollographql.com/)         |    100.00%    |    🟢 162    |    🟢 39    |
-|       [GraphQL Mesh](https://the-guild.dev/graphql/mesh)        |    100.00%    |    🟢 162    |    🟢 39    |
-| [Apollo Router (Rust-based QP)](https://www.apollographql.com/) |    96.30%     | 🟢 156 ❌ 6  | 🟢 37 ❌ 2  |
-|             [Cosmo Router](https://wundergraph.com)             |    63.58%     | 🟢 103 ❌ 59 | 🟢 18 ❌ 21 |
-|            [Grafbase Gateway](https://grafbase.com)             |    46.91%     | 🟢 76 ❌ 86  | 🟢 13 ❌ 26 |
+|       [GraphQL Mesh](https://the-guild.dev/graphql/mesh)        |    100.00%    |    🟢 163    |    🟢 40    |
+|         [Apollo Router](https://www.apollographql.com/)         |    99.39%     | 🟢 162 ❌ 1  | 🟢 39 ❌ 1  |
+| [Apollo Router (Rust-based QP)](https://www.apollographql.com/) |    95.71%     | 🟢 156 ❌ 7  | 🟢 37 ❌ 3  |
+|             [Cosmo Router](https://wundergraph.com)             |    63.80%     | 🟢 104 ❌ 59 | 🟢 19 ❌ 21 |
+|            [Grafbase Gateway](https://grafbase.com)             |    46.63%     | 🟢 76 ❌ 87  | 🟢 13 ❌ 27 |
 
 <!-- gateways:end -->
 

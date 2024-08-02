@@ -20,7 +20,7 @@ export default [
           },
         ],
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -32,7 +32,7 @@ export default [
     `,
     {
       errors: true,
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -44,6 +44,6 @@ export default [
     `,
     {
       errors: true,
-    }
+    },
   ),
 ];

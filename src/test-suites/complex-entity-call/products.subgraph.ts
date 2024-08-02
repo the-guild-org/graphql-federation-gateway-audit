@@ -40,7 +40,7 @@ export default createSubgraph("products", {
       __resolveReference(key: { products: { id: string }[] }) {
         return {
           products: products.filter((p) =>
-            key.products.some((k) => k.id === p.id)
+            key.products.some((k) => k.id === p.id),
           ),
         };
       },

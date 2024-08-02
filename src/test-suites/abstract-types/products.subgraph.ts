@@ -89,7 +89,7 @@ export default createSubgraph("products", {
         }
 
         const similar = products.filter(
-          (p) => p.id !== product.id && p.__typename === product.__typename
+          (p) => p.id !== product.id && p.__typename === product.__typename,
         );
 
         return similar.map((b) => ({

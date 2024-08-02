@@ -23,7 +23,7 @@ export default [
           },
         ],
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -40,7 +40,7 @@ export default [
       data: {
         feed: [{}, {}],
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -61,7 +61,7 @@ export default [
           },
         ],
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -89,6 +89,6 @@ export default [
           },
         ],
       },
-    }
+    },
   ),
 ];

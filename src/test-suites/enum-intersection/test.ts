@@ -20,7 +20,7 @@ export default [
           },
         ],
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -45,7 +45,7 @@ export default [
           },
         ],
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -69,7 +69,7 @@ export default [
           },
         ],
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -89,7 +89,7 @@ export default [
           },
         ],
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -103,6 +103,6 @@ export default [
     {
       errors: true,
       data: null,
-    }
+    },
   ),
 ];

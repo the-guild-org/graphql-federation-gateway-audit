@@ -9,7 +9,7 @@ export function createSubgraph(
   schemaParameters: {
     typeDefs: string;
     resolvers: any;
-  }
+  },
 ) {
   let schema: ReturnType<typeof buildSubgraphSchema>;
 

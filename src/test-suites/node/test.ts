@@ -23,6 +23,6 @@ export default [
           price: 10,
         },
       },
-    }
+    },
   ),
-]
+];

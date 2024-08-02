@@ -27,7 +27,7 @@ export default [
           nickname: "u2-nickname",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -45,6 +45,6 @@ export default [
           rid: "u1-rid",
         },
       },
-    }
+    },
   ),
 ];

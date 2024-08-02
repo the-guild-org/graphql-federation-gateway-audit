@@ -24,7 +24,7 @@ export default createSubgraph("a", {
   resolvers: {
     Product: {
       __resolveReference(
-        key: { upc: string; price: number; weight: number } | { upc: string }
+        key: { upc: string; price: number; weight: number } | { upc: string },
       ) {
         const product = products.find((p) => p.upc === key.upc);
 

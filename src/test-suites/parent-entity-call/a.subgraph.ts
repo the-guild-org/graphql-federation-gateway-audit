@@ -43,10 +43,10 @@ export default createSubgraph("a", {
           | {
               id: string;
               pid: string;
-            }
+            },
       ) {
         const product = products.find(
-          (p) => p.id === key.id && ("pid" in key ? p.pid === key.pid : true)
+          (p) => p.id === key.id && ("pid" in key ? p.pid === key.pid : true),
         );
 
         if (!product) {

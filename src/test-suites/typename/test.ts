@@ -17,7 +17,7 @@ export default [
           typename: "Oven",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -39,7 +39,7 @@ export default [
           t: "Toaster",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -62,7 +62,7 @@ export default [
           typename: "Oven",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -85,7 +85,7 @@ export default [
           typename: "Toaster",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -106,7 +106,7 @@ export default [
           },
         ],
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -127,6 +127,6 @@ export default [
           },
         ],
       },
-    }
+    },
   ),
 ];

@@ -19,5 +19,5 @@ export default serve(
     productsSubgraph,
     magazinesSubgraph,
   ],
-  test
+  test,
 );

@@ -47,7 +47,8 @@
     "start": "tsx ./src/cli.ts",
     "summary": "tsx ./src/summary.ts",
     "build": "tsc",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "kill-port-process": "3.2.1",

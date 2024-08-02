@@ -23,6 +23,6 @@ export default [
           name: "p1-name",
         },
       },
-    }
+    },
   ),
 ];

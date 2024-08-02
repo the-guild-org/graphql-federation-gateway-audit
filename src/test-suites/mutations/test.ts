@@ -24,7 +24,7 @@ export default () => {
             isAvailable: true,
           },
         },
-      }
+      },
     ),
     createTest(
       /* GraphQL */ `
@@ -48,7 +48,7 @@ export default () => {
             isAvailable: true,
           },
         },
-      }
+      },
     ),
     // Test correct order of execution
     // It obviously does not solve a problem with shared state and race conditions,
@@ -69,7 +69,7 @@ export default () => {
           twelve: 12,
           final: 12,
         },
-      }
+      },
     ),
   ];
 };

@@ -17,7 +17,7 @@ export default [
           field: "foo",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -30,7 +30,7 @@ export default [
     {
       data: null,
       errors: true,
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -46,7 +46,7 @@ export default [
           id: "n1",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -61,7 +61,7 @@ export default [
         a: null,
       },
       errors: true,
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -77,7 +77,7 @@ export default [
           id: "p1",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -90,7 +90,7 @@ export default [
     `,
     {
       errors: true,
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -108,6 +108,6 @@ export default [
           id: "p1",
         },
       },
-    }
+    },
   ),
 ];

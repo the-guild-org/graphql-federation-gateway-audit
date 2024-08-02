@@ -45,7 +45,7 @@ export default [
           cName: "c__u3-name",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -61,7 +61,7 @@ export default [
           cName: "c__u3-name",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -77,7 +77,7 @@ export default [
           cName: "c__u1-name",
         },
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -93,6 +93,6 @@ export default [
           aName: "a__u1-name",
         },
       },
-    }
+    },
   ),
 ];

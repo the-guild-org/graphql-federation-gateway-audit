@@ -28,7 +28,7 @@ export default [
           },
         ],
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -54,7 +54,7 @@ export default [
           },
         ],
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -75,7 +75,7 @@ export default [
           },
         ],
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -108,7 +108,7 @@ export default [
           },
         ],
       },
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -125,7 +125,7 @@ export default [
         node: null,
       },
       errors: true,
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -142,7 +142,7 @@ export default [
         node: null,
       },
       errors: true,
-    }
+    },
   ),
   createTest(
     /* GraphQL */ `
@@ -160,6 +160,6 @@ export default [
           warranty: 3,
         },
       },
-    }
+    },
   ),
 ];

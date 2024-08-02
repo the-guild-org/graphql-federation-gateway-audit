@@ -4,11 +4,11 @@
 
 |                             Gateway                             | Compatibility |  Test Cases  | Test Suites |
 | :-------------------------------------------------------------: | :-----------: | :----------: | :---------: |
-|         [Apollo Router](https://www.apollographql.com/)         |    100.00%    |    🟢 162    |    🟢 39    |
-|       [GraphQL Mesh](https://the-guild.dev/graphql/mesh)        |    100.00%    |    🟢 162    |    🟢 39    |
-| [Apollo Router (Rust-based QP)](https://www.apollographql.com/) |    96.30%     | 🟢 156 ❌ 6  | 🟢 37 ❌ 2  |
-|             [Cosmo Router](https://wundergraph.com)             |    63.58%     | 🟢 103 ❌ 59 | 🟢 18 ❌ 21 |
-|            [Grafbase Gateway](https://grafbase.com)             |    46.91%     | 🟢 76 ❌ 86  | 🟢 13 ❌ 26 |
+|       [GraphQL Mesh](https://the-guild.dev/graphql/mesh)        |    100.00%    |    🟢 163    |    🟢 40    |
+|         [Apollo Router](https://www.apollographql.com/)         |    99.39%     | 🟢 162 ❌ 1  | 🟢 39 ❌ 1  |
+| [Apollo Router (Rust-based QP)](https://www.apollographql.com/) |    95.71%     | 🟢 156 ❌ 7  | 🟢 37 ❌ 3  |
+|             [Cosmo Router](https://wundergraph.com)             |    63.80%     | 🟢 104 ❌ 59 | 🟢 19 ❌ 21 |
+|            [Grafbase Gateway](https://grafbase.com)             |    46.63%     | 🟢 76 ❌ 87  | 🟢 13 ❌ 27 |
 
 ## Detailed Results
 
@@ -16,12 +16,12 @@ Take a closer look at the results for each gateway.
 
 You can look at the full list of tests [here](./src/test-suites/). Every test id corresponds to a directory in the `src/test-suites` folder.
 
-<a id="router"></a>
+<a id="mesh"></a>
 
-### Apollo Router
+### GraphQL Mesh
 
-- [Repository](https://github.com/apollographql/router)
-- [Website](https://www.apollographql.com/)
+- [Repository](https://github.com/Urigo/graphql-mesh)
+- [Website](https://the-guild.dev/graphql/mesh)
 
 <details>
 <summary>Results</summary>
@@ -53,6 +53,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢🟢🟢</pre>
 <a href="./src/test-suites/interface-object-with-requires">interface-object-with-requires</a>
 <pre>🟢🟢🟢🟢🟢🟢🟢</pre>
+<a href="./src/test-suites/keys-mashup">keys-mashup</a>
+<pre>🟢</pre>
 <a href="./src/test-suites/mutations">mutations</a>
 <pre>🟢🟢🟢</pre>
 <a href="./src/test-suites/mysterious-external">mysterious-external</a>
@@ -105,12 +107,12 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢🟢🟢🟢🟢🟢🟢🟢</pre>
 </details>
 
-<a id="mesh"></a>
+<a id="router"></a>
 
-### GraphQL Mesh
+### Apollo Router
 
-- [Repository](https://github.com/Urigo/graphql-mesh)
-- [Website](https://the-guild.dev/graphql/mesh)
+- [Repository](https://github.com/apollographql/router)
+- [Website](https://www.apollographql.com/)
 
 <details>
 <summary>Results</summary>
@@ -142,6 +144,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢🟢🟢</pre>
 <a href="./src/test-suites/interface-object-with-requires">interface-object-with-requires</a>
 <pre>🟢🟢🟢🟢🟢🟢🟢</pre>
+<a href="./src/test-suites/keys-mashup">keys-mashup</a>
+<pre>❌</pre>
 <a href="./src/test-suites/mutations">mutations</a>
 <pre>🟢🟢🟢</pre>
 <a href="./src/test-suites/mysterious-external">mysterious-external</a>
@@ -231,6 +235,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢🟢🟢</pre>
 <a href="./src/test-suites/interface-object-with-requires">interface-object-with-requires</a>
 <pre>🟢🟢🟢🟢🟢🟢🟢</pre>
+<a href="./src/test-suites/keys-mashup">keys-mashup</a>
+<pre>❌</pre>
 <a href="./src/test-suites/mutations">mutations</a>
 <pre>🟢🟢🟢</pre>
 <a href="./src/test-suites/mysterious-external">mysterious-external</a>
@@ -320,6 +326,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢🟢🟢</pre>
 <a href="./src/test-suites/interface-object-with-requires">interface-object-with-requires</a>
 <pre>❌❌🟢🟢❌❌❌</pre>
+<a href="./src/test-suites/keys-mashup">keys-mashup</a>
+<pre>🟢</pre>
 <a href="./src/test-suites/mutations">mutations</a>
 <pre>🟢🟢❌</pre>
 <a href="./src/test-suites/mysterious-external">mysterious-external</a>
@@ -409,6 +417,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢🟢🟢</pre>
 <a href="./src/test-suites/interface-object-with-requires">interface-object-with-requires</a>
 <pre>🟢🟢❌🟢❌❌❌</pre>
+<a href="./src/test-suites/keys-mashup">keys-mashup</a>
+<pre>❌</pre>
 <a href="./src/test-suites/mutations">mutations</a>
 <pre>🟢🟢🟢</pre>
 <a href="./src/test-suites/mysterious-external">mysterious-external</a>

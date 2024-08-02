@@ -18,7 +18,7 @@ export default createSubgraph("d", {
   resolvers: {
     Product: {
       __resolveReference(
-        key: { id: string } | { id: string; isExpensive: boolean }
+        key: { id: string } | { id: string; isExpensive: boolean },
       ) {
         const product = products.find((product) => product.id === key.id);
 
