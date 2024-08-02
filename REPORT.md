@@ -2,13 +2,13 @@
 
 ## Summary
 
-|            Gateway            | Compatibility |  Test Cases  | Test Suites |
-| :---------------------------: | :-----------: | :----------: | :---------: |
-|         Apollo Router         |    100.00%    |    🟢 162    |    🟢 39    |
-|         GraphQL Mesh          |    100.00%    |    🟢 162    |    🟢 39    |
-| Apollo Router (Rust-based QP) |    96.30%     | 🟢 156 ❌ 6  | 🟢 37 ❌ 2  |
-|         Cosmo Router          |    63.58%     | 🟢 103 ❌ 59 | 🟢 18 ❌ 21 |
-|       Grafbase Gateway        |    46.91%     | 🟢 76 ❌ 86  | 🟢 13 ❌ 26 |
+|                             Gateway                             | Compatibility |  Test Cases  | Test Suites |
+| :-------------------------------------------------------------: | :-----------: | :----------: | :---------: |
+|         [Apollo Router](https://www.apollographql.com/)         |    100.00%    |    🟢 162    |    🟢 39    |
+|       [GraphQL Mesh](https://the-guild.dev/graphql/mesh)        |    100.00%    |    🟢 162    |    🟢 39    |
+| [Apollo Router (Rust-based QP)](https://www.apollographql.com/) |    96.30%     | 🟢 156 ❌ 6  | 🟢 37 ❌ 2  |
+|             [Cosmo Router](https://wundergraph.com)             |    63.58%     | 🟢 103 ❌ 59 | 🟢 18 ❌ 21 |
+|            [Grafbase Gateway](https://grafbase.com)             |    46.91%     | 🟢 76 ❌ 86  | 🟢 13 ❌ 26 |
 
 ## Detailed Results
 
@@ -19,6 +19,9 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a id="router"></a>
 
 ### Apollo Router
+
+- [Repository](https://github.com/apollographql/router)
+- [Website](https://www.apollographql.com/)
 
 <details>
 <summary>Results</summary>
@@ -106,6 +109,9 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 
 ### GraphQL Mesh
 
+- [Repository](https://github.com/Urigo/graphql-mesh)
+- [Website](https://the-guild.dev/graphql/mesh)
+
 <details>
 <summary>Results</summary>
 <a href="./src/test-suites/abstract-types">abstract-types</a>
@@ -191,6 +197,9 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a id="router-new"></a>
 
 ### Apollo Router (Rust-based QP)
+
+- [Repository](https://github.com/apollographql/router)
+- [Website](https://www.apollographql.com/)
 
 <details>
 <summary>Results</summary>
@@ -278,6 +287,9 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 
 ### Cosmo Router
 
+- [Repository](https://github.com/wundergraph/cosmo)
+- [Website](https://wundergraph.com)
+
 <details>
 <summary>Results</summary>
 <a href="./src/test-suites/abstract-types">abstract-types</a>
@@ -363,6 +375,9 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a id="grafbase"></a>
 
 ### Grafbase Gateway
+
+- [Repository](https://github.com/grafbase/grafbase)
+- [Website](https://grafbase.com)
 
 <details>
 <summary>Results</summary>

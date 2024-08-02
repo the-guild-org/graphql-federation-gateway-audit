@@ -126,7 +126,7 @@ for (const gateway of gatewayResults) {
   const roundedScore = Math.round(
     (gateway.tests.passed * 100) / gateway.tests.total
   );
-  tableMd += `\n| ${gateway.name} | ${score}% |  ${printResult(gateway.tests, "md")} | ${printResult(gateway.groups, "md")} |`;
+  tableMd += `\n| [${gateway.name}](${gateway.website}) | ${score}% |  ${printResult(gateway.tests, "md")} | ${printResult(gateway.groups, "md")} |`;
 
   rowsHtml += `
     <tr class="border-b transition-colors hover:bg-gray-100/50">
@@ -148,6 +148,9 @@ for (const gateway of gatewayResults) {
 
   testDetailsMd += `\n<a id="${gateway.id}"></a>
 ### ${gateway.name}
+
+- [Repository](${gateway.repository})
+- [Website](${gateway.website})
 
 <details>
 <summary>Results</summary>\n`;

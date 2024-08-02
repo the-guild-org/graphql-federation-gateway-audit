@@ -4,13 +4,13 @@ This repository contains a set of tests and a tool to evaluate and compare the c
 
 <!-- gateways:start -->
 
-|            Gateway            | Compatibility |  Test Cases  | Test Suites |
-| :---------------------------: | :-----------: | :----------: | :---------: |
-|         Apollo Router         |    100.00%    |    🟢 162    |    🟢 39    |
-|         GraphQL Mesh          |    100.00%    |    🟢 162    |    🟢 39    |
-| Apollo Router (Rust-based QP) |    96.30%     | 🟢 156 ❌ 6  | 🟢 37 ❌ 2  |
-|         Cosmo Router          |    63.58%     | 🟢 103 ❌ 59 | 🟢 18 ❌ 21 |
-|       Grafbase Gateway        |    46.91%     | 🟢 76 ❌ 86  | 🟢 13 ❌ 26 |
+|                             Gateway                             | Compatibility |  Test Cases  | Test Suites |
+| :-------------------------------------------------------------: | :-----------: | :----------: | :---------: |
+|         [Apollo Router](https://www.apollographql.com/)         |    100.00%    |    🟢 162    |    🟢 39    |
+|       [GraphQL Mesh](https://the-guild.dev/graphql/mesh)        |    100.00%    |    🟢 162    |    🟢 39    |
+| [Apollo Router (Rust-based QP)](https://www.apollographql.com/) |    96.30%     | 🟢 156 ❌ 6  | 🟢 37 ❌ 2  |
+|             [Cosmo Router](https://wundergraph.com)             |    63.58%     | 🟢 103 ❌ 59 | 🟢 18 ❌ 21 |
+|            [Grafbase Gateway](https://grafbase.com)             |    46.91%     | 🟢 76 ❌ 86  | 🟢 13 ❌ 26 |
 
 <!-- gateways:end -->
 
