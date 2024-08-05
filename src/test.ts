@@ -14,7 +14,7 @@ async function fetchTests(endpoint: string) {
 
   if (response.status !== 200) {
     throw new Error(
-      `Failed to fetch tests ${response.status} ${response.statusText}`,
+      `Failed to fetch tests ${response.status} ${response.statusText}`
     );
   }
 
@@ -51,9 +51,9 @@ for (const { query, expected: expectedResult } of tests) {
     };
 
     deepStrictEqual(
-      expected,
       received,
-      [`Test failed for query`, query, diff(expected, received)].join("\n"),
+      expected,
+      [`Test failed for query`, query, diff(expected, received)].join("\n")
     );
   });
 }

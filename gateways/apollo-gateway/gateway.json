@@ -1,0 +1,7 @@
+{
+  "name": "Apollo Gateway",
+  "repository": "https://github.com/apollographql/federation",
+  "website": "https://www.apollographql.com/",
+  "graphql": "http://127.0.0.1:4000/graphql",
+  "health": "http://127.0.0.1:4000/health"
+}
