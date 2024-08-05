@@ -8,6 +8,7 @@ This repository contains a set of tests and a tool to evaluate and compare the c
 | :-------------------------------------------------------------: | :-----------: | :----------: | :---------: |
 |       [GraphQL Mesh](https://the-guild.dev/graphql/mesh)        |    100.00%    |    🟢 163    |    🟢 40    |
 |         [Apollo Router](https://www.apollographql.com/)         |    99.39%     | 🟢 162 ❌ 1  | 🟢 39 ❌ 1  |
+|        [Apollo Gateway](https://www.apollographql.com/)         |    98.77%     | 🟢 161 ❌ 2  | 🟢 38 ❌ 2  |
 | [Apollo Router (Rust-based QP)](https://www.apollographql.com/) |    95.71%     | 🟢 156 ❌ 7  | 🟢 37 ❌ 3  |
 |             [Cosmo Router](https://wundergraph.com)             |    63.80%     | 🟢 104 ❌ 59 | 🟢 19 ❌ 21 |
 |            [Grafbase Gateway](https://grafbase.com)             |    46.63%     | 🟢 76 ❌ 87  | 🟢 13 ❌ 27 |
