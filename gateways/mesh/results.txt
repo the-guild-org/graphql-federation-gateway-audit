@@ -69,7 +69,7 @@ simple-interface-object
 simple-override
 ..
 simple-requires-provides
-...........
+............
 typename
 ......
 unavailable-override
@@ -80,6 +80,6 @@ union-intersection
 ........
 
 ---
-Total: 163
-Passed: 163
+Total: 164
+Passed: 164
 Failed: 0

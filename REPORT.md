@@ -4,12 +4,12 @@
 
 |                             Gateway                             | Compatibility |  Test Cases  | Test Suites |
 | :-------------------------------------------------------------: | :-----------: | :----------: | :---------: |
-|       [GraphQL Mesh](https://the-guild.dev/graphql/mesh)        |    100.00%    |    🟢 163    |    🟢 40    |
-|         [Apollo Router](https://www.apollographql.com/)         |    99.39%     | 🟢 162 ❌ 1  | 🟢 39 ❌ 1  |
-|        [Apollo Gateway](https://www.apollographql.com/)         |    98.77%     | 🟢 161 ❌ 2  | 🟢 38 ❌ 2  |
-| [Apollo Router (Rust-based QP)](https://www.apollographql.com/) |    95.71%     | 🟢 156 ❌ 7  | 🟢 37 ❌ 3  |
-|             [Cosmo Router](https://wundergraph.com)             |    63.80%     | 🟢 104 ❌ 59 | 🟢 19 ❌ 21 |
-|            [Grafbase Gateway](https://grafbase.com)             |    46.63%     | 🟢 76 ❌ 87  | 🟢 13 ❌ 27 |
+|       [GraphQL Mesh](https://the-guild.dev/graphql/mesh)        |    100.00%    |    🟢 164    |    🟢 40    |
+|         [Apollo Router](https://www.apollographql.com/)         |    99.39%     | 🟢 163 ❌ 1  | 🟢 39 ❌ 1  |
+|        [Apollo Gateway](https://www.apollographql.com/)         |    98.78%     | 🟢 162 ❌ 2  | 🟢 38 ❌ 2  |
+| [Apollo Router (Rust-based QP)](https://www.apollographql.com/) |    95.73%     | 🟢 157 ❌ 7  | 🟢 37 ❌ 3  |
+|             [Cosmo Router](https://wundergraph.com)             |    64.02%     | 🟢 105 ❌ 59 | 🟢 19 ❌ 21 |
+|            [Grafbase Gateway](https://grafbase.com)             |    46.34%     | 🟢 76 ❌ 88  | 🟢 13 ❌ 27 |
 
 ## Detailed Results
 
@@ -97,7 +97,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/simple-override">simple-override</a>
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/simple-requires-provides">simple-requires-provides</a>
-<pre>🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢</pre>
+<pre>🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/typename">typename</a>
 <pre>🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/unavailable-override">unavailable-override</a>
@@ -188,7 +188,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/simple-override">simple-override</a>
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/simple-requires-provides">simple-requires-provides</a>
-<pre>🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢</pre>
+<pre>🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/typename">typename</a>
 <pre>🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/unavailable-override">unavailable-override</a>
@@ -279,7 +279,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/simple-override">simple-override</a>
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/simple-requires-provides">simple-requires-provides</a>
-<pre>🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢</pre>
+<pre>🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/typename">typename</a>
 <pre>🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/unavailable-override">unavailable-override</a>
@@ -370,7 +370,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/simple-override">simple-override</a>
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/simple-requires-provides">simple-requires-provides</a>
-<pre>🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢</pre>
+<pre>🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/typename">typename</a>
 <pre>🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/unavailable-override">unavailable-override</a>
@@ -461,7 +461,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/simple-override">simple-override</a>
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/simple-requires-provides">simple-requires-provides</a>
-<pre>🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢</pre>
+<pre>🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/typename">typename</a>
 <pre>🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/unavailable-override">unavailable-override</a>
@@ -552,7 +552,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/simple-override">simple-override</a>
 <pre>❌🟢</pre>
 <a href="./src/test-suites/simple-requires-provides">simple-requires-provides</a>
-<pre>🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢❌</pre>
+<pre>🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢❌❌</pre>
 <a href="./src/test-suites/typename">typename</a>
 <pre>🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/unavailable-override">unavailable-override</a>

@@ -43,7 +43,7 @@ const testCases = await Promise.all(
     import("./test-suites/fed1-external-extends-resolvable/index.js"),
     import("./test-suites/requires-with-argument/index.js"),
     import("./test-suites/keys-mashup/index.js"),
-  ].map((i) => i.then((e) => e.default))
+  ].map((i) => i.then((e) => e.default)),
 );
 
 export function serve(port: number): Promise<void> {
@@ -113,7 +113,7 @@ export function serve(port: number): Promise<void> {
     },
     handler(req) {
       return Response.json(
-        testCases.map(({ id }) => `${req.parsedUrl.origin}/${id}/supergraph`)
+        testCases.map(({ id }) => `${req.parsedUrl.origin}/${id}/supergraph`),
       );
     },
   });
@@ -135,7 +135,7 @@ export function serve(port: number): Promise<void> {
     },
     handler(req) {
       return Response.json(
-        testCases.map(({ id }) => `${req.parsedUrl.origin}/${id}/tests`)
+        testCases.map(({ id }) => `${req.parsedUrl.origin}/${id}/tests`),
       );
     },
   });
@@ -157,7 +157,7 @@ export function serve(port: number): Promise<void> {
     },
     handler(req) {
       return Response.json(
-        testCases.map(({ id }) => `${req.parsedUrl.origin}/${id}/subgraphs`)
+        testCases.map(({ id }) => `${req.parsedUrl.origin}/${id}/subgraphs`),
       );
     },
   });
