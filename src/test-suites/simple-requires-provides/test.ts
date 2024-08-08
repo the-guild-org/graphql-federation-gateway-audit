@@ -335,4 +335,38 @@ export default [
       },
     },
   ),
+  createTest(
+    /* GraphQL */ `
+      query {
+        me {
+          reviews {
+            product {
+              shippingEstimate
+              shippingEstimateTag
+            }
+          }
+        }
+      }
+    `,
+    {
+      data: {
+        me: {
+          reviews: [
+            {
+              product: {
+                shippingEstimate: 110,
+                shippingEstimateTag: "#p-upc-1#110#",
+              },
+            },
+            {
+              product: {
+                shippingEstimate: 440,
+                shippingEstimateTag: "#p-upc-2#440#",
+              },
+            },
+          ],
+        },
+      },
+    },
+  ),
 ];
