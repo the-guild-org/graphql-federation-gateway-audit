@@ -6,12 +6,12 @@ const gatewayResults = readdirSync("./gateways")
   .filter((file) => statSync(join("./gateways", file)).isDirectory())
   .map((id) => {
     const gatewayDetails = JSON.parse(
-      readFileSync(join("./gateways", id, "gateway.json"), "utf-8")
+      readFileSync(join("./gateways", id, "gateway.json"), "utf-8"),
     ) as { name: string; repository: string; website: string };
 
     const lines = readFileSync(
       join("./gateways", id, "results.txt"),
-      "utf-8"
+      "utf-8",
     ).split("\n");
 
     const groups = {
@@ -91,7 +91,7 @@ gatewayResults.sort((a, b) => {
 
 function printResult(
   result: { passed: number; failed: number },
-  format: "md" | "html"
+  format: "md" | "html",
 ) {
   const scores: string[] = [];
 
@@ -100,7 +100,7 @@ function printResult(
       scores.push(`🟢 ${result.passed}`);
     } else {
       scores.push(
-        `<span class="text-emerald-700 mr-2">✓ ${result.passed}</span>`
+        `<span class="text-emerald-700 mr-2">✓ ${result.passed}</span>`,
       );
     }
   }
@@ -124,7 +124,7 @@ let testDetailsMd = "";
 for (const gateway of gatewayResults) {
   const score = ((gateway.tests.passed * 100) / gateway.tests.total).toFixed(2);
   const roundedScore = Math.round(
-    (gateway.tests.passed * 100) / gateway.tests.total
+    (gateway.tests.passed * 100) / gateway.tests.total,
   );
   tableMd += `\n| [${gateway.name}](${gateway.website}) | ${score}% |  ${printResult(gateway.tests, "md")} | ${printResult(gateway.groups, "md")} |`;
 
@@ -214,6 +214,6 @@ async function writeFormatted(filename: string, content: string) {
     filename,
     await prettier.format(content, {
       filepath: filename,
-    })
+    }),
   );
 }

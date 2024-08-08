@@ -44,7 +44,11 @@ export default createSubgraph("inventory", {
       shippingEstimate(product: { price: number; weight: number }) {
         return product.price * product.weight * 10;
       },
-      shippingEstimateTag(product: { upc: string; price: number; weight: number }) {
+      shippingEstimateTag(product: {
+        upc: string;
+        price: number;
+        weight: number;
+      }) {
         return `#${product.upc}#${product.price * product.weight * 10}#`;
       },
       inStock(product: { upc: string }) {

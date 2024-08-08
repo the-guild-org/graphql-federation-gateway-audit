@@ -9,6 +9,7 @@ import {
   existsSync,
   readFileSync,
 } from "node:fs";
+import retry from "async-retry";
 import yargs from "yargs";
 import waitOn from "wait-on";
 import getPort from "get-port";
@@ -35,7 +36,7 @@ function resolvePath(
   argv: {
     cwd: string;
   },
-  path: string
+  path: string,
 ) {
   if (path.startsWith("/")) {
     return path;
@@ -46,7 +47,7 @@ function resolvePath(
 yargs(hideBin(process.argv))
   .scriptName("graphql-federation-audit")
   .epilogue(
-    "for more information, find our manual at https://github.com/the-guild-org/federation-compatibility"
+    "for more information, find our manual at https://github.com/the-guild-org/federation-compatibility",
   )
   .version(readVersion() ?? "local")
   .recommendCommands()
@@ -67,7 +68,7 @@ yargs(hideBin(process.argv))
     async (argv) => {
       await serve(argv.port);
       console.log("Server started on port", argv.port);
-    }
+    },
   )
   .command(
     "supergraph",
@@ -86,7 +87,7 @@ yargs(hideBin(process.argv))
     },
     async (argv) => {
       const res = await fetch(
-        `http://localhost:${argv.port}/${argv.test}/supergraph`
+        `http://localhost:${argv.port}/${argv.test}/supergraph`,
       );
 
       if (!res.ok) {
@@ -98,7 +99,7 @@ yargs(hideBin(process.argv))
 
       writeFileSync(resolvePath(argv, "supergraph.graphql"), await res.text());
       process.exit(0);
-    }
+    },
   )
   .command(
     "subgraphs",
@@ -132,7 +133,7 @@ yargs(hideBin(process.argv))
 
       writeFileSync(resolvePath(argv, "subgraphs.json"), await res.text());
       process.exit(0);
-    }
+    },
   )
   .command(
     "test-suite",
@@ -203,7 +204,7 @@ yargs(hideBin(process.argv))
         resolvePath(argv, `./logs/${argv.test}-gateway.log`),
         {
           flags: "w+",
-        }
+        },
       );
 
       const gatewayExit = Promise.withResolvers<void>();
@@ -239,7 +240,7 @@ yargs(hideBin(process.argv))
       } else {
         process.exit(0);
       }
-    }
+    },
   )
   .command(
     "test",
@@ -327,7 +328,7 @@ yargs(hideBin(process.argv))
           resolvePath(argv, `./logs/${id}-gateway.log`),
           {
             flags: "w+",
-          }
+          },
         );
 
         const gatewayExit = Promise.withResolvers<void>();
@@ -383,22 +384,22 @@ yargs(hideBin(process.argv))
       process.stdout.write("-----------\n");
       process.stdout.write(`Total:  ${total}\n`);
       process.stdout.write(
-        `Passed: ${styleText("greenBright", passed + "")}\n`
+        `Passed: ${styleText("greenBright", passed + "")}\n`,
       );
       if (failed > 0) {
         process.stdout.write(
-          `Failed: ${styleText("redBright", failed + "")}\n`
+          `Failed: ${styleText("redBright", failed + "")}\n`,
         );
       }
       process.stdout.write("\n");
 
       if (failed > 0) {
         process.stdout.write(
-          styleText("redBright", "Your gateway is not fully compatible\n")
+          styleText("redBright", "Your gateway is not fully compatible\n"),
         );
       } else {
         process.stdout.write(
-          styleText("greenBright", "Your gateway is fully compatible\n")
+          styleText("greenBright", "Your gateway is fully compatible\n"),
         );
       }
 
@@ -413,14 +414,14 @@ yargs(hideBin(process.argv))
             `Passed: ${passed}`,
             `Failed: ${failed}`,
           ])
-          .join("\n")
+          .join("\n"),
       );
 
       if (argv["exit-on-fail"] && failed > 0) {
         process.exit(1);
       }
       process.exit(0);
-    }
+    },
   )
   .demandCommand(1)
   .parse();
@@ -441,18 +442,14 @@ async function runTest(args: {
     resolvePath({ cwd: args.cwd }, `./logs/${args.test}-tests.log`),
     {
       flags: "w+",
-    }
+    },
   );
 
   if (args.healthcheck) {
     try {
-      await waitOn({
-        // Make sure the health check is a GET request
-        resources: [args.healthcheck.replace("http://", "http-get://")],
-        timeout: 5_000,
-        httpTimeout: 200,
-        log: false,
-        verbose: false,
+      await waitOnGraphQL({
+        healthcheck: args.healthcheck,
+        graphql: args.graphql,
       });
     } catch (err) {
       logStream.write("\nHealth check failed\n");
@@ -536,5 +533,54 @@ function readVersion(): string | undefined {
     );
   } catch {
     //
+  }
+}
+
+async function waitOnGraphQL(endpoints: {
+  healthcheck: string;
+  graphql: string;
+}) {
+  await waitOn({
+    // Make sure the health check is a GET request
+    resources: [endpoints.healthcheck.replace("http://", "http-get://")],
+    timeout: 5_000,
+    httpTimeout: 200,
+    log: false,
+    verbose: false,
+  });
+
+  await retry(fetchTypename, {
+    maxRetryTime: 2_000,
+    retries: 20,
+    maxTimeout: 500,
+    minTimeout: 100,
+  });
+
+  async function fetchTypename() {
+    const response = await fetch(endpoints.graphql, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify({
+        operationName: "ping",
+        query: /* GraphQL */ `
+          query ping {
+            __typename
+          }
+        `,
+      }),
+    });
+
+    if (response.ok) {
+      const json = await response.json();
+
+      if (json.data.__typename === "Query") {
+        return;
+      }
+    }
+
+    throw new Error("Failed to fetch __typename");
   }
 }
