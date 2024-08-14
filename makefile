@@ -16,7 +16,7 @@ endef
 
 define RUN_GATEWAY
 run-$(1):
-	(cd gateways/$(1) && ./run.sh $(TEST_SUITE))
+	npm start -- start --test $(TEST_SUITE) --cwd ./gateways/$(1) --run-script ./run.sh --graphql $(shell jq -r .graphql ./gateways/$(1)/gateway.json) --healthcheck $(shell jq -r .health ./gateways/$(1)/gateway.json)
 endef
 
 install:
