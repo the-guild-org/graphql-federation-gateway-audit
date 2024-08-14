@@ -21,66 +21,50 @@ export default createSubgraph("d", {
   `,
   resolvers: {
     Product: {
-      __resolveReference(
-        key:
-          | {
-              id: string;
-              isExpensive: boolean;
-              isExpensiveWithDiscount: boolean;
-            }
-          | { id: string; isExpensive: boolean }
-          | { id: string; isExpensiveWithDiscount: boolean }
-          | { id: string }
-      ) {
-        const product = products.find((product) => product.id === key.id);
-
-        if (!product) {
+      __resolveReference(key: {
+        id: string;
+        isExpensive?: boolean;
+        isExpensiveWithDiscount?: boolean;
+      }) {
+        if (!products.find((product) => product.id === key.id)) {
           return null;
         }
 
-        if ("isExpensive" in key && "isExpensiveWithDiscount" in key) {
-          if (typeof key.isExpensive !== "boolean") {
-            return new GraphQLError("isExpensive must be a boolean");
-          }
-          if (typeof key.isExpensiveWithDiscount !== "boolean") {
-            return new GraphQLError("isExpensiveWithDiscount must be a boolean");
-          }
-          return {
-            id: product.id,
-            isExpensive: key.isExpensive,
-            canAfford: !key.isExpensive,
-            isExpensiveWithDiscount: key.isExpensiveWithDiscount,
-            canAffordWithDiscount: !key.isExpensiveWithDiscount,
-          };
-        }
-
-        if ("isExpensive" in key) {
-          if (typeof key.isExpensive !== "boolean") {
-            return new GraphQLError("isExpensive must be a boolean");
-          }
-          return {
-            id: product.id,
-            isExpensive: key.isExpensive,
-            canAfford: !key.isExpensive,
-          };
-        }
-
-        if ("isExpensiveWithDiscount" in key) {
-          if (typeof key.isExpensiveWithDiscount !== "boolean") {
-            return new GraphQLError(
-              "isExpensiveWithDiscount must be a boolean"
-            );
-          }
-          return {
-            id: product.id,
-            isExpensiveWithDiscount: key.isExpensiveWithDiscount,
-            canAffordWithDiscount: !key.isExpensiveWithDiscount,
-          };
-        }
-
-        return {
-          id: product.id,
+        const product: {
+          __typename: "Product";
+          id: string;
+          isExpensive?: boolean;
+          canAfford?: boolean;
+          isExpensiveWithDiscount?: boolean;
+          canAffordWithDiscount?: boolean;
+        } = {
+          __typename: "Product",
+          id: key.id,
         };
+
+        if (typeof key.isExpensive === "boolean") {
+          product.isExpensive = key.isExpensive;
+          product.canAfford = !key.isExpensive;
+        } else if (
+          "isExpensive" in key &&
+          typeof key.isExpensive !== "undefined"
+        ) {
+          return new GraphQLError("Product.isExpensive must be a boolean");
+        }
+
+        if (typeof key.isExpensiveWithDiscount === "boolean") {
+          product.isExpensiveWithDiscount = key.isExpensiveWithDiscount;
+          product.canAffordWithDiscount = !key.isExpensiveWithDiscount;
+        } else if (
+          "isExpensiveWithDiscount" in key &&
+          typeof key.isExpensiveWithDiscount !== "undefined"
+        ) {
+          return new GraphQLError(
+            "Product.isExpensiveWithDiscount must be a boolean"
+          );
+        }
+
+        return product;
       },
     },
   },
