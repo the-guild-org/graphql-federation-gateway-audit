@@ -12,6 +12,7 @@ export default createSubgraph("b", {
 
     type Product @key(fields: "id") {
       id: ID!
+      hasDiscount: Boolean!
     }
   `,
   resolvers: {
@@ -19,6 +20,7 @@ export default createSubgraph("b", {
       product() {
         return {
           id: products[0].id,
+          hasDiscount: products[0].hasDiscount,
         };
       },
     },
@@ -32,6 +34,7 @@ export default createSubgraph("b", {
 
         return {
           id: product.id,
+          hasDiscount: product.hasDiscount,
         };
       },
     },

@@ -53,7 +53,7 @@ provides-on-union
 requires-interface
 .....
 requires-requires
-...
+.....
 requires-with-argument
 .
 requires-with-fragments
@@ -80,6 +80,6 @@ union-intersection
 ........
 
 ---
-Total: 164
-Passed: 162
+Total: 166
+Passed: 164
 Failed: 2
