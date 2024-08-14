@@ -60,7 +60,7 @@ export default createSubgraph("d", {
           typeof key.isExpensiveWithDiscount !== "undefined"
         ) {
           return new GraphQLError(
-            "Product.isExpensiveWithDiscount must be a boolean"
+            "Product.isExpensiveWithDiscount must be a boolean",
           );
         }
 

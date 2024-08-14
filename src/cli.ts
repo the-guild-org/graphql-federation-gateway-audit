@@ -36,7 +36,7 @@ function resolvePath(
   argv: {
     cwd: string;
   },
-  path: string,
+  path: string
 ) {
   if (path.startsWith("/")) {
     return path;
@@ -47,7 +47,7 @@ function resolvePath(
 yargs(hideBin(process.argv))
   .scriptName("graphql-federation-audit")
   .epilogue(
-    "for more information, find our manual at https://github.com/the-guild-org/federation-compatibility",
+    "for more information, find our manual at https://github.com/the-guild-org/federation-compatibility"
   )
   .version(readVersion() ?? "local")
   .recommendCommands()
@@ -68,7 +68,7 @@ yargs(hideBin(process.argv))
     async (argv) => {
       await serve(argv.port);
       console.log("Server started on port", argv.port);
-    },
+    }
   )
   .command(
     "supergraph",
@@ -87,7 +87,7 @@ yargs(hideBin(process.argv))
     },
     async (argv) => {
       const res = await fetch(
-        `http://localhost:${argv.port}/${argv.test}/supergraph`,
+        `http://localhost:${argv.port}/${argv.test}/supergraph`
       );
 
       if (!res.ok) {
@@ -99,7 +99,7 @@ yargs(hideBin(process.argv))
 
       writeFileSync(resolvePath(argv, "supergraph.graphql"), await res.text());
       process.exit(0);
-    },
+    }
   )
   .command(
     "subgraphs",
@@ -133,7 +133,81 @@ yargs(hideBin(process.argv))
 
       writeFileSync(resolvePath(argv, "subgraphs.json"), await res.text());
       process.exit(0);
+    }
+  )
+  .command(
+    "start",
+    "start a gateway for a requested test group",
+    (yargs) => {
+      return yargs
+        .option("test", {
+          describe: "Test group id",
+          type: "string",
+        })
+        .option("run-script", {
+          describe: "Path to a bash script to run before each test",
+          type: "string",
+        })
+        .option("graphql", {
+          describe: "GraphQL endpoint serving the supergraph",
+          type: "string",
+        })
+        .option("healthcheck", {
+          describe: "Health check endpoint",
+          type: "string",
+        })
+        .option("port", {
+          describe: "Port to bind on",
+          default: defaultPort,
+        })
+        .demandOption("test")
+        .demandOption("graphql")
+        .demandOption("healthcheck")
+        .demandOption("run-script");
     },
+    async (argv) => {
+      const abortSignal = new AbortController();
+      process.once("SIGINT", () => {
+        if (!abortSignal.signal.aborted) {
+          abortSignal.abort();
+        }
+      });
+      process.once("SIGTERM", () => {
+        if (!abortSignal.signal.aborted) {
+          abortSignal.abort();
+        }
+      });
+
+      const port = argv.port ?? (await getPort());
+      await serve(port);
+
+      process.stdout.write("\n");
+
+      await killPortProcess(readPort(argv.graphql)).catch(() => {});
+
+      const gatewayExit = Promise.withResolvers<void>();
+      let gatewayExited = false;
+      const gateway = spawn("sh", [argv.runScript, argv.test], {
+        signal: abortSignal.signal,
+        stdio: "inherit",
+        cwd: dirname(resolvePath(argv, argv.runScript)),
+      });
+
+      gateway.on("error", (err) => {
+        if (err.message.includes("aborted")) {
+          return;
+        }
+
+        process.stderr.write(err.message);
+      });
+
+      gateway.once("exit", () => {
+        gatewayExited = true;
+        gatewayExit.resolve();
+      });
+
+      await gatewayExit.promise;
+    }
   )
   .command(
     "test-suite",
@@ -204,7 +278,7 @@ yargs(hideBin(process.argv))
         resolvePath(argv, `./logs/${argv.test}-gateway.log`),
         {
           flags: "w+",
-        },
+        }
       );
 
       const gatewayExit = Promise.withResolvers<void>();
@@ -240,7 +314,7 @@ yargs(hideBin(process.argv))
       } else {
         process.exit(0);
       }
-    },
+    }
   )
   .command(
     "test",
@@ -328,7 +402,7 @@ yargs(hideBin(process.argv))
           resolvePath(argv, `./logs/${id}-gateway.log`),
           {
             flags: "w+",
-          },
+          }
         );
 
         const gatewayExit = Promise.withResolvers<void>();
@@ -384,22 +458,22 @@ yargs(hideBin(process.argv))
       process.stdout.write("-----------\n");
       process.stdout.write(`Total:  ${total}\n`);
       process.stdout.write(
-        `Passed: ${styleText("greenBright", passed + "")}\n`,
+        `Passed: ${styleText("greenBright", passed + "")}\n`
       );
       if (failed > 0) {
         process.stdout.write(
-          `Failed: ${styleText("redBright", failed + "")}\n`,
+          `Failed: ${styleText("redBright", failed + "")}\n`
         );
       }
       process.stdout.write("\n");
 
       if (failed > 0) {
         process.stdout.write(
-          styleText("redBright", "Your gateway is not fully compatible\n"),
+          styleText("redBright", "Your gateway is not fully compatible\n")
         );
       } else {
         process.stdout.write(
-          styleText("greenBright", "Your gateway is fully compatible\n"),
+          styleText("greenBright", "Your gateway is fully compatible\n")
         );
       }
 
@@ -414,14 +488,14 @@ yargs(hideBin(process.argv))
             `Passed: ${passed}`,
             `Failed: ${failed}`,
           ])
-          .join("\n"),
+          .join("\n")
       );
 
       if (argv["exit-on-fail"] && failed > 0) {
         process.exit(1);
       }
       process.exit(0);
-    },
+    }
   )
   .demandCommand(1)
   .parse();
@@ -442,7 +516,7 @@ async function runTest(args: {
     resolvePath({ cwd: args.cwd }, `./logs/${args.test}-tests.log`),
     {
       flags: "w+",
-    },
+    }
   );
 
   if (args.healthcheck) {
