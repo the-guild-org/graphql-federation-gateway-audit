@@ -1,3 +1,4 @@
+import { GraphQLError } from "graphql";
 import { createSubgraph } from "../../subgraph.js";
 import { products } from "./data.js";
 
@@ -38,6 +39,12 @@ export default createSubgraph("d", {
         }
 
         if ("isExpensive" in key && "isExpensiveWithDiscount" in key) {
+          if (typeof key.isExpensive !== "boolean") {
+            return new GraphQLError("isExpensive must be a boolean");
+          }
+          if (typeof key.isExpensiveWithDiscount !== "boolean") {
+            return new GraphQLError("isExpensiveWithDiscount must be a boolean");
+          }
           return {
             id: product.id,
             isExpensive: key.isExpensive,
@@ -48,6 +55,9 @@ export default createSubgraph("d", {
         }
 
         if ("isExpensive" in key) {
+          if (typeof key.isExpensive !== "boolean") {
+            return new GraphQLError("isExpensive must be a boolean");
+          }
           return {
             id: product.id,
             isExpensive: key.isExpensive,
@@ -56,6 +66,11 @@ export default createSubgraph("d", {
         }
 
         if ("isExpensiveWithDiscount" in key) {
+          if (typeof key.isExpensiveWithDiscount !== "boolean") {
+            return new GraphQLError(
+              "isExpensiveWithDiscount must be a boolean"
+            );
+          }
           return {
             id: product.id,
             isExpensiveWithDiscount: key.isExpensiveWithDiscount,

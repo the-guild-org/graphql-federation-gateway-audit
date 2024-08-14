@@ -1,3 +1,4 @@
+import { GraphQLError } from "graphql";
 import { createSubgraph } from "../../subgraph.js";
 import { products } from "./data.js";
 
@@ -33,16 +34,25 @@ export default createSubgraph("c", {
         }
 
         if ("price" in key && "hasDiscount" in key) {
+          if (typeof key.price !== "number") {
+            return new GraphQLError("Price must be a number");
+          }
+          if (typeof key.hasDiscount !== "boolean") {
+            return new GraphQLError("hasDiscount must be a boolean");
+          }
           return {
             id: product.id,
             price: key.price,
             isExpensive: key.price > 500,
             hasDiscount: key.hasDiscount,
-            isExpensiveWithDiscount: !key.hasDiscount,
+            isExpensiveWithDiscount: !key.hasDiscount === false,
           };
         }
 
         if ("price" in key) {
+          if (typeof key.price !== "number") {
+            return new GraphQLError("Price must be a number");
+          }
           return {
             id: product.id,
             price: key.price,
@@ -51,6 +61,9 @@ export default createSubgraph("c", {
         }
 
         if ("hasDiscount" in key) {
+          if (typeof key.hasDiscount !== "boolean") {
+            return new GraphQLError("hasDiscount must be a boolean");
+          }
           return {
             id: product.id,
             hasDiscount: key.hasDiscount,
