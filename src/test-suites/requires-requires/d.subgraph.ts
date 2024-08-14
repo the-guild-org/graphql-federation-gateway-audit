@@ -13,12 +13,15 @@ export default createSubgraph("d", {
       id: ID!
       isExpensive: Boolean! @external
       canAfford: Boolean! @requires(fields: "isExpensive")
+      isExpensiveWithDiscount: Boolean! @external
+      canAffordWithDiscount: Boolean!
+        @requires(fields: "isExpensiveWithDiscount")
     }
   `,
   resolvers: {
     Product: {
       __resolveReference(
-        key: { id: string } | { id: string; isExpensive: boolean },
+        key: { id: string } | { id: string; isExpensive: boolean }
       ) {
         const product = products.find((product) => product.id === key.id);
 

@@ -51,4 +51,20 @@ export default [
       },
     },
   ),
+  createTest(
+    /* GraphQL */ `
+      query {
+        product {
+          canAffordWithDiscount
+        }
+      }
+    `,
+    {
+      data: {
+        product: {
+          canAffordWithDiscount: false,
+        },
+      },
+    },
+  ),
 ];
