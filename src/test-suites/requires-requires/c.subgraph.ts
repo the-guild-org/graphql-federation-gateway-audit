@@ -19,11 +19,27 @@ export default createSubgraph("c", {
   `,
   resolvers: {
     Product: {
-      __resolveReference(key: { id: string } | { id: string; price: number } | { id: string; hasDiscount: boolean }) {
+      __resolveReference(
+        key:
+          | { id: string; price: number; hasDiscount: boolean }
+          | { id: string; price: number }
+          | { id: string; hasDiscount: boolean }
+          | { id: string }
+      ) {
         const product = products.find((product) => product.id === key.id);
 
         if (!product) {
           return null;
+        }
+
+        if ("price" in key && "hasDiscount" in key) {
+          return {
+            id: product.id,
+            price: key.price,
+            isExpensive: key.price > 500,
+            hasDiscount: key.hasDiscount,
+            isExpensiveWithDiscount: !key.hasDiscount,
+          };
         }
 
         if ("price" in key) {
@@ -38,7 +54,7 @@ export default createSubgraph("c", {
           return {
             id: product.id,
             hasDiscount: key.hasDiscount,
-            isExpensiveWithDiscount: key.hasDiscount,
+            isExpensiveWithDiscount: !key.hasDiscount,
           };
         }
 

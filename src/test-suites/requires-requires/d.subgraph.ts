@@ -21,7 +21,15 @@ export default createSubgraph("d", {
   resolvers: {
     Product: {
       __resolveReference(
-        key: { id: string } | { id: string; isExpensive: boolean }
+        key:
+          | {
+              id: string;
+              isExpensive: boolean;
+              isExpensiveWithDiscount: boolean;
+            }
+          | { id: string; isExpensive: boolean }
+          | { id: string; isExpensiveWithDiscount: boolean }
+          | { id: string }
       ) {
         const product = products.find((product) => product.id === key.id);
 
@@ -29,11 +37,29 @@ export default createSubgraph("d", {
           return null;
         }
 
+        if ("isExpensive" in key && "isExpensiveWithDiscount" in key) {
+          return {
+            id: product.id,
+            isExpensive: key.isExpensive,
+            canAfford: !key.isExpensive,
+            isExpensiveWithDiscount: key.isExpensiveWithDiscount,
+            canAffordWithDiscount: !key.isExpensiveWithDiscount,
+          };
+        }
+
         if ("isExpensive" in key) {
           return {
             id: product.id,
             isExpensive: key.isExpensive,
             canAfford: !key.isExpensive,
+          };
+        }
+
+        if ("isExpensiveWithDiscount" in key) {
+          return {
+            id: product.id,
+            isExpensiveWithDiscount: key.isExpensiveWithDiscount,
+            canAffordWithDiscount: !key.isExpensiveWithDiscount,
           };
         }
 

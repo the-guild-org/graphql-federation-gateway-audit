@@ -15,7 +15,7 @@ export default [
           canAfford: false,
         },
       },
-    },
+    }
   ),
   createTest(
     /* GraphQL */ `
@@ -31,7 +31,7 @@ export default [
           isExpensive: true,
         },
       },
-    },
+    }
   ),
   createTest(
     /* GraphQL */ `
@@ -49,7 +49,7 @@ export default [
           canAfford: false,
         },
       },
-    },
+    }
   ),
   createTest(
     /* GraphQL */ `
@@ -62,9 +62,27 @@ export default [
     {
       data: {
         product: {
-          canAffordWithDiscount: false,
+          canAffordWithDiscount: true,
         },
       },
-    },
+    }
+  ),
+  createTest(
+    /* GraphQL */ `
+      query {
+        product {
+          canAfford
+          canAffordWithDiscount
+        }
+      }
+    `,
+    {
+      data: {
+        product: {
+          canAfford: false,
+          canAffordWithDiscount: true,
+        },
+      },
+    }
   ),
 ];
