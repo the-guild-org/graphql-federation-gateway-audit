@@ -1,5 +1,5 @@
 {
-  "name": "Apollo Router (Rust-based QP)",
+  "name": "Apollo Router (native QP)",
   "repository": "https://github.com/apollographql/router",
   "website": "https://www.apollographql.com/",
   "graphql": "http://127.0.0.1:4000/",
