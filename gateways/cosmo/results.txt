@@ -13,7 +13,7 @@ enum-intersection
 fed1-external-extends
 ..
 fed1-external-extends-resolvable
-.
+X
 fed1-external-extension
 ..
 fed2-external-extends
@@ -81,5 +81,5 @@ XXXXXXXX
 
 ---
 Total: 166
-Passed: 107
-Failed: 59
+Passed: 106
+Failed: 60

@@ -4,7 +4,7 @@ set -euo pipefail
 # I took their install script and modified it to download the gateway binary
 # to the current directory instead of /usr/local/bin
 
-VERSION="0.8.0"
+VERSION="0.9.3"
 
 error() {
     echo -e "${Red}error${Color_Off}:" "$@" >&2

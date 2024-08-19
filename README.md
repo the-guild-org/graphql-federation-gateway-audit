@@ -10,7 +10,7 @@ This repository contains a set of tests and a tool to evaluate and compare the c
 |       [Apollo Router](https://www.apollographql.com/)       |    99.40%     | 🟢 165 ❌ 1  | 🟢 39 ❌ 1  |
 |      [Apollo Gateway](https://www.apollographql.com/)       |    98.80%     | 🟢 164 ❌ 2  | 🟢 38 ❌ 2  |
 | [Apollo Router (native QP)](https://www.apollographql.com/) |    95.78%     | 🟢 159 ❌ 7  | 🟢 37 ❌ 3  |
-|           [Cosmo Router](https://wundergraph.com)           |    64.46%     | 🟢 107 ❌ 59 | 🟢 19 ❌ 21 |
+|           [Cosmo Router](https://wundergraph.com)           |    63.86%     | 🟢 106 ❌ 60 | 🟢 18 ❌ 22 |
 |          [Grafbase Gateway](https://grafbase.com)           |    45.78%     | 🟢 76 ❌ 90  | 🟢 13 ❌ 27 |
 
 <!-- gateways:end -->
