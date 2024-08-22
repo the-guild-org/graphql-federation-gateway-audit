@@ -14,7 +14,7 @@ async function fetchTests(endpoint: string) {
 
   if (response.status !== 200) {
     throw new Error(
-      `Failed to fetch tests ${response.status} ${response.statusText}`,
+      `Failed to fetch tests ${response.status} ${response.statusText}`
     );
   }
 
@@ -53,7 +53,7 @@ for (const { query, expected: expectedResult } of tests) {
     deepStrictEqual(
       received,
       expected,
-      [`Test failed for query`, query, diff(expected, received)].join("\n"),
+      [`Test failed for query`, query, diff(expected, received)].join("\n")
     );
   });
 }
@@ -66,6 +66,7 @@ function graphql(endpoint: string, query: string) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ query }),
+    signal: AbortSignal.timeout(2000),
   }).then((response) => response.json()) as Promise<ExecutionResult>;
 }
 

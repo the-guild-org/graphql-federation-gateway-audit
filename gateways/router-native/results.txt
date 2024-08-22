@@ -55,7 +55,7 @@ requires-interface
 requires-requires
 .....
 requires-with-argument
-.
+.XXXX
 requires-with-fragments
 ......
 shared-root
@@ -80,6 +80,6 @@ union-intersection
 ........
 
 ---
-Total: 166
+Total: 170
 Passed: 159
-Failed: 7
+Failed: 11
