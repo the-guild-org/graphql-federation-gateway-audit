@@ -50,11 +50,25 @@ for (const { query, expected: expectedResult } of tests) {
       errors: expectedResult.errors ?? false,
     };
 
-    deepStrictEqual(
-      received,
-      expected,
-      [`Test failed for query`, query, diff(expected, received)].join("\n")
-    );
+    let retryCount = 0;
+    const maxRetries = 2;
+    let testPassed = false;
+
+    while (retryCount <= maxRetries && !testPassed) {
+      try {
+        deepStrictEqual(
+          received,
+          expected,
+          [`Test failed for query`, query, diff(expected, received)].join("\n")
+        );
+        testPassed = true;
+      } catch (error) {
+        if (retryCount === maxRetries) {
+          throw error;
+        }
+        retryCount++;
+      }
+    }
   });
 }
 

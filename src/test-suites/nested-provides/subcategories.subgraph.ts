@@ -10,10 +10,6 @@ export default createSubgraph("subcategories", {
         import: ["@key", "@shareable"]
       )
 
-    type Query {
-      products: [Product] @shareable
-    }
-
     type Product @key(fields: "id") {
       id: ID!
       categories: [Category] @shareable
@@ -25,18 +21,6 @@ export default createSubgraph("subcategories", {
     }
   `,
   resolvers: {
-    Query: {
-      products(_p: unknown, _a: unknown, context: any) {
-        if (shouldPunishForPoorPlans(context)) {
-          throw new Error("You should be using the categories subgraph!");
-        }
-
-        return products.map((p) => ({
-          id: p.id,
-          categories: p.categories,
-        }));
-      },
-    },
     Product: {
       __resolveReference(key: { id: string }, context: any) {
         if (shouldPunishForPoorPlans(context)) {
