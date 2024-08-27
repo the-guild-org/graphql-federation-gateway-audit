@@ -1,2 +1,2 @@
 npm start supergraph -- --cwd ./gateways/grafbase --test $1
-./grafbase-gateway --schema supergraph.graphql --listen-address 127.0.0.1:4000 -c grafbase.toml
+__GRAFBASE_RUST_LOG=engine_v2=trace ./grafbase-gateway --schema supergraph.graphql --listen-address 127.0.0.1:4000 -c grafbase.toml --log trace

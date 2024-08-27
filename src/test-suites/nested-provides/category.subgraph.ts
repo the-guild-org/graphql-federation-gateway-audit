@@ -23,6 +23,11 @@ export default createSubgraph("category", {
 
     type Category @key(fields: "id") {
       id: ID!
+      """
+      This field is provided by Query.products
+      and we deliberately don't resolve it.
+      The test suite is about checking if @provides is used correctly.
+      """
       name: String
       subCategories: [Category] @external
     }
@@ -90,6 +95,8 @@ export default createSubgraph("category", {
 
         return {
           id: cat.id,
+          // We explicitly don't resolve `name` here
+          // name: cat.name,
         };
       },
     },
