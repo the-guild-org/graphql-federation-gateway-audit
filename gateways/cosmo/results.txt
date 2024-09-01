@@ -33,7 +33,7 @@ mutations
 mysterious-external
 ..
 nested-provides
-XX
+..
 node
 .
 non-resolvable-interface-object
@@ -43,7 +43,7 @@ override-type-interface
 override-with-requires
 ....
 parent-entity-call
-X
+.
 parent-entity-call-complex
 X
 provides-on-interface
@@ -81,5 +81,5 @@ XXXXXXXX
 
 ---
 Total: 170
-Passed: 106
-Failed: 64
+Passed: 109
+Failed: 61
