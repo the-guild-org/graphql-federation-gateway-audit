@@ -4,7 +4,7 @@ This repository contains a set of tests to evaluate and compare the compatibilit
 
 [🌐 See the results of our audit](https://the-guild.dev/graphql/hive/federation-gateway-audit)
 
-[📖 Read more about our methodology and why we created this audit](https://the-guild.dev/graphql/hive/federation-gateway-audit)
+[📖 Read more about our methodology and why we created this audit](https://the-guild.dev/graphql/hive/federation-gateway-audit#manifesto)
 
 <!-- gateways:start -->
 
