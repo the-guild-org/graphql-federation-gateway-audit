@@ -13,6 +13,7 @@ import retry from "async-retry";
 import yargs from "yargs";
 import waitOn from "wait-on";
 import getPort from "get-port";
+import detectPort from "detect-port";
 import { spawn } from "node:child_process";
 import { hideBin } from "yargs/helpers";
 import { run } from "node:test";
@@ -29,7 +30,7 @@ const ext = extname(fileURLToPath(import.meta.url));
 const defaultPort = 4200;
 
 function readPort(address: string) {
-  return new URL(address).port;
+  return parseInt(new URL(address).port, 10);
 }
 
 function resolvePath(
@@ -183,7 +184,7 @@ yargs(hideBin(process.argv))
 
       process.stdout.write("\n");
 
-      await killPortProcess(readPort(argv.graphql)).catch(() => {});
+      await killPortIfRunning(readPort(argv.graphql)).catch(() => {});
 
       const gatewayExit = Promise.withResolvers<void>();
       let gatewayExited = false;
@@ -273,7 +274,7 @@ yargs(hideBin(process.argv))
         mkdirSync(resolvePath(argv, "./logs"));
       }
 
-      await killPortProcess(readPort(argv.graphql)).catch(() => {});
+      await killPortIfRunning(readPort(argv.graphql)).catch(() => {});
       const logStream = createWriteStream(
         resolvePath(argv, `./logs/${argv.test}-gateway.log`),
         {
@@ -397,7 +398,7 @@ yargs(hideBin(process.argv))
 
       process.stdout.write("\n");
       for await (const id of ids) {
-        await killPortProcess(readPort(argv.graphql)).catch(() => {});
+        await killPortIfRunning(readPort(argv.graphql)).catch(() => {});
         const logStream = createWriteStream(
           resolvePath(argv, `./logs/${id}-gateway.log`),
           {
@@ -656,5 +657,11 @@ async function waitOnGraphQL(endpoints: {
     }
 
     throw new Error("Failed to fetch __typename");
+  }
+}
+
+async function killPortIfRunning(port: number) {
+  if (await detectPort(port)) {
+    await killPortProcess(port);
   }
 }
