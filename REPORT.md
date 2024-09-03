@@ -17,7 +17,7 @@ Take a closer look at the results for each gateway.
 
 You can look at the full list of tests [here](./src/test-suites/). Every test id corresponds to a directory in the `src/test-suites` folder.
 
-<a id="hive"></a>
+<a id="hive-gateway"></a>
 
 ### Hive Gateway
 
@@ -108,7 +108,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢🟢🟢🟢🟢🟢🟢🟢</pre>
 </details>
 
-<a id="router"></a>
+<a id="apollo-router"></a>
 
 ### Apollo Router
 
@@ -290,7 +290,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢🟢🟢🟢🟢🟢🟢🟢</pre>
 </details>
 
-<a id="router-native"></a>
+<a id="apollo-router-native"></a>
 
 ### Apollo Router (native QP)
 
@@ -381,7 +381,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢🟢🟢🟢🟢🟢🟢🟢</pre>
 </details>
 
-<a id="cosmo"></a>
+<a id="cosmo-router"></a>
 
 ### Cosmo Router
 
@@ -472,7 +472,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>❌❌❌❌❌❌❌❌</pre>
 </details>
 
-<a id="grafbase"></a>
+<a id="grafbase-gateway"></a>
 
 ### Grafbase Gateway
 

@@ -390,7 +390,7 @@ yargs(hideBin(process.argv))
         result: Array<"." | "X">;
       }> = [];
 
-      process.stdout.write("Running " + ids.length + " tests\n");
+      process.stdout.write("Running " + ids.length + " test suites\n");
 
       if (!existsSync(resolvePath(argv, "./logs"))) {
         mkdirSync(resolvePath(argv, "./logs"));

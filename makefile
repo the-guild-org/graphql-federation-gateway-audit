@@ -19,6 +19,7 @@ run-$(1):
 	npm start -- start --test $(TEST_SUITE) --cwd ./gateways/$(1) --run-script ./run.sh --graphql $(shell jq -r .graphql ./gateways/$(1)/gateway.json) --healthcheck $(shell jq -r .health ./gateways/$(1)/gateway.json)
 endef
 
+# Install all dependencies of the project and the gateways
 install:
 	npm install
 	@for dir in ./gateways/*; do \
@@ -29,6 +30,7 @@ install:
 		fi; \
 	done
 
+# Start only the subgraphs, no gateway
 subgraphs:
 	npm start -- serve
 
@@ -37,7 +39,9 @@ $(foreach gateway,$(GATEWAY_IDS),$(eval $(call TEST_GATEWAY,$(gateway))))
 $(foreach gateway,$(GATEWAY_IDS),$(eval $(call RUN_GATEWAY,$(gateway))))
 $(foreach gateway,$(GATEWAY_IDS),$(eval $(call TEST_SUITE_GATEWAY,$(gateway))))
 
+# Run the tests for all gateways
 test-all: $(addprefix test-,$(GATEWAY_IDS)) summary
 
+# Update the report
 summary:
 	npm run summary

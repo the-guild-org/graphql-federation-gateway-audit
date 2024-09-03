@@ -83,10 +83,10 @@ You can run the tests for a specific gateway by running the following command:
 ```bash
 make test-[name of the gateway]
 
-make test-grafbase
-make test-cosmo
-make test-hive
-make test-router
+make test-grafbase-gateway
+make test-cosmo-router
+make test-hive-gateway
+make test-apollo-router
 ```
 
 ### Running a gateway for a single test suite

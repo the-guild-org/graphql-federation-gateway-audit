@@ -28,7 +28,7 @@ jobs:
         run: make install
 
       - name: Test
-        run: npm start -- test --cwd ./gateways/hive --run-script ./run.sh  --reporter tap --graphql http://127.0.0.1:4000/graphql --healthcheck http://127.0.0.1:4000/healthcheck --exit-on-fail
+        run: npm start -- test --cwd ./gateways/hive-gateway --run-script ./run.sh  --reporter tap --graphql http://127.0.0.1:4000/graphql --healthcheck http://127.0.0.1:4000/healthcheck --exit-on-fail
 
   gateways:
     runs-on: ubuntu-latest
