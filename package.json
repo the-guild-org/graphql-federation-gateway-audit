@@ -1,14 +1,14 @@
 {
-  "name": "graphql-federation-audit",
+  "name": "graphql-federation-gateway-audit",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "description": "Audit tool for Apollo Federation Gateway",
   "repository": {
     "type": "git",
-    "url": "the-guild-org/federation-compatibility"
+    "url": "the-guild-org/graphql-federation-gateway-audit"
   },
-  "homepage": "https://the-guild.dev/",
+  "homepage": "https://the-guild.dev/graphql/hive/federation-gateway-audit",
   "author": {
     "email": "contact@the-guild.dev",
     "name": "The Guild",
