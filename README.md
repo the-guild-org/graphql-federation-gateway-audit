@@ -1,6 +1,10 @@
-# Apollo Federation Compatibility Checker
+# Federation-Compatible Gateway Implementations
 
-This repository contains a set of tests and a tool to evaluate and compare the compatibility of different GraphQL gateways with Apollo Federation.
+This repository contains a set of tests to evaluate and compare the compatibility of different GraphQL gateways with Apollo Federation.
+
+[🌐 See the results of our audit](https://the-guild.dev/graphql/hive/federation-gateway-audit)
+
+[📖 Read more about our methodology and why we created this audit](https://the-guild.dev/graphql/hive/federation-gateway-audit)
 
 <!-- gateways:start -->
 
@@ -21,27 +25,27 @@ This repository contains a set of tests and a tool to evaluate and compare the c
 
 The tests are based on the Apollo Federation specification and cover the following directives:
 
-- @interfaceObject
-- @key
-- @external
-- @provides
-- @requires
-- @extends
-- @inaccessible
-- @shareable
-- @skip
-- @include
-- @composeDirective
-- @override
+- `@interfaceObject`
+- `@key`
+- `@external`
+- `@provides`
+- `@requires`
+- `@extends`
+- `@inaccessible`
+- `@shareable`
+- `@skip`
+- `@include`
+- `@composeDirective`
+- `@override`
 
 **Out of scope (limited by Enterprise license of Apollo Router):**
 
 We are not able to test the following directives on Apollo Router due to the limitations of the Enterprise license:
 
-- @authenticated
-- @policy
-- @requiresScopes
-- @override(label:)
+- `@authenticated`
+- `@policy`
+- `@requiresScopes`
+- `@override(label:)`
 
 We plan to test these directives as soon as we have access to the Enterprise license.
 
@@ -49,7 +53,9 @@ We plan to test these directives as soon as we have access to the Enterprise lic
 
 ## CLI
 
-> TODO
+> TODO: we're working on a CLI to make it easier to run the tests, stay tuned!
+
+---
 
 ## Instructions
 
