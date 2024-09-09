@@ -468,5 +468,5 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/union-interface-distributed">union-interface-distributed</a>
 <pre>❌❌🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/union-intersection">union-intersection</a>
-<pre>❌🟢🟢❌❌🟢❌❌</pre>
+<pre>❌🟢❌❌❌🟢🟢❌</pre>
 </details>
