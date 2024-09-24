@@ -13,8 +13,8 @@ This repository contains a set of tests to evaluate and compare the compatibilit
 | [Hive Gateway](https://the-guild.dev/graphql/hive) |    100.00%    |    🟢 170    |    🟢 40    |
 |  [Apollo Router](https://www.apollographql.com/)   |    97.65%     | 🟢 166 ❌ 4  | 🟢 38 ❌ 2  |
 |  [Apollo Gateway](https://www.apollographql.com/)  |    97.06%     | 🟢 165 ❌ 5  | 🟢 37 ❌ 3  |
-|      [Cosmo Router](https://wundergraph.com)       |    64.12%     | 🟢 109 ❌ 61 | 🟢 20 ❌ 20 |
-|      [Grafbase Gateway](https://grafbase.com)      |    48.82%     | 🟢 83 ❌ 87  | 🟢 14 ❌ 26 |
+|      [Cosmo Router](https://wundergraph.com)       |    74.12%     | 🟢 126 ❌ 44 | 🟢 21 ❌ 19 |
+|      [Grafbase Gateway](https://grafbase.com)      |    48.24%     | 🟢 82 ❌ 88  | 🟢 16 ❌ 24 |
 
 <!-- gateways:end -->
 
