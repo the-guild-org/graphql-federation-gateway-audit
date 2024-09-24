@@ -7,8 +7,8 @@
 | [Hive Gateway](https://the-guild.dev/graphql/hive) |    100.00%    |    🟢 170    |    🟢 40    |
 |  [Apollo Router](https://www.apollographql.com/)   |    97.65%     | 🟢 166 ❌ 4  | 🟢 38 ❌ 2  |
 |  [Apollo Gateway](https://www.apollographql.com/)  |    97.06%     | 🟢 165 ❌ 5  | 🟢 37 ❌ 3  |
-|      [Cosmo Router](https://wundergraph.com)       |    64.12%     | 🟢 109 ❌ 61 | 🟢 20 ❌ 20 |
-|      [Grafbase Gateway](https://grafbase.com)      |    48.82%     | 🟢 83 ❌ 87  | 🟢 14 ❌ 26 |
+|      [Cosmo Router](https://wundergraph.com)       |    74.12%     | 🟢 126 ❌ 44 | 🟢 21 ❌ 19 |
+|      [Grafbase Gateway](https://grafbase.com)      |    48.24%     | 🟢 82 ❌ 88  | 🟢 16 ❌ 24 |
 
 ## Detailed Results
 
@@ -299,7 +299,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <details>
 <summary>Results</summary>
 <a href="./src/test-suites/abstract-types">abstract-types</a>
-<pre>❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌</pre>
+<pre>🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/child-type-mismatch">child-type-mismatch</a>
 <pre>❌❌❌🟢</pre>
 <a href="./src/test-suites/circular-reference-interface">circular-reference-interface</a>
@@ -390,7 +390,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <details>
 <summary>Results</summary>
 <a href="./src/test-suites/abstract-types">abstract-types</a>
-<pre>🟢🟢❌🟢🟢❌❌❌❌❌❌❌❌❌❌❌❌</pre>
+<pre>❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌</pre>
 <a href="./src/test-suites/child-type-mismatch">child-type-mismatch</a>
 <pre>❌❌❌🟢</pre>
 <a href="./src/test-suites/circular-reference-interface">circular-reference-interface</a>
@@ -400,7 +400,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/corrupted-supergraph-node-id">corrupted-supergraph-node-id</a>
 <pre>❌🟢❌🟢🟢❌🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/enum-intersection">enum-intersection</a>
-<pre>🟢🟢❌🟢🟢</pre>
+<pre>🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/fed1-external-extends">fed1-external-extends</a>
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/fed1-external-extends-resolvable">fed1-external-extends-resolvable</a>
@@ -454,7 +454,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/simple-entity-call">simple-entity-call</a>
 <pre>🟢</pre>
 <a href="./src/test-suites/simple-inaccessible">simple-inaccessible</a>
-<pre>🟢🟢❌❌</pre>
+<pre>🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/simple-interface-object">simple-interface-object</a>
 <pre>🟢🟢❌🟢❌❌❌🟢❌❌❌❌❌</pre>
 <a href="./src/test-suites/simple-override">simple-override</a>
@@ -468,5 +468,5 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/union-interface-distributed">union-interface-distributed</a>
 <pre>❌❌🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/union-intersection">union-intersection</a>
-<pre>❌🟢❌❌❌🟢🟢❌</pre>
+<pre>❌🟢❌❌🟢🟢❌❌</pre>
 </details>

@@ -1,5 +1,5 @@
 abstract-types
-XXXXXXXXXXXXXXXXX
+.................
 child-type-mismatch
 XXX.
 circular-reference-interface
@@ -81,5 +81,5 @@ XXXXXXXX
 
 ---
 Total: 170
-Passed: 109
-Failed: 61
+Passed: 126
+Failed: 44
