@@ -1,5 +1,5 @@
 abstract-types
-..X..XXXXXXXXXXXX
+.......XXXXXXXXXX
 child-type-mismatch
 XXX.
 circular-reference-interface
@@ -27,7 +27,7 @@ input-object-intersection
 interface-object-with-requires
 ..X.XXX
 keys-mashup
-X
+.
 mutations
 ...
 mysterious-external
@@ -47,17 +47,17 @@ X
 parent-entity-call-complex
 X
 provides-on-interface
-XX
+.X
 provides-on-union
-XX
+..
 requires-interface
-XXXXX
+X.X..
 requires-requires
 XXXXX
 requires-with-argument
 .XXXX
 requires-with-fragments
-XXXXXX
+X.XXX.
 shared-root
 XX
 simple-entity-call
@@ -75,11 +75,11 @@ typename
 unavailable-override
 ..
 union-interface-distributed
-XX.....
+.......
 union-intersection
-X.XX..XX
+X..X...X
 
 ---
 Total: 170
-Passed: 86
-Failed: 84
+Passed: 102
+Failed: 68
