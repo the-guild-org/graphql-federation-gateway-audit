@@ -77,7 +77,7 @@ unavailable-override
 union-interface-distributed
 .......
 union-intersection
-...XX.XX
+X..X..XX
 
 ---
 Total: 170

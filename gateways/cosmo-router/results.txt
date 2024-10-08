@@ -37,7 +37,7 @@ nested-provides
 node
 .
 non-resolvable-interface-object
-.......
+....X.X
 override-type-interface
 .X..
 override-with-requires
@@ -65,13 +65,13 @@ simple-entity-call
 simple-inaccessible
 ...X
 simple-interface-object
-........X....
+.......XX.XXX
 simple-override
 ..
 simple-requires-provides
 ............
 typename
-......
+....X.
 unavailable-override
 ..
 union-interface-distributed
@@ -81,5 +81,5 @@ XXXXXXXX
 
 ---
 Total: 170
-Passed: 126
-Failed: 44
+Passed: 119
+Failed: 51
