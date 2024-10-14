@@ -8,7 +8,7 @@
 |  [Apollo Router](https://www.apollographql.com/)   |    97.65%     | 🟢 166 ❌ 4  | 🟢 38 ❌ 2  |
 |  [Apollo Gateway](https://www.apollographql.com/)  |    97.06%     | 🟢 165 ❌ 5  | 🟢 37 ❌ 3  |
 |      [Cosmo Router](https://wundergraph.com)       |    70.00%     | 🟢 119 ❌ 51 | 🟢 19 ❌ 21 |
-|      [Grafbase Gateway](https://grafbase.com)      |    59.41%     | 🟢 101 ❌ 69 | 🟢 19 ❌ 21 |
+|      [Grafbase Gateway](https://grafbase.com)      |    60.00%     | 🟢 102 ❌ 68 | 🟢 19 ❌ 21 |
 
 ## Detailed Results
 
@@ -390,7 +390,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <details>
 <summary>Results</summary>
 <a href="./src/test-suites/abstract-types">abstract-types</a>
-<pre>🟢🟢🟢🟢🟢🟢🟢❌❌❌❌❌❌❌❌❌❌</pre>
+<pre>🟢🟢🟢🟢❌🟢🟢🟢❌🟢❌❌🟢🟢❌❌❌</pre>
 <a href="./src/test-suites/child-type-mismatch">child-type-mismatch</a>
 <pre>❌❌❌🟢</pre>
 <a href="./src/test-suites/circular-reference-interface">circular-reference-interface</a>
@@ -416,7 +416,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/input-object-intersection">input-object-intersection</a>
 <pre>🟢🟢🟢</pre>
 <a href="./src/test-suites/interface-object-with-requires">interface-object-with-requires</a>
-<pre>🟢🟢❌🟢❌❌❌</pre>
+<pre>❌🟢❌🟢❌❌❌</pre>
 <a href="./src/test-suites/keys-mashup">keys-mashup</a>
 <pre>🟢</pre>
 <a href="./src/test-suites/mutations">mutations</a>
@@ -438,7 +438,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/parent-entity-call-complex">parent-entity-call-complex</a>
 <pre>❌</pre>
 <a href="./src/test-suites/provides-on-interface">provides-on-interface</a>
-<pre>🟢❌</pre>
+<pre>❌❌</pre>
 <a href="./src/test-suites/provides-on-union">provides-on-union</a>
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/requires-interface">requires-interface</a>
@@ -448,7 +448,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/requires-with-argument">requires-with-argument</a>
 <pre>🟢❌❌❌❌</pre>
 <a href="./src/test-suites/requires-with-fragments">requires-with-fragments</a>
-<pre>❌🟢❌❌❌🟢</pre>
+<pre>❌❌❌❌❌🟢</pre>
 <a href="./src/test-suites/shared-root">shared-root</a>
 <pre>❌❌</pre>
 <a href="./src/test-suites/simple-entity-call">simple-entity-call</a>
@@ -468,5 +468,5 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/union-interface-distributed">union-interface-distributed</a>
 <pre>🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/union-intersection">union-intersection</a>
-<pre>❌🟢🟢❌🟢🟢❌❌</pre>
+<pre>🟢🟢❌❌🟢🟢🟢❌</pre>
 </details>
