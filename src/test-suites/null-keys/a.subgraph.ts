@@ -24,6 +24,20 @@ export default createSubgraph("a", {
             bookContainers() {
                 return books.map((book) => ({ book: { upc: book.upc } }));
             }
+        },
+        Book: {
+            __resolveReference(reference: { upc: String; }) {
+                if (reference != null) {
+                    let book = books.find((book) => book.upc === reference.upc);
+                    if (book != null && book.upc !== null) {
+                        return {
+                            __typename: "Book",
+                            upc: book.upc
+                        };
+                    }
+                }
+                throw new Error("Invalid reference");
+            },
         }
     },
 });
