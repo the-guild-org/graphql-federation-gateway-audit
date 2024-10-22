@@ -4,11 +4,11 @@
 
 |                      Gateway                       | Compatibility |  Test Cases  | Test Suites |
 | :------------------------------------------------: | :-----------: | :----------: | :---------: |
-| [Hive Gateway](https://the-guild.dev/graphql/hive) |    100.00%    |    🟢 170    |    🟢 40    |
-|  [Apollo Router](https://www.apollographql.com/)   |    97.65%     | 🟢 166 ❌ 4  | 🟢 38 ❌ 2  |
-|  [Apollo Gateway](https://www.apollographql.com/)  |    97.06%     | 🟢 165 ❌ 5  | 🟢 37 ❌ 3  |
-|      [Cosmo Router](https://wundergraph.com)       |    70.00%     | 🟢 119 ❌ 51 | 🟢 19 ❌ 21 |
-|      [Grafbase Gateway](https://grafbase.com)      |    60.00%     | 🟢 102 ❌ 68 | 🟢 19 ❌ 21 |
+| [Hive Gateway](https://the-guild.dev/graphql/hive) |    100.00%    |    🟢 171    |    🟢 41    |
+|  [Apollo Router](https://www.apollographql.com/)   |    97.66%     | 🟢 167 ❌ 4  | 🟢 39 ❌ 2  |
+|  [Apollo Gateway](https://www.apollographql.com/)  |    97.08%     | 🟢 166 ❌ 5  | 🟢 38 ❌ 3  |
+|      [Cosmo Router](https://wundergraph.com)       |    69.59%     | 🟢 119 ❌ 52 | 🟢 19 ❌ 22 |
+|      [Grafbase Gateway](https://grafbase.com)      |    59.06%     | 🟢 101 ❌ 70 | 🟢 19 ❌ 22 |
 
 ## Detailed Results
 
@@ -65,6 +65,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢</pre>
 <a href="./src/test-suites/non-resolvable-interface-object">non-resolvable-interface-object</a>
 <pre>🟢🟢🟢🟢🟢🟢🟢</pre>
+<a href="./src/test-suites/null-keys">null-keys</a>
+<pre>🟢</pre>
 <a href="./src/test-suites/override-type-interface">override-type-interface</a>
 <pre>🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/override-with-requires">override-with-requires</a>
@@ -156,6 +158,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢</pre>
 <a href="./src/test-suites/non-resolvable-interface-object">non-resolvable-interface-object</a>
 <pre>🟢🟢🟢🟢🟢🟢🟢</pre>
+<a href="./src/test-suites/null-keys">null-keys</a>
+<pre>🟢</pre>
 <a href="./src/test-suites/override-type-interface">override-type-interface</a>
 <pre>🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/override-with-requires">override-with-requires</a>
@@ -247,6 +251,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢</pre>
 <a href="./src/test-suites/non-resolvable-interface-object">non-resolvable-interface-object</a>
 <pre>🟢❌🟢🟢🟢🟢🟢</pre>
+<a href="./src/test-suites/null-keys">null-keys</a>
+<pre>🟢</pre>
 <a href="./src/test-suites/override-type-interface">override-type-interface</a>
 <pre>🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/override-with-requires">override-with-requires</a>
@@ -338,6 +344,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢</pre>
 <a href="./src/test-suites/non-resolvable-interface-object">non-resolvable-interface-object</a>
 <pre>🟢🟢🟢🟢❌🟢❌</pre>
+<a href="./src/test-suites/null-keys">null-keys</a>
+<pre>❌</pre>
 <a href="./src/test-suites/override-type-interface">override-type-interface</a>
 <pre>🟢❌🟢🟢</pre>
 <a href="./src/test-suites/override-with-requires">override-with-requires</a>
@@ -429,6 +437,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <pre>🟢</pre>
 <a href="./src/test-suites/non-resolvable-interface-object">non-resolvable-interface-object</a>
 <pre>❌🟢❌🟢🟢🟢❌</pre>
+<a href="./src/test-suites/null-keys">null-keys</a>
+<pre>❌</pre>
 <a href="./src/test-suites/override-type-interface">override-type-interface</a>
 <pre>❌❌🟢🟢</pre>
 <a href="./src/test-suites/override-with-requires">override-with-requires</a>
@@ -468,5 +478,5 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/union-interface-distributed">union-interface-distributed</a>
 <pre>🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/union-intersection">union-intersection</a>
-<pre>🟢🟢❌❌🟢🟢🟢❌</pre>
+<pre>🟢🟢🟢❌❌🟢❌❌</pre>
 </details>

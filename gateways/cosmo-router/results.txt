@@ -38,6 +38,8 @@ node
 .
 non-resolvable-interface-object
 ....X.X
+null-keys
+X
 override-type-interface
 .X..
 override-with-requires
@@ -80,6 +82,6 @@ union-intersection
 XXXXXXXX
 
 ---
-Total: 170
+Total: 171
 Passed: 119
-Failed: 51
+Failed: 52
