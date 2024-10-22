@@ -26,7 +26,8 @@ export default createSubgraph("b", {
                         book = books.find((book) => book.upc === reference.upc);
                     }
                     if (book != null) {
-                        // Return this null on purpose
+                        // `a` has `Book` entities with upc: `b1, b2, b3`, but `b` has `Book` entities with only `b1` and `b2`.
+                        // `b3` is not available and this subgraph is the only possible step to get to the other subgraph (need of `id` field) to resolve the author.
                         if (book.id === '3') {
                             return null;
                         }
