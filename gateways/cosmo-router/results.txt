@@ -79,9 +79,9 @@ unavailable-override
 union-interface-distributed
 X......
 union-intersection
-XXXXXXXX
+...XX..X
 
 ---
 Total: 171
-Passed: 119
-Failed: 52
+Passed: 124
+Failed: 47
