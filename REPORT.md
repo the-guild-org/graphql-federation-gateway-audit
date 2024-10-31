@@ -20,8 +20,8 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 
 ### Hive Gateway
 
-- [Repository](https://github.com/Urigo/graphql-mesh)
-- [Website](https://the-guild.dev/graphql/hive)
+- [Repository](https://github.com/graphql-hive/gateway)
+- [Website](https://the-guild.dev/graphql/hive/docs/gateway)
 
 <details>
 <summary>Results</summary>
