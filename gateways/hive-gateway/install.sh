@@ -1,1 +1,1 @@
-curl -sSL https://graphql-hive.com/install-gateway.sh | sh -s "1.4.0"
+curl -sSL https://graphql-hive.com/install-gateway.sh | sh -s "1.4.3"
