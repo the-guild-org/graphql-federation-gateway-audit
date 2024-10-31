@@ -1,0 +1,7 @@
+{
+  "name": "Inigo Gateway",
+  "repository": "https://github.com/inigolabs",
+  "website": "https://inigo.io",
+  "graphql": "http://127.0.0.1:4000/graphql",
+  "health": "http://127.0.0.1:4000/health"
+}

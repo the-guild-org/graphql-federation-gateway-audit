@@ -1,0 +1,6 @@
+/subgraphs/*.graphql
+/inigo
+/inigo_gateway
+/supergraph.graphql
+/local.yaml
+/subgraphs.json
