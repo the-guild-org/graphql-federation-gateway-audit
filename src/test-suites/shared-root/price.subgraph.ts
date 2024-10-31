@@ -10,13 +10,19 @@ export default createSubgraph("price", {
       )
 
     type Query {
-      product: Product @shareable
-      products: [Product] @shareable
+      product: Product! @shareable
+      products: [Product!]! @shareable
     }
 
     type Product {
       id: ID! @shareable
-      price: Float @shareable
+      price: Price!
+    }
+
+    type Price {
+      id: ID!
+      amount: Int!
+      currency: String!
     }
   `,
   resolvers: {

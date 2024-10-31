@@ -10,13 +10,19 @@ export default createSubgraph("name", {
       )
 
     type Query {
-      product: Product @shareable
-      products: [Product] @shareable
+      product: Product! @shareable
+      products: [Product!]! @shareable
     }
 
     type Product {
       id: ID! @shareable
-      name: String @shareable
+      name: Name!
+    }
+
+    type Name {
+      id: ID!
+      brand: String!
+      model: String!
     }
   `,
   resolvers: {

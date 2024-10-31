@@ -25,7 +25,7 @@ XXXX
 input-object-intersection
 ...
 interface-object-with-requires
-..X.XXX
+X.X.XXX
 keys-mashup
 .
 mutations
@@ -79,9 +79,9 @@ unavailable-override
 union-interface-distributed
 .......
 union-intersection
-X..XX..X
+...XX.XX
 
 ---
 Total: 171
-Passed: 103
-Failed: 68
+Passed: 102
+Failed: 69

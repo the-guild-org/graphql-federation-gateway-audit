@@ -8,7 +8,7 @@
 |  [Apollo Router](https://www.apollographql.com/)   |    97.66%     | 🟢 167 ❌ 4  | 🟢 39 ❌ 2  |
 |  [Apollo Gateway](https://www.apollographql.com/)  |    97.08%     | 🟢 166 ❌ 5  | 🟢 38 ❌ 3  |
 |      [Cosmo Router](https://wundergraph.com)       |    72.51%     | 🟢 124 ❌ 47 | 🟢 19 ❌ 22 |
-|      [Grafbase Gateway](https://grafbase.com)      |    60.23%     | 🟢 103 ❌ 68 | 🟢 19 ❌ 22 |
+|      [Grafbase Gateway](https://grafbase.com)      |    59.65%     | 🟢 102 ❌ 69 | 🟢 19 ❌ 22 |
 
 ## Detailed Results
 
@@ -424,7 +424,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/input-object-intersection">input-object-intersection</a>
 <pre>🟢🟢🟢</pre>
 <a href="./src/test-suites/interface-object-with-requires">interface-object-with-requires</a>
-<pre>🟢🟢❌🟢❌❌❌</pre>
+<pre>❌🟢❌🟢❌❌❌</pre>
 <a href="./src/test-suites/keys-mashup">keys-mashup</a>
 <pre>🟢</pre>
 <a href="./src/test-suites/mutations">mutations</a>
@@ -478,5 +478,5 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/union-interface-distributed">union-interface-distributed</a>
 <pre>🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/union-intersection">union-intersection</a>
-<pre>❌🟢🟢❌❌🟢🟢❌</pre>
+<pre>🟢🟢🟢❌❌🟢❌❌</pre>
 </details>
