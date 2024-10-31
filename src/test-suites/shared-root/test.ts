@@ -6,9 +6,20 @@ export default [
       query {
         product {
           id
-          name
-          category
-          price
+          name {
+            id
+            brand
+            model
+          }
+          category {
+            id
+            name
+          }
+          price {
+            id
+            amount
+            currency
+          }
         }
       }
     `,
@@ -16,9 +27,20 @@ export default [
       data: {
         product: {
           id: "1",
-          name: "Product 1",
-          price: 100,
-          category: "Category 1",
+          name: {
+            id: "1",
+            brand: "Brand 1",
+            model: "Model 1",
+          },
+          price: {
+            id: "1",
+            amount: 1000,
+            currency: "USD",
+          },
+          category: {
+            id: "1",
+            name: "Category 1",
+          }
         },
       },
     },
@@ -28,9 +50,20 @@ export default [
       query {
         products {
           id
-          name
-          category
-          price
+          name {
+            id
+            brand
+            model
+          }
+          category {
+            id
+            name
+          }
+          price {
+            id
+            amount
+            currency
+          }
         }
       }
     `,
@@ -39,9 +72,20 @@ export default [
         products: [
           {
             id: "1",
-            name: "Product 1",
-            price: 100,
-            category: "Category 1",
+            name: {
+              id: "1",
+              brand: "Brand 1",
+              model: "Model 1",
+            },
+            price: {
+              id: "1",
+              amount: 1000,
+              currency: "USD",
+            },
+            category: {
+              id: "1",
+              name: "Category 1",
+            }
           },
         ],
       },
