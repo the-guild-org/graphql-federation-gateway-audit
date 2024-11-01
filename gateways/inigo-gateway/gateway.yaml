@@ -1,0 +1,6 @@
+listen_port: 4000
+graphql_route: /graphql
+
+health_check:
+  enable: true
+  path: /health
