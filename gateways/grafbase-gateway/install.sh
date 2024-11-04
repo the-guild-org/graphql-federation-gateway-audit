@@ -4,6 +4,7 @@ set -euo pipefail
 # I took their install script and modified it to download the gateway binary
 # to the current directory instead of /usr/local/bin
 
+# https://github.com/grafbase/grafbase/releases
 VERSION="0.16.0"
 
 error() {

@@ -2,14 +2,14 @@
 
 ## Summary
 
-|                      Gateway                       | Compatibility |  Test Cases  | Test Suites |
-| :------------------------------------------------: | :-----------: | :----------: | :---------: |
-| [Hive Gateway](https://the-guild.dev/graphql/hive) |    100.00%    |    🟢 171    |    🟢 41    |
-|  [Apollo Router](https://www.apollographql.com/)   |    97.66%     | 🟢 167 ❌ 4  | 🟢 39 ❌ 2  |
-|  [Apollo Gateway](https://www.apollographql.com/)  |    97.08%     | 🟢 166 ❌ 5  | 🟢 38 ❌ 3  |
-|      [Cosmo Router](https://wundergraph.com)       |    72.51%     | 🟢 124 ❌ 47 | 🟢 19 ❌ 22 |
-|      [Grafbase Gateway](https://grafbase.com)      |    59.65%     | 🟢 102 ❌ 69 | 🟢 19 ❌ 22 |
-|         [Inigo Gateway](https://inigo.io)          |    46.78%     | 🟢 80 ❌ 91  | 🟢 12 ❌ 29 |
+|                             Gateway                             | Compatibility |  Test Cases  | Test Suites |
+| :-------------------------------------------------------------: | :-----------: | :----------: | :---------: |
+| [Hive Gateway](https://the-guild.dev/graphql/hive/docs/gateway) |    100.00%    |    🟢 171    |    🟢 41    |
+|         [Apollo Router](https://www.apollographql.com/)         |    97.66%     | 🟢 167 ❌ 4  | 🟢 39 ❌ 2  |
+|        [Apollo Gateway](https://www.apollographql.com/)         |    97.08%     | 🟢 166 ❌ 5  | 🟢 38 ❌ 3  |
+|             [Cosmo Router](https://wundergraph.com)             |    72.51%     | 🟢 124 ❌ 47 | 🟢 19 ❌ 22 |
+|            [Grafbase Gateway](https://grafbase.com)             |    60.82%     | 🟢 104 ❌ 67 | 🟢 19 ❌ 22 |
+|                [Inigo Gateway](https://inigo.io)                |    46.78%     | 🟢 80 ❌ 91  | 🟢 12 ❌ 29 |
 
 ## Detailed Results
 
@@ -425,7 +425,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/input-object-intersection">input-object-intersection</a>
 <pre>🟢🟢🟢</pre>
 <a href="./src/test-suites/interface-object-with-requires">interface-object-with-requires</a>
-<pre>❌🟢❌🟢❌❌❌</pre>
+<pre>🟢🟢❌🟢❌❌❌</pre>
 <a href="./src/test-suites/keys-mashup">keys-mashup</a>
 <pre>🟢</pre>
 <a href="./src/test-suites/mutations">mutations</a>
@@ -479,7 +479,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/union-interface-distributed">union-interface-distributed</a>
 <pre>🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/union-intersection">union-intersection</a>
-<pre>🟢🟢🟢❌❌🟢❌❌</pre>
+<pre>🟢🟢🟢❌🟢🟢❌❌</pre>
 </details>
 
 <a id="inigo-gateway"></a>
