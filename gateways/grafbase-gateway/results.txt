@@ -1,5 +1,5 @@
 abstract-types
-....X...X.XX..XXX
+........X.XX..XXX
 child-type-mismatch
 XXX.
 circular-reference-interface
@@ -59,7 +59,7 @@ XXXXX
 requires-with-argument
 .XXXX
 requires-with-fragments
-XXXXX.
+X.XXX.
 shared-root
 XX
 simple-entity-call
@@ -67,7 +67,7 @@ simple-entity-call
 simple-inaccessible
 ....
 simple-interface-object
-..X.XXX.XXXXX
+..X.XXXXXXXXX
 simple-override
 ..
 simple-requires-provides
@@ -79,9 +79,9 @@ unavailable-override
 union-interface-distributed
 .......
 union-intersection
-...X..XX
+X..XX.XX
 
 ---
 Total: 171
-Passed: 104
-Failed: 67
+Passed: 103
+Failed: 68

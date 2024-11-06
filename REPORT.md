@@ -7,8 +7,8 @@
 | [Hive Gateway](https://the-guild.dev/graphql/hive/docs/gateway) |    100.00%    |    🟢 171    |    🟢 41    |
 |         [Apollo Router](https://www.apollographql.com/)         |    97.66%     | 🟢 167 ❌ 4  | 🟢 39 ❌ 2  |
 |        [Apollo Gateway](https://www.apollographql.com/)         |    97.08%     | 🟢 166 ❌ 5  | 🟢 38 ❌ 3  |
-|             [Cosmo Router](https://wundergraph.com)             |    72.51%     | 🟢 124 ❌ 47 | 🟢 19 ❌ 22 |
-|            [Grafbase Gateway](https://grafbase.com)             |    60.82%     | 🟢 104 ❌ 67 | 🟢 19 ❌ 22 |
+|             [Cosmo Router](https://wundergraph.com)             |    70.76%     | 🟢 121 ❌ 50 | 🟢 19 ❌ 22 |
+|            [Grafbase Gateway](https://grafbase.com)             |    60.23%     | 🟢 103 ❌ 68 | 🟢 19 ❌ 22 |
 |                [Inigo Gateway](https://inigo.io)                |    46.78%     | 🟢 80 ❌ 91  | 🟢 12 ❌ 29 |
 
 ## Detailed Results
@@ -374,7 +374,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/simple-inaccessible">simple-inaccessible</a>
 <pre>🟢🟢🟢❌</pre>
 <a href="./src/test-suites/simple-interface-object">simple-interface-object</a>
-<pre>🟢🟢🟢🟢🟢🟢🟢❌❌🟢❌❌❌</pre>
+<pre>🟢❌🟢🟢🟢❌❌❌❌🟢❌❌❌</pre>
 <a href="./src/test-suites/simple-override">simple-override</a>
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/simple-requires-provides">simple-requires-provides</a>
@@ -399,7 +399,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <details>
 <summary>Results</summary>
 <a href="./src/test-suites/abstract-types">abstract-types</a>
-<pre>🟢🟢🟢🟢❌🟢🟢🟢❌🟢❌❌🟢🟢❌❌❌</pre>
+<pre>🟢🟢🟢🟢🟢🟢🟢🟢❌🟢❌❌🟢🟢❌❌❌</pre>
 <a href="./src/test-suites/child-type-mismatch">child-type-mismatch</a>
 <pre>❌❌❌🟢</pre>
 <a href="./src/test-suites/circular-reference-interface">circular-reference-interface</a>
@@ -459,7 +459,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/requires-with-argument">requires-with-argument</a>
 <pre>🟢❌❌❌❌</pre>
 <a href="./src/test-suites/requires-with-fragments">requires-with-fragments</a>
-<pre>❌❌❌❌❌🟢</pre>
+<pre>❌🟢❌❌❌🟢</pre>
 <a href="./src/test-suites/shared-root">shared-root</a>
 <pre>❌❌</pre>
 <a href="./src/test-suites/simple-entity-call">simple-entity-call</a>
@@ -467,7 +467,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/simple-inaccessible">simple-inaccessible</a>
 <pre>🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/simple-interface-object">simple-interface-object</a>
-<pre>🟢🟢❌🟢❌❌❌🟢❌❌❌❌❌</pre>
+<pre>🟢🟢❌🟢❌❌❌❌❌❌❌❌❌</pre>
 <a href="./src/test-suites/simple-override">simple-override</a>
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/simple-requires-provides">simple-requires-provides</a>
@@ -479,7 +479,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/union-interface-distributed">union-interface-distributed</a>
 <pre>🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/union-intersection">union-intersection</a>
-<pre>🟢🟢🟢❌🟢🟢❌❌</pre>
+<pre>❌🟢🟢❌❌🟢❌❌</pre>
 </details>
 
 <a id="inigo-gateway"></a>
