@@ -67,7 +67,7 @@ simple-entity-call
 simple-inaccessible
 ...X
 simple-interface-object
-.......XX.XXX
+.X...XXXX.XXX
 simple-override
 ..
 simple-requires-provides
@@ -83,5 +83,5 @@ union-intersection
 
 ---
 Total: 171
-Passed: 124
-Failed: 47
+Passed: 121
+Failed: 50
