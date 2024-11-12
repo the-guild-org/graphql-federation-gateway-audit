@@ -7,8 +7,8 @@
 | [Hive Gateway](https://the-guild.dev/graphql/hive/docs/gateway) |    100.00%    |    🟢 171    |    🟢 41    |
 |         [Apollo Router](https://www.apollographql.com/)         |    97.66%     | 🟢 167 ❌ 4  | 🟢 39 ❌ 2  |
 |        [Apollo Gateway](https://www.apollographql.com/)         |    97.08%     | 🟢 166 ❌ 5  | 🟢 38 ❌ 3  |
-|             [Cosmo Router](https://wundergraph.com)             |    70.76%     | 🟢 121 ❌ 50 | 🟢 19 ❌ 22 |
-|            [Grafbase Gateway](https://grafbase.com)             |    60.23%     | 🟢 103 ❌ 68 | 🟢 19 ❌ 22 |
+|             [Cosmo Router](https://wundergraph.com)             |    71.93%     | 🟢 123 ❌ 48 | 🟢 21 ❌ 20 |
+|            [Grafbase Gateway](https://grafbase.com)             |    59.65%     | 🟢 102 ❌ 69 | 🟢 19 ❌ 22 |
 |                [Inigo Gateway](https://inigo.io)                |    46.78%     | 🟢 80 ❌ 91  | 🟢 12 ❌ 29 |
 
 ## Detailed Results
@@ -316,7 +316,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/corrupted-supergraph-node-id">corrupted-supergraph-node-id</a>
 <pre>❌🟢🟢🟢🟢❌🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/enum-intersection">enum-intersection</a>
-<pre>🟢🟢❌🟢🟢</pre>
+<pre>🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/fed1-external-extends">fed1-external-extends</a>
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/fed1-external-extends-resolvable">fed1-external-extends-resolvable</a>
@@ -372,7 +372,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/simple-entity-call">simple-entity-call</a>
 <pre>🟢</pre>
 <a href="./src/test-suites/simple-inaccessible">simple-inaccessible</a>
-<pre>🟢🟢🟢❌</pre>
+<pre>🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/simple-interface-object">simple-interface-object</a>
 <pre>🟢❌🟢🟢🟢❌❌❌❌🟢❌❌❌</pre>
 <a href="./src/test-suites/simple-override">simple-override</a>
@@ -449,7 +449,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/parent-entity-call-complex">parent-entity-call-complex</a>
 <pre>❌</pre>
 <a href="./src/test-suites/provides-on-interface">provides-on-interface</a>
-<pre>🟢❌</pre>
+<pre>❌❌</pre>
 <a href="./src/test-suites/provides-on-union">provides-on-union</a>
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/requires-interface">requires-interface</a>
@@ -479,7 +479,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/union-interface-distributed">union-interface-distributed</a>
 <pre>🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/union-intersection">union-intersection</a>
-<pre>❌🟢🟢❌❌🟢❌❌</pre>
+<pre>🟢🟢❌❌❌🟢❌❌</pre>
 </details>
 
 <a id="inigo-gateway"></a>

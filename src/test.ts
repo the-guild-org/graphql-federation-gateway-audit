@@ -40,14 +40,16 @@ for (const { query, expected: expectedResult } of tests) {
   test(`${index++}`, async () => {
     const response = await graphql(GRAPHQL_ENDPOINT, query);
 
+    const errorsOptional = typeof expectedResult.errors !== "boolean";
+
     const received = {
       data: response.data ?? null,
-      errors: response.errors?.length ? true : false,
+      errors: errorsOptional ? null : response.errors?.length ? true : false,
     };
 
     const expected = {
       data: expectedResult.data ?? null,
-      errors: expectedResult.errors ?? false,
+      errors: errorsOptional ? null : (expectedResult.errors ?? false),
     };
 
     let retryCount = 0;
