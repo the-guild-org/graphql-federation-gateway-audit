@@ -49,7 +49,7 @@ X
 parent-entity-call-complex
 X
 provides-on-interface
-.X
+XX
 provides-on-union
 ..
 requires-interface
@@ -79,9 +79,9 @@ unavailable-override
 union-interface-distributed
 .......
 union-intersection
-X..XX.XX
+..XXX.XX
 
 ---
 Total: 171
-Passed: 103
-Failed: 68
+Passed: 102
+Failed: 69

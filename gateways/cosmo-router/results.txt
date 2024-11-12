@@ -9,7 +9,7 @@ X
 corrupted-supergraph-node-id
 X....X....
 enum-intersection
-..X..
+.....
 fed1-external-extends
 ..
 fed1-external-extends-resolvable
@@ -65,7 +65,7 @@ shared-root
 simple-entity-call
 .
 simple-inaccessible
-...X
+....
 simple-interface-object
 .X...XXXX.XXX
 simple-override
@@ -83,5 +83,5 @@ union-intersection
 
 ---
 Total: 171
-Passed: 121
-Failed: 50
+Passed: 123
+Failed: 48
