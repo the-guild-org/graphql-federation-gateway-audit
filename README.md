@@ -14,7 +14,7 @@ This repository contains a set of tests to evaluate and compare the compatibilit
 |         [Apollo Router](https://www.apollographql.com/)         |    97.66%     | 🟢 167 ❌ 4  | 🟢 39 ❌ 2  |
 |        [Apollo Gateway](https://www.apollographql.com/)         |    97.08%     | 🟢 166 ❌ 5  | 🟢 38 ❌ 3  |
 |             [Cosmo Router](https://wundergraph.com)             |    71.93%     | 🟢 123 ❌ 48 | 🟢 21 ❌ 20 |
-|            [Grafbase Gateway](https://grafbase.com)             |    59.65%     | 🟢 102 ❌ 69 | 🟢 19 ❌ 22 |
+|            [Grafbase Gateway](https://grafbase.com)             |    66.08%     | 🟢 113 ❌ 58 | 🟢 22 ❌ 19 |
 |                [Inigo Gateway](https://inigo.io)                |    46.78%     | 🟢 80 ❌ 91  | 🟢 12 ❌ 29 |
 
 <!-- gateways:end -->

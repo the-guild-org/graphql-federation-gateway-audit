@@ -1,5 +1,5 @@
 abstract-types
-........X.XX..XXX
+..X..XXXXXXXXXXXX
 child-type-mismatch
 XXX.
 circular-reference-interface
@@ -21,7 +21,7 @@ fed2-external-extends
 fed2-external-extension
 ..
 include-skip
-XXXX
+....
 input-object-intersection
 ...
 interface-object-with-requires
@@ -29,7 +29,7 @@ interface-object-with-requires
 keys-mashup
 .
 mutations
-...
+..X
 mysterious-external
 ..
 nested-provides
@@ -43,45 +43,45 @@ X
 override-type-interface
 XX..
 override-with-requires
-.XXX
+....
 parent-entity-call
 X
 parent-entity-call-complex
-X
+.
 provides-on-interface
 XX
 provides-on-union
-..
+.X
 requires-interface
-X.X..
+.....
 requires-requires
-XXXXX
+XXX.X
 requires-with-argument
 .XXXX
 requires-with-fragments
-X.XXX.
+X...X.
 shared-root
-XX
+..
 simple-entity-call
 .
 simple-inaccessible
 ....
 simple-interface-object
-..X.XXXXXXXXX
+..X.XXX.XXXXX
 simple-override
 ..
 simple-requires-provides
-..........XX
+............
 typename
 ......
 unavailable-override
 ..
 union-interface-distributed
-.......
+.X.....
 union-intersection
-..XXX.XX
+...X...X
 
 ---
 Total: 171
-Passed: 102
-Failed: 69
+Passed: 113
+Failed: 58
