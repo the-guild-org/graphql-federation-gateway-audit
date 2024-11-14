@@ -8,7 +8,7 @@
 |         [Apollo Router](https://www.apollographql.com/)         |    97.66%     | 🟢 167 ❌ 4  | 🟢 39 ❌ 2  |
 |        [Apollo Gateway](https://www.apollographql.com/)         |    97.08%     | 🟢 166 ❌ 5  | 🟢 38 ❌ 3  |
 |             [Cosmo Router](https://wundergraph.com)             |    71.93%     | 🟢 123 ❌ 48 | 🟢 21 ❌ 20 |
-|            [Grafbase Gateway](https://grafbase.com)             |    59.65%     | 🟢 102 ❌ 69 | 🟢 19 ❌ 22 |
+|            [Grafbase Gateway](https://grafbase.com)             |    66.08%     | 🟢 113 ❌ 58 | 🟢 22 ❌ 19 |
 |                [Inigo Gateway](https://inigo.io)                |    46.78%     | 🟢 80 ❌ 91  | 🟢 12 ❌ 29 |
 
 ## Detailed Results
@@ -399,7 +399,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <details>
 <summary>Results</summary>
 <a href="./src/test-suites/abstract-types">abstract-types</a>
-<pre>🟢🟢🟢🟢🟢🟢🟢🟢❌🟢❌❌🟢🟢❌❌❌</pre>
+<pre>🟢🟢❌🟢🟢❌❌❌❌❌❌❌❌❌❌❌❌</pre>
 <a href="./src/test-suites/child-type-mismatch">child-type-mismatch</a>
 <pre>❌❌❌🟢</pre>
 <a href="./src/test-suites/circular-reference-interface">circular-reference-interface</a>
@@ -421,7 +421,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/fed2-external-extension">fed2-external-extension</a>
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/include-skip">include-skip</a>
-<pre>❌❌❌❌</pre>
+<pre>🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/input-object-intersection">input-object-intersection</a>
 <pre>🟢🟢🟢</pre>
 <a href="./src/test-suites/interface-object-with-requires">interface-object-with-requires</a>
@@ -429,7 +429,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/keys-mashup">keys-mashup</a>
 <pre>🟢</pre>
 <a href="./src/test-suites/mutations">mutations</a>
-<pre>🟢🟢🟢</pre>
+<pre>🟢🟢❌</pre>
 <a href="./src/test-suites/mysterious-external">mysterious-external</a>
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/nested-provides">nested-provides</a>
@@ -443,43 +443,43 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/override-type-interface">override-type-interface</a>
 <pre>❌❌🟢🟢</pre>
 <a href="./src/test-suites/override-with-requires">override-with-requires</a>
-<pre>🟢❌❌❌</pre>
+<pre>🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/parent-entity-call">parent-entity-call</a>
 <pre>❌</pre>
 <a href="./src/test-suites/parent-entity-call-complex">parent-entity-call-complex</a>
-<pre>❌</pre>
+<pre>🟢</pre>
 <a href="./src/test-suites/provides-on-interface">provides-on-interface</a>
 <pre>❌❌</pre>
 <a href="./src/test-suites/provides-on-union">provides-on-union</a>
-<pre>🟢🟢</pre>
+<pre>🟢❌</pre>
 <a href="./src/test-suites/requires-interface">requires-interface</a>
-<pre>❌🟢❌🟢🟢</pre>
+<pre>🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/requires-requires">requires-requires</a>
-<pre>❌❌❌❌❌</pre>
+<pre>❌❌❌🟢❌</pre>
 <a href="./src/test-suites/requires-with-argument">requires-with-argument</a>
 <pre>🟢❌❌❌❌</pre>
 <a href="./src/test-suites/requires-with-fragments">requires-with-fragments</a>
-<pre>❌🟢❌❌❌🟢</pre>
+<pre>❌🟢🟢🟢❌🟢</pre>
 <a href="./src/test-suites/shared-root">shared-root</a>
-<pre>❌❌</pre>
+<pre>🟢🟢</pre>
 <a href="./src/test-suites/simple-entity-call">simple-entity-call</a>
 <pre>🟢</pre>
 <a href="./src/test-suites/simple-inaccessible">simple-inaccessible</a>
 <pre>🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/simple-interface-object">simple-interface-object</a>
-<pre>🟢🟢❌🟢❌❌❌❌❌❌❌❌❌</pre>
+<pre>🟢🟢❌🟢❌❌❌🟢❌❌❌❌❌</pre>
 <a href="./src/test-suites/simple-override">simple-override</a>
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/simple-requires-provides">simple-requires-provides</a>
-<pre>🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢❌❌</pre>
+<pre>🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/typename">typename</a>
 <pre>🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/unavailable-override">unavailable-override</a>
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/union-interface-distributed">union-interface-distributed</a>
-<pre>🟢🟢🟢🟢🟢🟢🟢</pre>
+<pre>🟢❌🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/union-intersection">union-intersection</a>
-<pre>🟢🟢❌❌❌🟢❌❌</pre>
+<pre>🟢🟢🟢❌🟢🟢🟢❌</pre>
 </details>
 
 <a id="inigo-gateway"></a>
