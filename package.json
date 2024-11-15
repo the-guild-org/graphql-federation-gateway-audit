@@ -49,7 +49,7 @@
     "build": "tsc",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build --noCheck"
   },
   "dependencies": {
     "@apollo/composition": "2.9.3",
