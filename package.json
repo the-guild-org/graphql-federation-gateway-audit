@@ -1,6 +1,6 @@
 {
-  "name": "@the-guild/graphql-federation-gateway-audit",
-  "version": "0.0.1",
+  "name": "graphql-federation-gateway-audit",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "description": "Audit tool for Apollo Federation Gateway",
