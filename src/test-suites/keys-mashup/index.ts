@@ -1,4 +1,4 @@
-import { serve } from "../../supergraph";
+import { serve } from "../../supergraph.js";
 import a from "./a.subgraph.js";
 import b from "./b.subgraph.js";
 import test from "./test.js";
