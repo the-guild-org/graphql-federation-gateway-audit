@@ -53,7 +53,7 @@ export function serve(
         subgraph.createRoutes(id, router);
       }
 
-      async function serveSupergraph(request: { url: string; parsedUrl: URL }) {
+      function serveSupergraph(request: { url: string; parsedUrl: URL }) {
         const supergraph = getSupergraph(
           subgraphs.map((subgraph) => ({
             name: subgraph.name,
