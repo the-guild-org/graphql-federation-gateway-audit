@@ -78,7 +78,7 @@
     "express": "5.0.1",
     "prettier": "3.3.3",
     "tsx": "4.19.2",
-    "wgc": "0.70.1",
-    "typescript": "5.6.3"
+    "typescript": "5.6.3",
+    "wgc": "0.70.2"
   }
 }
