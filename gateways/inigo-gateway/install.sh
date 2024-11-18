@@ -8,7 +8,7 @@ set -u
 BINARY_DOWNLOAD_PREFIX="https://github.com/inigolabs/artifacts/releases/download"
 
 # https://github.com/inigolabs/artifacts/releases
-DOWNLOAD_VERSION="v0.30.14"
+DOWNLOAD_VERSION="v0.30.15"
 
 download_binaries() {
     downloader --check
