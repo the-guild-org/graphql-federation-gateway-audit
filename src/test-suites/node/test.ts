@@ -1,4 +1,4 @@
-import { createTest } from "../../testkit";
+import { createTest } from "../../testkit.js";
 
 export default [
   createTest(

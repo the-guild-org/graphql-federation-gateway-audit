@@ -57,8 +57,8 @@ export function createSubgraph(
             },
           },
         },
-        async handler(req) {
-          return lazyYoga().fetch(req, { env }) as Promise<Response>;
+        handler(req) {
+          return lazyYoga()(req, { env }) as Promise<Response>;
         },
       });
 
@@ -102,8 +102,8 @@ export function createSubgraph(
             },
           },
         },
-        async handler(req) {
-          return lazyYoga().fetch(req, { env }) as Promise<any>;
+        handler(req) {
+          return lazyYoga()(req, { env }) as Promise<any>;
         },
       });
     },
