@@ -4,7 +4,7 @@
 
 |                             Gateway                             | Compatibility |  Test Cases  | Test Suites |
 | :-------------------------------------------------------------: | :-----------: | :----------: | :---------: |
-| [Hive Gateway](https://the-guild.dev/graphql/hive/docs/gateway) |    99.42%     | 🟢 170 ❌ 1  | 🟢 40 ❌ 1  |
+| [Hive Gateway](https://the-guild.dev/graphql/hive/docs/gateway) |    100.00%    |    🟢 171    |    🟢 41    |
 |         [Apollo Router](https://www.apollographql.com/)         |    97.66%     | 🟢 167 ❌ 4  | 🟢 39 ❌ 2  |
 |        [Apollo Gateway](https://www.apollographql.com/)         |    97.08%     | 🟢 166 ❌ 5  | 🟢 38 ❌ 3  |
 |            [Grafbase Gateway](https://grafbase.com)             |    74.85%     | 🟢 128 ❌ 43 | 🟢 29 ❌ 12 |
@@ -69,7 +69,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/null-keys">null-keys</a>
 <pre>🟢</pre>
 <a href="./src/test-suites/override-type-interface">override-type-interface</a>
-<pre>❌🟢🟢🟢</pre>
+<pre>🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/override-with-requires">override-with-requires</a>
 <pre>🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/parent-entity-call">parent-entity-call</a>
