@@ -1,11 +1,11 @@
 abstract-types
 ..X..XXXXXXXXXXXX
 child-type-mismatch
-XXX.
+....
 circular-reference-interface
 ..
 complex-entity-call
-X
+.
 corrupted-supergraph-node-id
 X.X..X....
 enum-intersection
@@ -13,7 +13,7 @@ enum-intersection
 fed1-external-extends
 ..
 fed1-external-extends-resolvable
-X
+.
 fed1-external-extension
 ..
 fed2-external-extends
@@ -29,7 +29,7 @@ interface-object-with-requires
 keys-mashup
 .
 mutations
-..X
+...
 mysterious-external
 ..
 nested-provides
@@ -45,7 +45,7 @@ XX..
 override-with-requires
 ....
 parent-entity-call
-X
+.
 parent-entity-call-complex
 .
 provides-on-interface
@@ -55,9 +55,9 @@ provides-on-union
 requires-interface
 .....
 requires-requires
-XXX.X
+.....
 requires-with-argument
-.XXXX
+.....
 requires-with-fragments
 X...X.
 shared-root
@@ -83,5 +83,5 @@ union-intersection
 
 ---
 Total: 171
-Passed: 113
-Failed: 58
+Passed: 128
+Failed: 43
