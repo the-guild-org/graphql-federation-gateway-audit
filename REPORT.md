@@ -7,7 +7,7 @@
 | [Hive Gateway](https://the-guild.dev/graphql/hive/docs/gateway) |    100.00%    |    🟢 171    |    🟢 41    |
 |         [Apollo Router](https://www.apollographql.com/)         |    97.66%     | 🟢 167 ❌ 4  | 🟢 39 ❌ 2  |
 |        [Apollo Gateway](https://www.apollographql.com/)         |    97.08%     | 🟢 166 ❌ 5  | 🟢 38 ❌ 3  |
-|            [Grafbase Gateway](https://grafbase.com)             |    74.85%     | 🟢 128 ❌ 43 | 🟢 29 ❌ 12 |
+|            [Grafbase Gateway](https://grafbase.com)             |    76.02%     | 🟢 130 ❌ 41 | 🟢 29 ❌ 12 |
 |             [Cosmo Router](https://wundergraph.com)             |    71.93%     | 🟢 123 ❌ 48 | 🟢 21 ❌ 20 |
 |                [Inigo Gateway](https://inigo.io)                |    46.78%     | 🟢 80 ❌ 91  | 🟢 12 ❌ 29 |
 
@@ -344,7 +344,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/node">node</a>
 <pre>🟢</pre>
 <a href="./src/test-suites/non-resolvable-interface-object">non-resolvable-interface-object</a>
-<pre>❌🟢❌🟢🟢🟢❌</pre>
+<pre>🟢🟢🟢🟢🟢🟢❌</pre>
 <a href="./src/test-suites/null-keys">null-keys</a>
 <pre>❌</pre>
 <a href="./src/test-suites/override-type-interface">override-type-interface</a>

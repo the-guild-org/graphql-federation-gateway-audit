@@ -37,7 +37,7 @@ nested-provides
 node
 .
 non-resolvable-interface-object
-X.X...X
+......X
 null-keys
 X
 override-type-interface
@@ -83,5 +83,5 @@ union-intersection
 
 ---
 Total: 171
-Passed: 128
-Failed: 43
+Passed: 130
+Failed: 41
