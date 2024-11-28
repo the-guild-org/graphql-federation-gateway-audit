@@ -11,15 +11,15 @@ X....X....
 enum-intersection
 .....
 fed1-external-extends
-..
+....
 fed1-external-extends-resolvable
 X
 fed1-external-extension
-..
+....
 fed2-external-extends
-..
+....
 fed2-external-extension
-..
+....
 include-skip
 ....
 input-object-intersection
@@ -82,6 +82,6 @@ union-intersection
 ...XX..X
 
 ---
-Total: 171
-Passed: 123
+Total: 179
+Passed: 131
 Failed: 48

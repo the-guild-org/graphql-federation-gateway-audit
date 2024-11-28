@@ -4,7 +4,10 @@ import { users } from "./data.js";
 export default createSubgraph("b", {
   typeDefs: /* GraphQL */ `
     extend schema
-      @link(url: "https://specs.apollo.dev/federation/v2.3", import: ["@key"])
+      @link(
+        url: "https://specs.apollo.dev/federation/v2.3"
+        import: ["@key", "@shareable"]
+      )
 
     type Query {
       userById(id: ID): User
@@ -12,7 +15,7 @@ export default createSubgraph("b", {
 
     type User @key(fields: "id") {
       id: ID!
-      name: String!
+      name: String! @shareable
       nickname: String
     }
   `,

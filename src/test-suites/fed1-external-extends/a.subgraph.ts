@@ -5,10 +5,12 @@ export default createSubgraph("a", {
   typeDefs: /* GraphQL */ `
     type Query {
       randomUser: User
+      providedRandomUser: User @provides(fields: "name")
     }
 
     type User @key(fields: "id") @extends {
       id: ID! @external
+      name: String! @external
       rid: ID
     }
   `,
@@ -18,6 +20,13 @@ export default createSubgraph("a", {
         return {
           id: users[0].id,
           rid: users[0].rid,
+        };
+      },
+      providedRandomUser() {
+        return {
+          id: users[0].id,
+          rid: users[0].rid,
+          name: users[0].name,
         };
       },
     },
@@ -34,8 +43,8 @@ export default createSubgraph("a", {
           rid: user.rid,
         };
       },
-      name() {
-        return "never";
+      name(user: { name: string | undefined }) {
+        return user.name ?? "never";
       },
     },
   },
