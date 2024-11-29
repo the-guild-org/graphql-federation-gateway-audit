@@ -6,15 +6,17 @@ export default createSubgraph("a", {
     extend schema
       @link(
         url: "https://specs.apollo.dev/federation/v2.3"
-        import: ["@key", "@external"]
+        import: ["@key", "@external", "@provides"]
       )
 
     type Query {
       randomUser: User
+      providedRandomUser: User @provides(fields: "name")
     }
 
     extend type User @key(fields: "id") {
       id: ID! @external
+      name: String! @external
       rid: ID
     }
   `,
@@ -24,6 +26,13 @@ export default createSubgraph("a", {
         return {
           id: users[0].id,
           rid: users[0].rid,
+        };
+      },
+      providedRandomUser() {
+        return {
+          id: users[0].id,
+          rid: users[0].rid,
+          name: users[0].name,
         };
       },
     },
@@ -40,8 +49,8 @@ export default createSubgraph("a", {
           rid: user.rid,
         };
       },
-      name() {
-        return "never";
+      name(user: { name: string | undefined }) {
+        return user.name ?? "never";
       },
     },
   },

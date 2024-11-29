@@ -27,7 +27,7 @@ export default [
           nickname: "u2-nickname",
         },
       },
-    },
+    }
   ),
   createTest(
     /* GraphQL */ `
@@ -45,6 +45,46 @@ export default [
           rid: "u1-rid",
         },
       },
-    },
+    }
+  ),
+  createTest(
+    /* GraphQL */ `
+      query {
+        randomUser {
+          id
+          rid
+          name
+        }
+      }
+    `,
+    {
+      data: {
+        randomUser: {
+          id: "u1",
+          rid: "u1-rid",
+          name: "u1-name",
+        },
+      },
+    }
+  ),
+  createTest(
+    /* GraphQL */ `
+      query {
+        providedRandomUser {
+          id
+          rid
+          name
+        }
+      }
+    `,
+    {
+      data: {
+        providedRandomUser: {
+          id: "u1",
+          rid: "u1-rid",
+          name: "u1-name",
+        },
+      },
+    }
   ),
 ];
