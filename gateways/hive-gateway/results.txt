@@ -11,15 +11,15 @@ corrupted-supergraph-node-id
 enum-intersection
 .....
 fed1-external-extends
-X.X.
+....
 fed1-external-extends-resolvable
 .
 fed1-external-extension
-X.X.
+....
 fed2-external-extends
-X.X.
+....
 fed2-external-extension
-X.X.
+....
 include-skip
 ....
 input-object-intersection
@@ -83,5 +83,5 @@ union-intersection
 
 ---
 Total: 179
-Passed: 171
-Failed: 8
+Passed: 179
+Failed: 0
