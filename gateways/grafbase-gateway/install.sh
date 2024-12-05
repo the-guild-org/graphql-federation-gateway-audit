@@ -5,7 +5,7 @@ set -euo pipefail
 # to the current directory instead of /usr/local/bin
 
 # https://github.com/grafbase/grafbase/releases
-VERSION="0.21.0"
+VERSION="0.22.0"
 
 error() {
     echo -e "${Red}error${Color_Off}:" "$@" >&2
