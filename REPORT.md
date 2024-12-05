@@ -7,7 +7,7 @@
 | [Hive Gateway](https://the-guild.dev/graphql/hive/docs/gateway) |    100.00%    |    🟢 179    |    🟢 41    |
 |         [Apollo Router](https://www.apollographql.com/)         |    97.77%     | 🟢 175 ❌ 4  | 🟢 39 ❌ 2  |
 |        [Apollo Gateway](https://www.apollographql.com/)         |    97.21%     | 🟢 174 ❌ 5  | 🟢 38 ❌ 3  |
-|            [Grafbase Gateway](https://grafbase.com)             |    77.09%     | 🟢 138 ❌ 41 | 🟢 29 ❌ 12 |
+|            [Grafbase Gateway](https://grafbase.com)             |    78.77%     | 🟢 141 ❌ 38 | 🟢 31 ❌ 10 |
 |             [Cosmo Router](https://wundergraph.com)             |    73.18%     | 🟢 131 ❌ 48 | 🟢 21 ❌ 20 |
 |                [Inigo Gateway](https://inigo.io)                |    49.16%     | 🟢 88 ❌ 91  | 🟢 12 ❌ 29 |
 
@@ -346,7 +346,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/non-resolvable-interface-object">non-resolvable-interface-object</a>
 <pre>🟢🟢🟢🟢🟢🟢❌</pre>
 <a href="./src/test-suites/null-keys">null-keys</a>
-<pre>❌</pre>
+<pre>🟢</pre>
 <a href="./src/test-suites/override-type-interface">override-type-interface</a>
 <pre>❌❌🟢🟢</pre>
 <a href="./src/test-suites/override-with-requires">override-with-requires</a>
@@ -366,7 +366,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/requires-with-argument">requires-with-argument</a>
 <pre>🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/requires-with-fragments">requires-with-fragments</a>
-<pre>❌🟢🟢🟢❌🟢</pre>
+<pre>🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/shared-root">shared-root</a>
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/simple-entity-call">simple-entity-call</a>
