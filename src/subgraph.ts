@@ -4,12 +4,18 @@ import { buildSubgraphSchema } from "@apollo/subgraph";
 import { createYoga } from "graphql-yoga";
 import { env } from "./env.js";
 
+export function waitFor(ms: number) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 export function createSubgraph(
   name: string,
   schemaParameters: {
     typeDefs: string;
     resolvers: any;
-  },
+  }
 ) {
   let schema: ReturnType<typeof buildSubgraphSchema>;
 

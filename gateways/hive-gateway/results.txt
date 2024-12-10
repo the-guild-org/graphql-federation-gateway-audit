@@ -21,7 +21,7 @@ fed2-external-extends
 fed2-external-extension
 ....
 include-skip
-....
+XXXX
 input-object-intersection
 ...
 interface-object-with-requires
@@ -83,5 +83,5 @@ union-intersection
 
 ---
 Total: 179
-Passed: 179
-Failed: 0
+Passed: 175
+Failed: 4

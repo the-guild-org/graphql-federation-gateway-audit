@@ -4,10 +4,12 @@ export function createTest(
     data?: any;
     errors?: boolean;
   },
+  headers?: Record<string, string>
 ) {
   return {
     query,
     expected,
+    headers,
   };
 }
 
@@ -21,7 +23,7 @@ export async function fetchTests(endpoint: string) {
 
   if (response.status !== 200) {
     throw new Error(
-      `Failed to fetch tests ${response.status} ${response.statusText}`,
+      `Failed to fetch tests ${response.status} ${response.statusText}`
     );
   }
 
