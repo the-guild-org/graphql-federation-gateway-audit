@@ -1,5 +1,7 @@
 abstract-types
 ...............XX
+authenticated-and-scopes
+XXXXXXXXXX
 child-type-mismatch
 XXX.
 circular-reference-interface
@@ -8,6 +10,8 @@ complex-entity-call
 X
 corrupted-supergraph-node-id
 .XXXX.....
+defer-shared-root
+X
 enum-intersection
 XXXXX
 fed1-external-extends
@@ -82,6 +86,6 @@ union-intersection
 XXXXXXXX
 
 ---
-Total: 179
+Total: 190
 Passed: 88
-Failed: 91
+Failed: 102

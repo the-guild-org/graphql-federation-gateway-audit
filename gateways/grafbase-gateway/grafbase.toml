@@ -1,2 +1,15 @@
 
 request_body_limit = "2MiB"
+
+[[authentication.providers]]
+
+[authentication.providers.jwt]
+name = "my-authenticator"
+
+[authentication.providers.jwt.jwks]
+url = "http://localhost:4200/.well-known/jwks.json"
+poll_interval = "30s"
+
+[authentication.providers.jwt.header]
+name = "Authorization"
+value_prefix = "Bearer "

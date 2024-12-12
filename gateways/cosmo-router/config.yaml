@@ -4,3 +4,12 @@ router_config_path: config.json
 listen_addr: 127.0.0.1:4000
 graph:
   token: ""
+
+authentication:
+  providers:
+    - name: My Auth Provider
+      jwks:
+        url: http://localhost:4200/.well-known/jwks.json
+        header_names: [Authorization]
+        header_value_prefixes: [Bearer]
+        refresh_interval: 1m

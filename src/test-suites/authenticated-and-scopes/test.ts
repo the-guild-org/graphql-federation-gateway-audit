@@ -1,18 +1,5 @@
 import { createTest } from "../../testkit.js";
-import jtw from "jsonwebtoken";
-
-function createJWT(scopes: string[]) {
-  return jtw.sign(
-    {
-      scope: scopes.join(" "),
-      sub: "12345",
-    },
-    "my-secret-key",
-    {
-      expiresIn: "1y",
-    }
-  );
-}
+import { createJWT } from "../../jwt.js";
 
 export default [
   // Everything with granular scopes

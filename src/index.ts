@@ -1,6 +1,7 @@
 import { createRouter as createFetsRouter, Response } from "fets";
 import { createServer } from "node:http";
 import { generateKeyPairSync, randomBytes } from "node:crypto";
+import { publicKey } from "./jwt.js";
 
 async function getTestCases(router: ReturnType<typeof createRouter>) {
   const nonStandardTests = process.env.NON_STANDARD_TESTS?.split(",") ?? [];
@@ -84,13 +85,26 @@ async function getTestCases(router: ReturnType<typeof createRouter>) {
 export function serve(port: number) {
   const router = createRouter();
 
-  const jwks = generateMockJWKS();
+  // Export the public key in JWK format
+  const publicKeyJwk = publicKey.export({ format: "jwk" });
+
+  // Create the JWK
+  const jwk = {
+    kty: publicKeyJwk.kty,
+    kid: "123",
+    use: "sig",
+    alg: "RS256",
+    e: publicKeyJwk.e,
+    n: publicKeyJwk.n,
+  };
 
   router.route({
     method: "GET",
     path: "/.well-known/jwks.json",
     handler() {
-      return Response.json(jwks);
+      return Response.json({
+        keys: [jwk],
+      });
     },
   });
 
