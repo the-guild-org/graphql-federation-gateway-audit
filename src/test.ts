@@ -1,4 +1,5 @@
-import { ExecutionResult } from "graphql";
+import { ExecutionResult, GraphQLError } from "graphql";
+import { createClient, fetchExchange } from "@urql/core";
 import type { createTest } from "./testkit.js";
 import { diff } from "jest-diff";
 import { test } from "node:test";
@@ -38,6 +39,91 @@ const tests = await fetchTests(TESTS_ENDPOINT);
 let index = 0;
 for (const { query, expected: expectedResult, headers } of tests) {
   test(`${index++}`, async () => {
+    if (Array.isArray(expectedResult)) {
+      // we're testing @defer here
+      const client = createClient({
+        url: GRAPHQL_ENDPOINT,
+        exchanges: [fetchExchange],
+        fetchOptions: () => {
+          return {
+            headers: {
+              Accept: "multipart/mixed",
+              ...headers,
+            },
+          };
+        },
+      });
+
+      const res = client.query(
+        query,
+        {},
+        {
+          requestPolicy: "network-only",
+        }
+      );
+
+      const receivedResponses: Array<{
+        data: Record<string, unknown> | null;
+        errors: GraphQLError[] | null;
+      }> = [];
+
+      await new Promise<void>((resolve) => {
+        let timeout: ReturnType<typeof setTimeout>;
+        let unsubscribe: () => void = () => {};
+
+        function unsubscribeAfterTime() {
+          if (timeout) {
+            clearTimeout(timeout);
+          }
+
+          timeout = setTimeout(() => {
+            unsubscribe();
+            resolve();
+          }, 5_000);
+        }
+
+        unsubscribeAfterTime();
+
+        const subscription = res.subscribe((result) => {
+          unsubscribeAfterTime();
+          receivedResponses.push({
+            data: result.data,
+            errors: result.error?.graphQLErrors ?? null,
+          });
+        });
+
+        unsubscribe = subscription.unsubscribe;
+      });
+
+      for (let i = 0; i < expectedResult.length; i++) {
+        const expectedResultItem = expectedResult[i];
+        const errorsOptional = typeof expectedResultItem.errors !== "boolean";
+        const response = receivedResponses[i];
+
+        const received = {
+          data: response.data ?? null,
+          errors: errorsOptional
+            ? null
+            : response.errors?.length
+              ? true
+              : false,
+        };
+
+        const expected = {
+          data: expectedResultItem.data ?? null,
+          errors: errorsOptional ? null : (expectedResultItem.errors ?? false),
+        };
+
+        deepStrictEqual(
+          received,
+          expected,
+          [`Test failed for query`, query, diff(expected, received)].join("\n")
+        );
+      }
+
+      return;
+    }
+
     const response = await graphql(GRAPHQL_ENDPOINT, query, headers);
 
     const errorsOptional = typeof expectedResult.errors !== "boolean";

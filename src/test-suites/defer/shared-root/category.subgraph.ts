@@ -43,7 +43,7 @@ export default createSubgraph("category", {
     },
     Product: {
       async category(p: typeof product) {
-        await waitFor(1000);
+        await waitFor(2000);
         return p.category;
       },
     },

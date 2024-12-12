@@ -1,9 +1,11 @@
 export function createTest(
   query: string,
-  expected: {
-    data?: any;
-    errors?: boolean;
-  },
+  expected:
+    | {
+        data?: any;
+        errors?: boolean;
+      }
+    | Array<{ data?: any; errors?: boolean }>,
   headers?: Record<string, string>
 ) {
   return {

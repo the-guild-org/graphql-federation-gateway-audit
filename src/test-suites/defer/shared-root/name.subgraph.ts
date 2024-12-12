@@ -44,7 +44,7 @@ export default createSubgraph("name", {
     },
     Product: {
       async name(p: typeof product) {
-        await waitFor(2000);
+        await waitFor(1000);
         return p.name;
       },
     },

@@ -55,6 +55,7 @@
     "@apollo/composition": "2.9.3",
     "@apollo/subgraph": "2.9.3",
     "async-retry": "1.3.3",
+    "@urql/core": "5.1.0",
     "dotenv": "16.4.7",
     "fets": "0.8.4",
     "get-port": "7.1.0",
