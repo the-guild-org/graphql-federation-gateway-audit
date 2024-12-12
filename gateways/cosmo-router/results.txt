@@ -61,7 +61,7 @@ XXXXX
 requires-with-fragments
 XXXXXX
 shared-root
-.X
+..
 simple-entity-call
 .
 simple-inaccessible
@@ -83,5 +83,5 @@ union-intersection
 
 ---
 Total: 179
-Passed: 131
-Failed: 48
+Passed: 132
+Failed: 47
