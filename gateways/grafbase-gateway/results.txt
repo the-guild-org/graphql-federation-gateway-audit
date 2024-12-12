@@ -1,5 +1,5 @@
 abstract-types
-..X..XXXXXXXXXXXX
+........X.XX..X..
 child-type-mismatch
 ....
 circular-reference-interface
@@ -25,7 +25,7 @@ include-skip
 input-object-intersection
 ...
 interface-object-with-requires
-..X.XXX
+.......
 keys-mashup
 .
 mutations
@@ -37,7 +37,7 @@ nested-provides
 node
 .
 non-resolvable-interface-object
-......X
+.......
 null-keys
 .
 override-type-interface
@@ -67,7 +67,7 @@ simple-entity-call
 simple-inaccessible
 ....
 simple-interface-object
-..X.XXX.XXXXX
+........XXXXX
 simple-override
 ..
 simple-requires-provides
@@ -77,11 +77,11 @@ typename
 unavailable-override
 ..
 union-interface-distributed
-.X.....
+.......
 union-intersection
-...X...X
+........
 
 ---
 Total: 179
-Passed: 141
-Failed: 38
+Passed: 162
+Failed: 17
