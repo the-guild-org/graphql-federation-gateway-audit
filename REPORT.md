@@ -7,7 +7,7 @@
 | [Hive Gateway](https://the-guild.dev/graphql/hive/docs/gateway) |    100.00%    |    🟢 179    |    🟢 41    |
 |         [Apollo Router](https://www.apollographql.com/)         |    97.77%     | 🟢 175 ❌ 4  | 🟢 39 ❌ 2  |
 |        [Apollo Gateway](https://www.apollographql.com/)         |    97.21%     | 🟢 174 ❌ 5  | 🟢 38 ❌ 3  |
-|            [Grafbase Gateway](https://grafbase.com)             |    90.50%     | 🟢 162 ❌ 17 | 🟢 35 ❌ 6  |
+|            [Grafbase Gateway](https://grafbase.com)             |    93.30%     | 🟢 167 ❌ 12 | 🟢 36 ❌ 5  |
 |             [Cosmo Router](https://wundergraph.com)             |    73.74%     | 🟢 132 ❌ 47 | 🟢 22 ❌ 19 |
 |                [Inigo Gateway](https://inigo.io)                |    49.16%     | 🟢 88 ❌ 91  | 🟢 12 ❌ 29 |
 
@@ -306,7 +306,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <details>
 <summary>Results</summary>
 <a href="./src/test-suites/abstract-types">abstract-types</a>
-<pre>🟢🟢🟢🟢🟢🟢🟢🟢❌🟢❌❌🟢🟢❌🟢🟢</pre>
+<pre>🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/child-type-mismatch">child-type-mismatch</a>
 <pre>🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/circular-reference-interface">circular-reference-interface</a>
@@ -348,7 +348,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/null-keys">null-keys</a>
 <pre>🟢</pre>
 <a href="./src/test-suites/override-type-interface">override-type-interface</a>
-<pre>❌❌🟢🟢</pre>
+<pre>❌🟢🟢🟢</pre>
 <a href="./src/test-suites/override-with-requires">override-with-requires</a>
 <pre>🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/parent-entity-call">parent-entity-call</a>

@@ -1,5 +1,5 @@
 abstract-types
-........X.XX..X..
+.................
 child-type-mismatch
 ....
 circular-reference-interface
@@ -41,7 +41,7 @@ non-resolvable-interface-object
 null-keys
 .
 override-type-interface
-XX..
+X...
 override-with-requires
 ....
 parent-entity-call
@@ -83,5 +83,5 @@ union-intersection
 
 ---
 Total: 179
-Passed: 162
-Failed: 17
+Passed: 167
+Failed: 12
