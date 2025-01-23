@@ -993,4 +993,89 @@ export default [
       },
     },
   ),
+  createTest(
+    /* GraphQL */ `
+      {
+        products {
+          id
+          reviews {
+            product {
+              id
+              ... on Magazine {
+                publisherType {
+                  ...Publisher
+                }
+              }
+              ... on Book {
+                publisherType {
+                  ...Publisher
+                }
+              }
+            }
+          }
+        }
+      }
+
+      fragment Publisher on PublisherType {
+        ... on Agency {
+          email {
+            address
+          }
+        }
+        ... on Self {
+          email
+        }
+        ... on Group {
+          email
+        }
+      }
+    `,
+    {
+      data: {
+        products: [
+          {
+            id: "p1",
+            reviews: [
+              {
+                product: {
+                  publisherType: {
+                    email: "u1@example.com",
+                  },
+                },
+              },
+              {
+                product: {
+                  publisherType: {
+                    email: "u1@example.com",
+                  },
+                },
+              },
+            ],
+          },
+          {
+            id: "p3",
+            reviews: [],
+          },
+          {
+            id: "p2",
+            reviews: [
+              {
+                product: {
+                  publisherType: {
+                    email: {
+                      address: "a1@example.com"
+                    }
+                  },
+                },
+              },
+            ],
+          },
+          {
+            id: "p4",
+            reviews: [],
+          },
+        ],
+      },
+    },
+  ),
 ];
