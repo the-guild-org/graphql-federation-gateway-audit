@@ -995,6 +995,7 @@ export default [
   ),
   createTest(
     /* GraphQL */ `
+
       {
         products {
           id
@@ -1018,15 +1019,15 @@ export default [
 
       fragment Publisher on PublisherType {
         ... on Agency {
-          email {
+          emailObj: email {
             address
           }
         }
         ... on Self {
-          email
+          emailStr: email
         }
         ... on Group {
-          email
+          emailStr: email
         }
       }
     `,
@@ -1039,14 +1040,14 @@ export default [
               {
                 product: {
                   publisherType: {
-                    email: "u1@example.com",
+                    emailStr: "u1@example.com",
                   },
                 },
               },
               {
                 product: {
                   publisherType: {
-                    email: "u1@example.com",
+                    emailStr: "u1@example.com",
                   },
                 },
               },
@@ -1062,7 +1063,7 @@ export default [
               {
                 product: {
                   publisherType: {
-                    email: {
+                    emailObj: {
                       address: "a1@example.com"
                     }
                   },
