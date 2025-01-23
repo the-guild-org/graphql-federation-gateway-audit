@@ -46,7 +46,7 @@ export default [
           },
         ],
       },
-    },
+    }
   ),
   createTest(
     /* GraphQL */ `
@@ -66,7 +66,7 @@ export default [
           },
         ],
       },
-    },
+    }
   ),
   createTest(
     /* GraphQL */ `
@@ -112,7 +112,7 @@ export default [
           },
         ],
       },
-    },
+    }
   ),
   createTest(
     /* GraphQL */ `
@@ -160,7 +160,7 @@ export default [
           },
         ],
       },
-    },
+    }
   ),
   createTest(
     /* GraphQL */ `
@@ -207,7 +207,7 @@ export default [
           },
         ],
       },
-    },
+    }
   ),
   createTest(
     /* GraphQL */ `
@@ -269,7 +269,7 @@ export default [
           },
         ],
       },
-    },
+    }
   ),
   createTest(
     /* GraphQL */ `
@@ -314,7 +314,7 @@ export default [
           },
         ],
       },
-    },
+    }
   ),
   createTest(
     /* GraphQL */ `
@@ -376,7 +376,7 @@ export default [
           },
         ],
       },
-    },
+    }
   ),
   createTest(
     /* GraphQL */ `
@@ -436,7 +436,7 @@ export default [
           },
         ],
       },
-    },
+    }
   ),
   createTest(
     /* GraphQL */ `
@@ -498,7 +498,7 @@ export default [
           },
         ],
       },
-    },
+    }
   ),
   createTest(
     /* GraphQL */ `
@@ -558,7 +558,7 @@ export default [
           },
         ],
       },
-    },
+    }
   ),
   createTest(
     /* GraphQL */ `
@@ -623,7 +623,7 @@ export default [
           },
         ],
       },
-    },
+    }
   ),
   createTest(
     /* GraphQL */ `
@@ -690,7 +690,7 @@ export default [
           },
         ],
       },
-    },
+    }
   ),
   createTest(
     /* GraphQL */ `
@@ -757,7 +757,7 @@ export default [
           },
         ],
       },
-    },
+    }
   ),
   createTest(
     /* GraphQL */ `
@@ -822,7 +822,7 @@ export default [
           },
         ],
       },
-    },
+    }
   ),
   createTest(
     /* GraphQL */ `
@@ -905,7 +905,7 @@ export default [
           },
         ],
       },
-    },
+    }
   ),
   createTest(
     /* GraphQL */ `
@@ -991,11 +991,10 @@ export default [
           },
         ],
       },
-    },
+    }
   ),
   createTest(
     /* GraphQL */ `
-
       {
         products {
           id
@@ -1039,6 +1038,7 @@ export default [
             reviews: [
               {
                 product: {
+                  id: "p1",
                   publisherType: {
                     emailStr: "u1@example.com",
                   },
@@ -1046,6 +1046,7 @@ export default [
               },
               {
                 product: {
+                  id: "p1",
                   publisherType: {
                     emailStr: "u1@example.com",
                   },
@@ -1062,10 +1063,11 @@ export default [
             reviews: [
               {
                 product: {
+                  id: "p2",
                   publisherType: {
                     emailObj: {
-                      address: "a1@example.com"
-                    }
+                      address: "a1@example.com",
+                    },
                   },
                 },
               },
@@ -1077,6 +1079,6 @@ export default [
           },
         ],
       },
-    },
+    }
   ),
 ];
