@@ -9,11 +9,17 @@ export default createSubgraph("agency", {
     type Agency @key(fields: "id") {
       id: ID!
       companyName: String
+      email: Email
+    }
+
+    type Email {
+      address: String
     }
 
     type Group @key(fields: "id") {
       id: ID!
       name: String
+      email: String
     }
 
     extend union PublisherType = Agency | Group
@@ -26,7 +32,7 @@ export default createSubgraph("agency", {
     },
     Group: {
       __resolveReference(key: { id: string }) {
-        return { id: key.id, name: "Group " + key.id };
+        return { id: key.id, name: "Group " + key.id, email: "group" + key.id + "@example.com" };
       },
     },
   },
