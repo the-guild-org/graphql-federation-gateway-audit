@@ -59,7 +59,7 @@
     "fets": "0.8.4",
     "get-port": "7.1.0",
     "graphql": "16.10.0",
-    "graphql-yoga": "5.10.9",
+    "graphql-yoga": "5.10.11",
     "jest-diff": "29.7.0",
     "kill-port-process": "3.2.1",
     "wait-on": "8.0.2",
@@ -79,6 +79,6 @@
     "prettier": "3.4.2",
     "tsx": "4.19.2",
     "typescript": "5.7.3",
-    "wgc": "0.71.6"
+    "wgc": "0.72.1"
   }
 }

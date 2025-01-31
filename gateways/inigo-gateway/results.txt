@@ -65,7 +65,7 @@ XX
 simple-entity-call
 X
 simple-inaccessible
-..XX
+..X.
 simple-interface-object
 XXXXXXXXXXXXX
 simple-override
@@ -83,5 +83,5 @@ XXXXXXXX
 
 ---
 Total: 179
-Passed: 88
-Failed: 91
+Passed: 89
+Failed: 90
