@@ -2,13 +2,13 @@
 
 set -u
 
-# Inigo has no install.sh script, so I took the install.sh script from the router gateway 
+# Inigo has no install.sh script, so I took the install.sh script from the router gateway
 # and modified it to download the Inigo binary instead of the router binary
 
 BINARY_DOWNLOAD_PREFIX="https://github.com/inigolabs/artifacts/releases/download"
 
 # https://github.com/inigolabs/artifacts/releases
-DOWNLOAD_VERSION="v0.30.18"
+DOWNLOAD_VERSION="v0.30.21"
 
 download_binaries() {
     downloader --check

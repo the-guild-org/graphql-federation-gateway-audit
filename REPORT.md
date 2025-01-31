@@ -9,7 +9,7 @@
 |        [Apollo Gateway](https://www.apollographql.com/)         |    97.21%     | 🟢 174 ❌ 5  | 🟢 38 ❌ 3  |
 |            [Grafbase Gateway](https://grafbase.com)             |    93.30%     | 🟢 167 ❌ 12 | 🟢 36 ❌ 5  |
 |             [Cosmo Router](https://wundergraph.com)             |    73.74%     | 🟢 132 ❌ 47 | 🟢 22 ❌ 19 |
-|                [Inigo Gateway](https://inigo.io)                |    49.16%     | 🟢 88 ❌ 91  | 🟢 12 ❌ 29 |
+|                [Inigo Gateway](https://inigo.io)                |    49.72%     | 🟢 89 ❌ 90  | 🟢 12 ❌ 29 |
 
 ## Detailed Results
 
@@ -558,7 +558,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/simple-entity-call">simple-entity-call</a>
 <pre>❌</pre>
 <a href="./src/test-suites/simple-inaccessible">simple-inaccessible</a>
-<pre>🟢🟢❌❌</pre>
+<pre>🟢🟢❌🟢</pre>
 <a href="./src/test-suites/simple-interface-object">simple-interface-object</a>
 <pre>❌❌❌❌❌❌❌❌❌❌❌❌❌</pre>
 <a href="./src/test-suites/simple-override">simple-override</a>
