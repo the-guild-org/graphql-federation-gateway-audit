@@ -121,7 +121,19 @@ let tableMd = `|  Gateway   | Compatibility | Test Cases | Test Suites |
 let rowsHtml = ``;
 let testDetailsMd = "";
 
+const jsonReport: Array<{
+  name: string;
+  cases: { passed: number; failed: number };
+  suites: { passed: number; failed: number };
+}> = [];
+
 for (const gateway of gatewayResults) {
+  jsonReport.push({
+    name: gateway.name,
+    cases: gateway.tests,
+    suites: gateway.groups,
+  });
+
   const score = ((gateway.tests.passed * 100) / gateway.tests.total).toFixed(2);
   const roundedScore = Math.round(
     (gateway.tests.passed * 100) / gateway.tests.total,
@@ -208,6 +220,12 @@ const newIndexHtml =
   indexHtml.substring(htmlEndAt);
 
 writeFormatted("./website/index.html", newIndexHtml);
+
+writeFileSync(
+  "./website/data.json",
+  JSON.stringify(jsonReport, null, 2),
+  "utf-8",
+);
 
 async function writeFormatted(filename: string, content: string) {
   writeFileSync(
