@@ -1,2 +1,2 @@
 # https://github.com/graphql-hive/gateway/releases
-curl -sSL https://graphql-hive.com/install-gateway.sh | sh -s "1.9.0"
+curl -sSL https://graphql-hive.com/install-gateway.sh | sh -s "1.10.3"

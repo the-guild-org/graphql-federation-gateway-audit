@@ -3,7 +3,7 @@ sandbox:
 homepage:
   enabled: false
 supergraph:
-  listen: 0.0.0.0:4000
+  listen: "0.0.0.0:4000"
   introspection: true
 plugins:
   # Enable with the header, Apollo-Expose-Query-Plan: true
