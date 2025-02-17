@@ -55,13 +55,13 @@
     "name": "Cosmo Router",
     "cases": {
       "total": 179,
-      "passed": 132,
-      "failed": 47
+      "passed": 154,
+      "failed": 25
     },
     "suites": {
       "total": 41,
-      "passed": 22,
-      "failed": 19
+      "passed": 29,
+      "failed": 12
     }
   },
   {

@@ -8,7 +8,7 @@
 |         [Apollo Router](https://www.apollographql.com/)         |    97.77%     | 🟢 175 ❌ 4  | 🟢 39 ❌ 2  |
 |        [Apollo Gateway](https://www.apollographql.com/)         |    97.21%     | 🟢 174 ❌ 5  | 🟢 38 ❌ 3  |
 |            [Grafbase Gateway](https://grafbase.com)             |    93.30%     | 🟢 167 ❌ 12 | 🟢 36 ❌ 5  |
-|             [Cosmo Router](https://wundergraph.com)             |    73.74%     | 🟢 132 ❌ 47 | 🟢 22 ❌ 19 |
+|             [Cosmo Router](https://wundergraph.com)             |    86.03%     | 🟢 154 ❌ 25 | 🟢 29 ❌ 12 |
 |                [Inigo Gateway](https://inigo.io)                |    49.72%     | 🟢 89 ❌ 90  | 🟢 12 ❌ 29 |
 
 ## Detailed Results
@@ -425,7 +425,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/input-object-intersection">input-object-intersection</a>
 <pre>🟢🟢🟢</pre>
 <a href="./src/test-suites/interface-object-with-requires">interface-object-with-requires</a>
-<pre>❌❌🟢🟢❌❌❌</pre>
+<pre>🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/keys-mashup">keys-mashup</a>
 <pre>🟢</pre>
 <a href="./src/test-suites/mutations">mutations</a>
@@ -437,11 +437,11 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/node">node</a>
 <pre>🟢</pre>
 <a href="./src/test-suites/non-resolvable-interface-object">non-resolvable-interface-object</a>
-<pre>🟢🟢🟢🟢❌🟢❌</pre>
+<pre>🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/null-keys">null-keys</a>
 <pre>❌</pre>
 <a href="./src/test-suites/override-type-interface">override-type-interface</a>
-<pre>🟢❌🟢🟢</pre>
+<pre>🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/override-with-requires">override-with-requires</a>
 <pre>🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/parent-entity-call">parent-entity-call</a>
@@ -457,7 +457,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/requires-requires">requires-requires</a>
 <pre>🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/requires-with-argument">requires-with-argument</a>
-<pre>❌❌❌❌❌</pre>
+<pre>🟢❌❌❌❌</pre>
 <a href="./src/test-suites/requires-with-fragments">requires-with-fragments</a>
 <pre>❌❌❌❌❌❌</pre>
 <a href="./src/test-suites/shared-root">shared-root</a>
@@ -467,19 +467,19 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/simple-inaccessible">simple-inaccessible</a>
 <pre>🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/simple-interface-object">simple-interface-object</a>
-<pre>🟢❌🟢🟢🟢❌❌❌❌🟢❌❌❌</pre>
+<pre>🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/simple-override">simple-override</a>
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/simple-requires-provides">simple-requires-provides</a>
 <pre>🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/typename">typename</a>
-<pre>🟢🟢🟢🟢❌🟢</pre>
+<pre>🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/unavailable-override">unavailable-override</a>
 <pre>🟢🟢</pre>
 <a href="./src/test-suites/union-interface-distributed">union-interface-distributed</a>
-<pre>❌🟢🟢🟢🟢🟢🟢</pre>
+<pre>🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/union-intersection">union-intersection</a>
-<pre>🟢🟢🟢❌❌🟢🟢❌</pre>
+<pre>🟢🟢🟢🟢🟢🟢🟢🟢</pre>
 </details>
 
 <a id="inigo-gateway"></a>

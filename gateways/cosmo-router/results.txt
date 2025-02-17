@@ -25,7 +25,7 @@ include-skip
 input-object-intersection
 ...
 interface-object-with-requires
-XX..XXX
+.......
 keys-mashup
 .
 mutations
@@ -37,11 +37,11 @@ nested-provides
 node
 .
 non-resolvable-interface-object
-....X.X
+.......
 null-keys
 X
 override-type-interface
-.X..
+....
 override-with-requires
 ....
 parent-entity-call
@@ -57,7 +57,7 @@ requires-interface
 requires-requires
 .....
 requires-with-argument
-XXXXX
+.XXXX
 requires-with-fragments
 XXXXXX
 shared-root
@@ -67,21 +67,21 @@ simple-entity-call
 simple-inaccessible
 ....
 simple-interface-object
-.X...XXXX.XXX
+.............
 simple-override
 ..
 simple-requires-provides
 ............
 typename
-....X.
+......
 unavailable-override
 ..
 union-interface-distributed
-X......
+.......
 union-intersection
-...XX..X
+........
 
 ---
 Total: 179
-Passed: 132
-Failed: 47
+Passed: 154
+Failed: 25
