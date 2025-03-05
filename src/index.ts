@@ -45,6 +45,7 @@ async function getTestCases(router: ReturnType<typeof createRouter>) {
       import("./test-suites/requires-with-argument/index.js"),
       import("./test-suites/keys-mashup/index.js"),
       import("./test-suites/null-keys/index.js"),
+      import("./test-suites/union-fragment/index.js"),
     ].map((i) => i.then((e) => e.default))
   );
 
