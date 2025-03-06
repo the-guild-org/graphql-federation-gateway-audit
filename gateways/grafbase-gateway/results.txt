@@ -51,7 +51,7 @@ parent-entity-call-complex
 provides-on-interface
 XX
 provides-on-union
-.X
+..
 requires-interface
 .....
 requires-requires
@@ -83,5 +83,5 @@ union-intersection
 
 ---
 Total: 179
-Passed: 167
-Failed: 12
+Passed: 168
+Failed: 11

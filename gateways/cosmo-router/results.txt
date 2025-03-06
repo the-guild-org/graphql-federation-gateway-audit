@@ -7,13 +7,13 @@ circular-reference-interface
 complex-entity-call
 X
 corrupted-supergraph-node-id
-X....X....
+..........
 enum-intersection
 .....
 fed1-external-extends
 ....
 fed1-external-extends-resolvable
-X
+.
 fed1-external-extension
 ....
 fed2-external-extends
@@ -83,5 +83,5 @@ union-intersection
 
 ---
 Total: 179
-Passed: 154
-Failed: 25
+Passed: 157
+Failed: 22
