@@ -7,8 +7,8 @@
 | [Hive Gateway](https://the-guild.dev/graphql/hive/docs/gateway) |    100.00%    |    🟢 179    |    🟢 41    |
 |         [Apollo Router](https://www.apollographql.com/)         |    97.77%     | 🟢 175 ❌ 4  | 🟢 39 ❌ 2  |
 |        [Apollo Gateway](https://www.apollographql.com/)         |    97.21%     | 🟢 174 ❌ 5  | 🟢 38 ❌ 3  |
-|            [Grafbase Gateway](https://grafbase.com)             |    93.30%     | 🟢 167 ❌ 12 | 🟢 36 ❌ 5  |
-|             [Cosmo Router](https://wundergraph.com)             |    86.03%     | 🟢 154 ❌ 25 | 🟢 29 ❌ 12 |
+|            [Grafbase Gateway](https://grafbase.com)             |    93.85%     | 🟢 168 ❌ 11 | 🟢 37 ❌ 4  |
+|             [Cosmo Router](https://wundergraph.com)             |    87.71%     | 🟢 157 ❌ 22 | 🟢 31 ❌ 10 |
 |                [Inigo Gateway](https://inigo.io)                |    49.72%     | 🟢 89 ❌ 90  | 🟢 12 ❌ 29 |
 
 ## Detailed Results
@@ -358,7 +358,7 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/provides-on-interface">provides-on-interface</a>
 <pre>❌❌</pre>
 <a href="./src/test-suites/provides-on-union">provides-on-union</a>
-<pre>🟢❌</pre>
+<pre>🟢🟢</pre>
 <a href="./src/test-suites/requires-interface">requires-interface</a>
 <pre>🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/requires-requires">requires-requires</a>
@@ -407,13 +407,13 @@ You can look at the full list of tests [here](./src/test-suites/). Every test id
 <a href="./src/test-suites/complex-entity-call">complex-entity-call</a>
 <pre>❌</pre>
 <a href="./src/test-suites/corrupted-supergraph-node-id">corrupted-supergraph-node-id</a>
-<pre>❌🟢🟢🟢🟢❌🟢🟢🟢🟢</pre>
+<pre>🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/enum-intersection">enum-intersection</a>
 <pre>🟢🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/fed1-external-extends">fed1-external-extends</a>
 <pre>🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/fed1-external-extends-resolvable">fed1-external-extends-resolvable</a>
-<pre>❌</pre>
+<pre>🟢</pre>
 <a href="./src/test-suites/fed1-external-extension">fed1-external-extension</a>
 <pre>🟢🟢🟢🟢</pre>
 <a href="./src/test-suites/fed2-external-extends">fed2-external-extends</a>
